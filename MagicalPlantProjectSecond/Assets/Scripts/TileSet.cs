@@ -10,11 +10,11 @@ public class TileSet : MonoBehaviour
     [SerializeField] Vector3Int plantEnd;
     [SerializeField] Vector3Int pos;
     [SerializeField] List<Vector3Int> plantFieldPos;
+    [SerializeField] TileBase[] EventTiles;
     // Start is called before the first frame update
     void Start()
     {
         TilePlantFieldGet(tiles[0]);
-        PlantData p = new PlantData();
     }
 
     // Update is called once per frame
