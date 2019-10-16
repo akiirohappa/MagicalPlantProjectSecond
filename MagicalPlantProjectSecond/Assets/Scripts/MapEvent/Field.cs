@@ -6,22 +6,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
-namespace Assets.Scripts.MapEvent
+class Field:MapEventBase
 {
-    class Field:MapEventBase
+    FieldManager field;
+    public Field(int num) : base(num)
     {
-        public Field(int num) : base(num)
-        {
+        field = FieldManager.GetInstance();
+    }
+    public override void OnHoverRun(Vector3Int pos)
+    {
+        field.ShowPlantData(pos);
+    }
+    public override void OnClickRun()
+    {
 
-        }
-        public override void OnHoverRun()
-        {
-
-        }
-        public override void OnClickRun()
-        {
-
-        }
     }
 }
