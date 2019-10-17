@@ -18,15 +18,6 @@ public class MainManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3Int vec = tile.MousePosToCell();
-        MapEventBase m = map.MapEventGet(vec);
-        if(m != null)
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
-                m.OnClickRun();
-            }
-            m.OnHoverRun(vec);
-        }
+        map.CheckEvent();
     }
 }
