@@ -18,7 +18,7 @@ public class Plant
     public int quality;
     public Plant()
     {
-        name = "空";
+        name = "から";
         nowGrowth = 0f;
         growthSpeed = 0f;
         quality = 50;

@@ -18,6 +18,8 @@ public class TimeManager
     Text timeText;
     GameObject clockShort;
     GameObject clockLong;
+    public int preHour;
+    public float preMinit;
     public static TimeManager GetInstance()
     {
         if(timeM == null)
@@ -34,6 +36,9 @@ public class TimeManager
         timeText = GameObject.Find("Time").GetComponent<Text>();
         clockLong = GameObject.Find("Long");
         clockShort = GameObject.Find("Short");
+        preHour = 0;
+        preMinit = 0;
+        TimeSet(time);
     }
     public TimeData GetTime()
     {
@@ -103,11 +108,31 @@ public class TimeManager
         }
         seasonText.text = text;
         dayText.text = time.day + "日";
-        timeText.text = time.hour + "：" + Mathf.Floor(time.minit);
-        float longf = 60f/ 30f*Time.deltaTime *  speed * -1;
-        clockLong.transform.Rotate(0,0, longf);
-        float shortf = 6f * Time.deltaTime * speed * -1;
-        clockShort.transform.Rotate(0, 0, shortf);
+        timeText.text = time.hour + "：" + (time.minit < 10 ? "0" : "")+Mathf.Floor(time.minit);
+        if(Mathf.Floor(time.minit) != preMinit)
+        {
+            Debug.Log(time.minit);
+            preMinit = Mathf.Floor(time.minit);
+            float longf = 6;
+            clockLong.transform.Rotate(0, 0, -longf);
+        }
+        if (preHour != time.hour)
+        {
+            Debug.Log(time.hour);
+            preHour = time.hour;
+            float shortf = 30;
+            clockShort.transform.Rotate(0, 0, -shortf);
+        }
+    }
+    void TimeSet(TimeData newTime)
+    {
+        time = newTime;
+        float longf = Mathf.Floor(time.minit) *6; 
+        clockLong.transform.Rotate(0, 0, -longf);
+        float shortf = time.hour * 30;
+        clockShort.transform.Rotate(0, 0, -shortf);
+        preMinit = Mathf.Floor(time.minit);
+        preHour = time.hour;
     }
 }
 public class TimeData

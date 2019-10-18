@@ -10,7 +10,7 @@ public class MenuManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        openButton = GameObject.Find("Menu");
+        openButton = GameObject.Find("MenuButton");
     }
 
     // Update is called once per frame
