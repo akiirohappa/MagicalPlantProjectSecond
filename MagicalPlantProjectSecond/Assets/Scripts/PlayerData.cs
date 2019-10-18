@@ -14,7 +14,7 @@ public class PlayerData
         return _player;
     }
     int money;
-    
+    TimeData time;
 
 
     private PlayerData()

@@ -108,4 +108,8 @@ public class TileManager
         Vector3Int cellpos = grid.WorldToCell(pos);
         return cellpos;
     }
+    public Vector3 CellToWorldPos(Vector3Int pos)
+    {
+        return grid.CellToWorld(pos); ;
+    }
 }

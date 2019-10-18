@@ -9,6 +9,8 @@ public class MapEventManager
 {
     private static MapEventManager _map;
     List<MapEventBase> events;
+    GameObject mousePoint;
+    TileManager tile;
     public static MapEventManager GetInstance()
     {
         if (_map == null)
@@ -21,6 +23,9 @@ public class MapEventManager
     {
         events = new List<MapEventBase>();
         events.Add(new Field(0));
+        mousePoint = GameObject.Instantiate(Resources.Load<GameObject>("MousePoint"));
+        mousePoint.SetActive(false);
+        tile = TileManager.GetInstance();
     }
     public MapEventBase MapEventGet(Vector3Int vec)
     {
@@ -35,7 +40,7 @@ public class MapEventManager
     {
         Vector3Int vec = TileManager.GetInstance().MousePosToCell();
         MapEventBase m = MapEventGet(vec);
-        if(Input.GetMouseButtonDown(0) && Input.GetMouseButtonDown(1))
+        if(Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
         {
             if(m != null)
             {
@@ -65,7 +70,16 @@ public class MapEventManager
             else
             {
                 m.OnHoverRun(vec);
+                mousePoint.SetActive(true);
+                Vector3 pos = tile.CellToWorldPos(tile.MousePosToCell());
+                pos.x += 0.5f;
+                pos.y += 0.5f;
+                mousePoint.transform.position = pos;
             }
+        }
+        else
+        {
+            mousePoint.SetActive(false);
         }
     }
 }
