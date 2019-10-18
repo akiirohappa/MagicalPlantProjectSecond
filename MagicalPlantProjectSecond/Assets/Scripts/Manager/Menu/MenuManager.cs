@@ -3,6 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+enum MenuState
+{
+    None,
+    Item,
+    Shop,
+    Peformance,
+    Save,
+    Config,
+
+}
+
 public class MenuManager : MonoBehaviour
 {
     bool MenuOpen = false;
