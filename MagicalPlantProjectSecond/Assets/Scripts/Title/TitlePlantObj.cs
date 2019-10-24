@@ -30,7 +30,6 @@ public class TitlePlantObj : MonoBehaviour
     }
     public void OnClickedEvent()
     {
-        Debug.Log("a");
         Instantiate(text, transform);
     }
 }

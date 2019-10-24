@@ -24,9 +24,9 @@ public class TitleManager : MonoBehaviour
         if(Random.Range(0,300) < 1)
         {
             float posy = GameObject.Find("Canvas").GetComponent<RectTransform>().sizeDelta.y;
-            Debug.Log(posy);
             float pos = Random.Range(100, posy-200);
             GameObject g = Instantiate(plantObj, new Vector3(900, pos),new Quaternion(),GameObject.Find("BackGroundObj").transform);
+            g.GetComponent<TitlePlantObj>().SetPlantImage(Resources.Load<Sprite>("PlantImages/kab"));
         }
     }
 }

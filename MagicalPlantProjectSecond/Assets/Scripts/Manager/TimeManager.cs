@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+
 public enum SeasonData
 {
     Spring,
@@ -13,9 +15,9 @@ public class TimeManager
 {
     private static TimeManager timeM;
     private TimeData time;
-    Text seasonText;
-    Text dayText;
-    Text timeText;
+    TextMeshProUGUI seasonText;
+    TextMeshProUGUI dayText;
+    TextMeshProUGUI timeText;
     GameObject clockShort;
     GameObject clockLong;
     public int preHour;
@@ -31,9 +33,9 @@ public class TimeManager
     private TimeManager()
     {
         time = new TimeData();
-        seasonText = GameObject.Find("Season").GetComponent<Text>();
-        dayText = GameObject.Find("Day").GetComponent<Text>();
-        timeText = GameObject.Find("Time").GetComponent<Text>();
+        seasonText = GameObject.Find("Season").GetComponent<TextMeshProUGUI>();
+        dayText = GameObject.Find("Day").GetComponent<TextMeshProUGUI>();
+        timeText = GameObject.Find("Time").GetComponent<TextMeshProUGUI>();
         clockLong = GameObject.Find("Long");
         clockShort = GameObject.Find("Short");
         preHour = 0;
@@ -111,14 +113,12 @@ public class TimeManager
         timeText.text = time.hour + "：" + (time.minit < 10 ? "0" : "")+Mathf.Floor(time.minit);
         if(Mathf.Floor(time.minit) != preMinit)
         {
-            Debug.Log(time.minit);
             preMinit = Mathf.Floor(time.minit);
             float longf = 6;
             clockLong.transform.Rotate(0, 0, -longf);
         }
         if (preHour != time.hour)
         {
-            Debug.Log(time.hour);
             preHour = time.hour;
             float shortf = 30;
             clockShort.transform.Rotate(0, 0, -shortf);

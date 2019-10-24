@@ -5,11 +5,11 @@ using UnityEngine.UI;
 using TMPro;
 public class TitleObjText : MonoBehaviour
 {
-    TextMeshPro text;
+    TextMeshProUGUI text;
     // Start is called before the first frame update
     void Start()
     {
-        text = transform.GetChild(0).GetComponent<TextMeshPro>();
+        text = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
     }
     public void SetText(string str)
     {
@@ -22,6 +22,5 @@ public class TitleObjText : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
     }
 }
