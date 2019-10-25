@@ -23,4 +23,13 @@ public class Plant
         growthSpeed = 0f;
         quality = 50;
     }
+    public Plant(string n,Sprite i,float ng, float gs, Soil ss, int q)
+    {
+        name = n;
+        icon = i;
+        nowGrowth = ng;
+        growthSpeed = gs;
+        soilState = ss;
+        quality = q;
+    }
 }

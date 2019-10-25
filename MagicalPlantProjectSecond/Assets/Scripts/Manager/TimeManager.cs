@@ -15,13 +15,7 @@ public class TimeManager
 {
     private static TimeManager timeM;
     private TimeData time;
-    TextMeshProUGUI seasonText;
-    TextMeshProUGUI dayText;
-    TextMeshProUGUI timeText;
-    GameObject clockShort;
-    GameObject clockLong;
-    public int preHour;
-    public float preMinit;
+    MainManager mm;
     public static TimeManager GetInstance()
     {
         if(timeM == null)
@@ -33,13 +27,9 @@ public class TimeManager
     private TimeManager()
     {
         time = new TimeData();
-        seasonText = GameObject.Find("Season").GetComponent<TextMeshProUGUI>();
-        dayText = GameObject.Find("Day").GetComponent<TextMeshProUGUI>();
-        timeText = GameObject.Find("Time").GetComponent<TextMeshProUGUI>();
-        clockLong = GameObject.Find("Long");
-        clockShort = GameObject.Find("Short");
-        preHour = 0;
-        preMinit = 0;
+        mm = GameObject.Find("Manager").GetComponent<MainManager>();
+        time.preHour = 0;
+        time.preMinit = 0;
         TimeSet(time);
     }
     public TimeData GetTime()
@@ -85,54 +75,16 @@ public class TimeManager
                     break;
             }
         }
-        TimeView(speed);
-    }
-    void TimeView(float speed)
-    {
-        string text;
-        switch (time.nowSeason)
-        {
-            case SeasonData.Spring:
-                text = "春";
-                break;
-            case SeasonData.Summer:
-                text = "夏";
-                break;
-            case SeasonData.Autumn:
-                text = "秋";
-                break;
-            case SeasonData.Winter:
-                text = "冬";
-                break;
-            default:
-                text = "空";
-                break;
-        }
-        seasonText.text = text;
-        dayText.text = time.day + "日";
-        timeText.text = time.hour + "：" + (time.minit < 10 ? "0" : "")+Mathf.Floor(time.minit);
-        if(Mathf.Floor(time.minit) != preMinit)
-        {
-            preMinit = Mathf.Floor(time.minit);
-            float longf = 6;
-            clockLong.transform.Rotate(0, 0, -longf);
-        }
-        if (preHour != time.hour)
-        {
-            preHour = time.hour;
-            float shortf = 30;
-            clockShort.transform.Rotate(0, 0, -shortf);
-        }
+        mm.View.TimeView(time,speed);
     }
     void TimeSet(TimeData newTime)
     {
         time = newTime;
-        float longf = Mathf.Floor(time.minit) *6; 
-        clockLong.transform.Rotate(0, 0, -longf);
+        float longf = Mathf.Floor(time.minit) * 6;
         float shortf = time.hour * 30;
-        clockShort.transform.Rotate(0, 0, -shortf);
-        preMinit = Mathf.Floor(time.minit);
-        preHour = time.hour;
+        time.preMinit = Mathf.Floor(time.minit);
+        time.preHour = time.hour;
+        mm.View.TimeSet(newTime);
     }
 }
 public class TimeData
@@ -140,6 +92,8 @@ public class TimeData
     public int day;
     public int hour;
     public float minit;
+    public int preHour;
+    public float preMinit;
     public SeasonData nowSeason;
     public TimeData()
     {

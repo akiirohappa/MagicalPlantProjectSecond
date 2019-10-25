@@ -26,7 +26,6 @@ public class TileManager
     private TileManager()
     {
         eventTiles = Resources.LoadAll<Sprite>("Tile/EventTile");
-        Debug.Log(eventTiles.Length);
         TileMapSet();
         TileFieldSet(tiles[MapLayer.Event]);
        

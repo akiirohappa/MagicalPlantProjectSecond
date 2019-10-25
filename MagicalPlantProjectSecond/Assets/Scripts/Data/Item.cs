@@ -10,16 +10,37 @@ public enum ItemType
 }
 public class Item
 {
-    public Item(string name,ItemType type = ItemType.Seed,int value = 10,int qua = 50)
+    public Item(string name,ItemType type = ItemType.Seed,int value = 10,int qua = 50,string ifo = "",Sprite ic = null)
     {
         itemName = name;
         itemType = type;
         defaltValue = value;
         quality = qua;
+        info = ifo;
+        icon = ic;
+    }
+    public Item(ItemData it)
+    {
+        itemName = it.itemName;
+        itemType = it.itemType;
+        defaltValue = it.defaltValue;
+        quality = it.quality;
+        info = it.info;
+        icon = it.icon;
+        growthSpeed = it.growthSpeed;
+        downQuality = it.downQuality;
+        plantPrice = it.plantPrice;
+        plantValue = it.plantValue;
     }
     public string itemName;
     public ItemType itemType;
     public int defaltValue;
+    public float growthSpeed;
     public int quality;
+    public int downQuality;
+    public int plantPrice;
+    public int plantValue;
     public Sprite icon;
+    public string info;
+    
 }

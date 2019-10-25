@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-
+using UnityEngine.EventSystems;
 public enum MenuState
 {
     None,
@@ -22,6 +22,7 @@ public class MenuManager : MonoBehaviour
     GameObject openButton;
     public MenuState state;
     Dictionary<MenuState, MenuManagerBase> Menus;
+    [SerializeField] EventSystem eventSystem;
     // Start is called before the first frame update
     void Start()
     {
@@ -59,9 +60,17 @@ public class MenuManager : MonoBehaviour
         {
             if(transst == s)
             {
-                state = transst;
+                if(state != s)
+                {
+                    state = transst;
+                    if (Menus[state] != null)
+                    {
+                        Menus[state].Open();
+                    }
+                }
             }
         }
+        MenuButton();
     }
     public void ButtonSubmit()
     {
@@ -87,8 +96,19 @@ public class MenuManager : MonoBehaviour
         }
         Menus[state].Button(st);
     }
+    public void ButtonItem()
+    {
+        GameObject bt = eventSystem.currentSelectedGameObject;
+        Menus[state].PlessItemButton(bt.GetComponent<ItemButton>().item);
+    }
     public void ButtonToMain()
     {
-
+        if (MenuOpen)
+        {
+            MenuButton();
+        }
+        Menus[state].Close();
+        state = MenuState.None;
+        
     }
 }
