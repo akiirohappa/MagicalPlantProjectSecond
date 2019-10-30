@@ -44,12 +44,12 @@ public class MapEventManager
         {
             if(m != null)
             {
-                if (m.eventStr != "Field" && FieldManager.GetInstance().v.GetIsView())
+                if (m.eventStr != "Field" && FieldManager.GetInstance().View.GetIsView())
                 {
-                    FieldManager.GetInstance().v.PlantVSetActive(false);
+                    FieldManager.GetInstance().View.PlantVSetActive(false);
                 }
             }
-            else FieldManager.GetInstance().v.PlantVSetActive(false);
+            else FieldManager.GetInstance().View.PlantVSetActive(false);
         }
         if(m != null)
         {

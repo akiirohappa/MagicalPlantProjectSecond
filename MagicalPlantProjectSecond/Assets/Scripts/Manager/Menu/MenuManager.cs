@@ -103,6 +103,10 @@ public class MenuManager : MonoBehaviour
     }
     public void ButtonToMain()
     {
+        if (state == MenuState.None)
+        {
+            return;
+        }
         if (MenuOpen)
         {
             MenuButton();

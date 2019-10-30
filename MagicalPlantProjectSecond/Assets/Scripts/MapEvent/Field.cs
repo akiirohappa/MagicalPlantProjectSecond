@@ -11,9 +11,11 @@ using UnityEngine;
 class Field:MapEventBase
 {
     FieldManager field;
+    MenuManager menu;
     public Field(int num) : base(num)
     {
         field = FieldManager.GetInstance();
+        menu = GameObject.Find("Manager").GetComponent<MenuManager>();
     }
     public override void OnHoverRun(Vector3Int pos)
     {
@@ -21,12 +23,13 @@ class Field:MapEventBase
     }
     public override void OnLeftClickRun()
     {
-        field.ShowPlantData(TileManager.GetInstance().MousePosToCell());
+        
     }
     public override void OnRightClickRun()
     {
-        Plant test = new Plant();
-        test.name = "カブ";
-        field.SetPlantData(TileManager.GetInstance().MousePosToCell(),test);
+        if (menu.state == MenuState.None)
+        {
+            field.ShowPlantData(TileManager.GetInstance().MousePosToCell());
+        }
     }
 }

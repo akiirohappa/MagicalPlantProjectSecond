@@ -11,7 +11,7 @@ public class FieldManager
     private Vector3Int[] fieldTileData;
     private GameObject plantField;
     PlantDataView view;
-    public PlantDataView v { get { return view; } } 
+    public PlantDataView View { get { return view; } } 
 
     private static FieldManager _field;
     public static FieldManager GetInstance()
@@ -31,6 +31,28 @@ public class FieldManager
         }
         fieldTileData = TileManager.GetInstance().TileFieldGet();
         view = new PlantDataView(); 
+    }
+    //作物の成長
+    public void PlantGrowth()
+    {
+        foreach(Plant p in myField)
+        {
+            p.nowGrowth += p.growthSpeed;
+            if(p.nowGrowth >= 100)
+            {
+                p.nowGrowth = 100;
+                p.plantState = PlantState.Harvest;
+            }
+            else if(p.soilState == Soil.Dry)
+            {
+                p.quality -= p.downQuality;
+            }
+            else if (p.soilState == Soil.Moist)
+            {
+                p.quality -= p.upQuality;
+            }
+            p.soilState = Soil.Dry;
+        }
     }
     public void SetPlantData(Vector3Int vec,Plant plant)
     {

@@ -7,7 +7,13 @@ public enum Soil
     Dry,
     Moist,
 }
-
+public enum PlantState
+{
+    None,
+    Growth,
+    Harvest,
+    DontUse,
+}
 public class Plant
 {
     public string name;
@@ -16,6 +22,10 @@ public class Plant
     public float growthSpeed;
     public Soil soilState;
     public int quality;
+    public int upQuality;
+    public int downQuality;
+    public PlantState plantState;
+    
     public Plant()
     {
         name = "から";
@@ -31,5 +41,14 @@ public class Plant
         growthSpeed = gs;
         soilState = ss;
         quality = q;
+    }
+    public Plant(PlantData p)
+    {
+        name = p.Plantname;
+        icon = p.icon;
+        nowGrowth = p.nowGrowth;
+        growthSpeed = p.growthSpeed;
+        soilState = p.soilState;
+        quality = p.quality;
     }
 }

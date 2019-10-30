@@ -18,6 +18,7 @@ public class Item
         quality = qua;
         info = ifo;
         icon = ic;
+        itemNum = 0;
     }
     public Item(ItemData it)
     {
@@ -31,6 +32,7 @@ public class Item
         downQuality = it.downQuality;
         plantPrice = it.plantPrice;
         plantValue = it.plantValue;
+        itemNum = 0;
     }
     public string itemName;
     public ItemType itemType;
@@ -42,5 +44,5 @@ public class Item
     public int plantValue;
     public Sprite icon;
     public string info;
-    
+    public int itemNum;
 }

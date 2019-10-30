@@ -52,6 +52,7 @@ public class TimeManager
         {
             time.hour = 0;
             time.day++;
+            FieldManager.GetInstance().PlantGrowth();
         }
         if(time.day == 31)
         {

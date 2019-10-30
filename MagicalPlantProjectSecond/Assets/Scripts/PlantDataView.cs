@@ -4,6 +4,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+
 public class PlantDataView
 {
     GameObject myObj;
@@ -16,11 +18,11 @@ public class PlantDataView
     public void DataPreview(Plant plant)
     {
         PlantVSetActive(true);
-        myObj.transform.GetChild(0).GetComponent<Text>().text = plant.name;
-        myObj.transform.GetChild(1).GetComponent<Text>().text = "成長度：" + plant.nowGrowth;
-        myObj.transform.GetChild(2).GetComponent<Text>().text = "品質：" + plant.quality;
-        myObj.transform.GetChild(3).GetComponent<Text>().text = "土：";
-        myObj.transform.GetChild(4).GetComponent<Text>().text = "成長速度：\n" + plant.growthSpeed + "%/日";
+        myObj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = plant.name;
+        myObj.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "成長度：" + plant.nowGrowth;
+        myObj.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = "品質：" + plant.quality;
+        myObj.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = "土：<br>" + (plant.soilState == Soil.Dry ? "乾いている" : "湿っている");
+        myObj.transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = "成長速度：\n" + plant.growthSpeed + "%/日";
     }
     public void PlantVSetActive(bool b)
     {

@@ -13,4 +13,17 @@ public class ItemList
     {
         get { return list; }
     }
+    public void ItemGet(Item item,int num)
+    {
+        foreach(Item listI in list)
+        {
+            if(listI.itemName == item.itemName)
+            {
+                listI.itemName += num;
+                return;
+            }
+        }
+        item.itemNum = num;
+        list.Add(item);
+    }
 }

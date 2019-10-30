@@ -84,7 +84,8 @@ public class ShopManager:MenuManagerBase
                 if(trade == TradeState.Buy)
                 {
                     PlayerData.GetInstance().Money -= nowViewItem.defaltValue * shopValue;
-                    PlayerData.GetInstance().Item.Item.Add(nowViewItem);
+                    PlayerData.GetInstance().Item.ItemGet(nowViewItem, shopValue);
+                    Cancel();
                 }
                 break;
             default:
@@ -107,6 +108,7 @@ public class ShopManager:MenuManagerBase
             case ShopState.ValueSelect:
                 state = ShopState.GoodsSelect;
                 shopValue = 1;
+                GoodsValueChange(0);
                 break;
             default:
                 break;
