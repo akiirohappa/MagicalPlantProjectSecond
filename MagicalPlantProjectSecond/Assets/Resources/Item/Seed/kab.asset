@@ -12,13 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3311b6188d1b3bd48959b8eff3558bb8, type: 3}
   m_Name: kab
   m_EditorClassIdentifier: 
-  itemName: "\u30A8\u30AF\u30B9\u30C8\u30EA\u30FC\u30E0\u306A\n\u30AB\u30D6"
+  itemName: "\u666E\u901A\u306E\u30AB\u30D6\u306E\u7A2E"
   itemType: 0
   defaltValue: 10
   growthSpeed: 10
   quality: 50
+  upQuality: 2
   downQuality: 2
-  plantPrice: 0
-  plantValue: 0
+  plantPrice: 20
+  plantValue: 1
   icon: {fileID: 21300000, guid: 6a822e8a73ce91549800d7d796336e99, type: 3}
-  info: 
+  itemNum: 0
+  info: "\u3053\u306E\u4E16\u754C\u3067\u6700\u3082\u4EBA\u6C17\u306A\u91CE\u83DC\u3002\n\u304B\u3064\u3066\u3001\u91D1\u8272\u306E\u30AB\u30D6\u3082\u3042\u3063\u305F\u3068\u304B\u3002"

@@ -51,6 +51,14 @@ public class MapEventManager
             }
             else FieldManager.GetInstance().View.PlantVSetActive(false);
         }
+        switch (GameObject.Find("Manager").GetComponent<MenuManager>().state)
+        {
+            case MenuState.None:
+            case MenuState.ItemSet:
+                break;
+            default:
+                return;
+        }
         if(m != null)
         {
             if (Input.GetMouseButtonDown(0))

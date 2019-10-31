@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 
 public enum Soil
@@ -25,22 +26,14 @@ public class Plant
     public int upQuality;
     public int downQuality;
     public PlantState plantState;
-    
+
+
     public Plant()
     {
         name = "から";
         nowGrowth = 0f;
         growthSpeed = 0f;
         quality = 50;
-    }
-    public Plant(string n,Sprite i,float ng, float gs, Soil ss, int q)
-    {
-        name = n;
-        icon = i;
-        nowGrowth = ng;
-        growthSpeed = gs;
-        soilState = ss;
-        quality = q;
     }
     public Plant(PlantData p)
     {
@@ -50,5 +43,18 @@ public class Plant
         growthSpeed = p.growthSpeed;
         soilState = p.soilState;
         quality = p.quality;
+    }
+    public Plant(Item i)
+    {
+        Regex reg = new Regex("の種");
+        name = reg.Replace(i.itemName, "");
+        icon = i.icon;
+        nowGrowth = 0;
+        growthSpeed = i.growthSpeed;
+        soilState = Soil.Dry;
+        quality = i.quality;
+        upQuality = i.upQuality;
+        downQuality = i.downQuality;
+        plantState = PlantState.Growth;
     }
 }

@@ -27,6 +27,11 @@ public abstract class  MenuManagerBase
     }
     public virtual void Open()
     {
+        Debug.Log("AHHHHHHHHHHHHH" + myObjct);
+        myObjct.SetActive(true);
+    }
+    public virtual void Open(Vector3Int p)
+    {
         myObjct.SetActive(true);
     }
     public void Close()

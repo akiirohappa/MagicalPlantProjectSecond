@@ -16,7 +16,7 @@ public class PlantData : ScriptableObject
     {
         if(data == null)
         {
-            data = new Plant(Plantname,icon,nowGrowth,growthSpeed,soilState,quality);
+            data = new Plant(this);
         }
         return data;
     }

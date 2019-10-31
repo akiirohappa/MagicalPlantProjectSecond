@@ -9,12 +9,14 @@ public class ItemData : ScriptableObject
     public string itemName;
     public ItemType itemType;
     public int defaltValue;
-    public float growthSpeed = 10;
+    public float growthSpeed;
     public int quality;
+    public int upQuality;
     public int downQuality;
     public int plantPrice;
     public int plantValue;
     public Sprite icon;
+    public int itemNum;
     [Multiline(3)]
     public string info;
     public Item GetItem()

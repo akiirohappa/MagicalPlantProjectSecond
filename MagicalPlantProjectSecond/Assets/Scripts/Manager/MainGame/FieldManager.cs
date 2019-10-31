@@ -62,6 +62,15 @@ public class FieldManager
             myField[num] = plant;
         }
     }
+    public Plant GetPlantData(Vector3Int vec)
+    {
+        int num = GetPlantPos(vec);
+        if (num != -1)
+        {
+            return myField[num];
+        }
+        else return null;
+    }
     //畑の情報表示（仮）
     public void ShowPlantData(Vector3Int vec)
     {

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
 
 public enum ItemType
@@ -30,6 +31,7 @@ public class Item
         icon = it.icon;
         growthSpeed = it.growthSpeed;
         downQuality = it.downQuality;
+        downQuality = it.downQuality;
         plantPrice = it.plantPrice;
         plantValue = it.plantValue;
         itemNum = 0;
@@ -39,6 +41,7 @@ public class Item
     public int defaltValue;
     public float growthSpeed;
     public int quality;
+    public int upQuality;
     public int downQuality;
     public int plantPrice;
     public int plantValue;

@@ -13,7 +13,8 @@ public enum MenuState
     Peformance,
     Save,
     Config,
-
+    ItemSet,
+    EventSelect,
 }
 
 public class MenuManager : MonoBehaviour
@@ -22,6 +23,10 @@ public class MenuManager : MonoBehaviour
     GameObject openButton;
     public MenuState state;
     Dictionary<MenuState, MenuManagerBase> Menus;
+    public MenuManagerBase MenuManagerB
+    {
+        get { return Menus[state]; }
+    }
     [SerializeField] EventSystem eventSystem;
     // Start is called before the first frame update
     void Start()
@@ -30,6 +35,7 @@ public class MenuManager : MonoBehaviour
         openButton = GameObject.Find("MenuButton");
         Menus = new Dictionary<MenuState, MenuManagerBase>();
         Menus[MenuState.Shop] = new ShopManager(this);
+        Menus[MenuState.ItemSet] = new ItemSetManager(this);
     }
 
     // Update is called once per frame
