@@ -1,16 +1,54 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class ItemManager:MenuManagerBase
 {
+    ItemList list;
+    GameObject buttonField;
+    GameObject infoPanel;
+    GameObject itemButtonPrefab;
+    bool panelOn = false;
+    Item showItem;  
+    ItemListSort sort;
     public ItemManager(MenuManager m):base(m)
     {
         myObjct = GameObject.Find("Menu").transform.Find("Item").gameObject;
+        buttonField = myObjct.transform.GetChild(1).GetChild(0).GetChild(0).gameObject;
+        infoPanel = myObjct.transform.GetChild(2).gameObject;
+        itemButtonPrefab = Resources.Load<GameObject>("Prefabs/ItemButton");
+        sort = myObjct.transform.Find("SortPanel").GetComponent<ItemListSort>();
     }
     public override void Open()
     {
         base.Open();
+        list = PlayerData.GetInstance().Item;
+        sort.item = list;
+        ItemSet();
+    }
+    public void ItemSet()
+    {
+        sort.states = new SortState[]{
+            SortState.ItemName,
+            SortState.ItemNum,
+            SortState.ItemType,
+        };
+        foreach (Transform t in buttonField.transform)
+        {
+            GameObject.Destroy(t.gameObject);
+        }
+        GameObject g;
+        foreach (Item i in list.Item)
+        {
+            g = GameObject.Instantiate(itemButtonPrefab, buttonField.transform);
+            g.GetComponent<ItemButton>().item = i;
+            g.GetComponent<Button>().onClick.AddListener(mManager.ButtonItem);
+            g.transform.Find("Name").GetComponent<TextMeshProUGUI>().text = i.itemName;
+            g.transform.Find("Icon").GetComponent<Image>().sprite = i.icon;
+            g.transform.Find("Price").GetComponent<TextMeshProUGUI>().text = "個数:" + i.itemNum + "個";
+        }
     }
     public override void Submit()
     {
@@ -18,10 +56,29 @@ public class ItemManager:MenuManagerBase
     }
     public override void Cancel()
     {
-
+        panelOn = false;
+        PlessItemButton(null);
+        infoPanel.SetActive(false);
+    }
+    public override void PlessItemButton(Item item)
+    {
+        infoPanel.SetActive(true);
+        panelOn = true;
+        if (item != null)
+        {
+            showItem = item;
+            infoPanel.transform.Find("Icon").GetComponent<Image>().sprite = item.icon;
+            infoPanel.transform.Find("NameText").GetComponent<TextMeshProUGUI>().text = item.itemName;
+            infoPanel.transform.Find("PriceText").GetComponent<TextMeshProUGUI>().text = "個数:" + item.itemNum;
+            infoPanel.transform.transform.Find("GrowthText").GetComponent<TextMeshProUGUI>().text = "成長速度：" + item.growthSpeed + "%/日";
+            infoPanel.transform.transform.Find("InfoText").GetComponent<TextMeshProUGUI>().text = item.info;
+        }
     }
     public override void Button(string state)
     {
-
+        if(state == "Reset")
+        {
+            ItemSet();
+        }
     }
 }

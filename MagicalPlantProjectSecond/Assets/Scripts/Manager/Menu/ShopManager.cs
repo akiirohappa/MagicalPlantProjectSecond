@@ -32,7 +32,7 @@ public class ShopManager:MenuManagerBase
     Item nowViewItem;
     Transform goodsPanel;
     int shopValue;
-
+    ItemListSort sort;
     public ShopManager(MenuManager m):base(m)
     {
         myObjct = GameObject.Find("Menu").transform.Find("Shop").gameObject;
@@ -43,6 +43,7 @@ public class ShopManager:MenuManagerBase
         shopListParent = ShopObject[ShopState.GoodsPanel].transform.GetChild(0).GetChild(0).GetChild(0).gameObject;
         itemButtonPrefab = Resources.Load<GameObject>("Prefabs/ItemButton");
         goodsPanel = ShopObject[ShopState.GoodsPanel].transform.Find("GoodsPanel");
+        sort = myObjct.transform.GetChild(0).GetChild(2).Find("SortPanel").GetComponent<ItemListSort>();
     }
     void ObjectDicSet()
     {
@@ -64,6 +65,7 @@ public class ShopManager:MenuManagerBase
         {
             ShopList[ItemType.Seed].Item.Add(i.GetItem());
         }
+        
     }
     public override void Open()
     {
@@ -140,6 +142,12 @@ public class ShopManager:MenuManagerBase
                     {
                         case "Seed":
                             nowJanl = ShopList[ItemType.Seed];
+                            sort.item = nowJanl;
+                            sort.states = new SortState[]{
+                                SortState.ItemName,
+                                SortState.ItemValue,
+                                SortState.GrowthSpeed,
+                            };
                             state = ShopState.GoodsSelect;
                             ObjectActive(state);
                             GoodsButtonMake();
@@ -148,6 +156,7 @@ public class ShopManager:MenuManagerBase
                     }
                 }
                 break;
+            case ShopState.GoodsSelect:
             case ShopState.ValueSelect:
                 {
                     switch (st)
@@ -173,6 +182,9 @@ public class ShopManager:MenuManagerBase
                         case "-All":
                             shopValue = 1;
                             GoodsValueChange(0);
+                            break;
+                        case "Reset":
+                            GoodsButtonMake();
                             break;
                         default:
                             break;

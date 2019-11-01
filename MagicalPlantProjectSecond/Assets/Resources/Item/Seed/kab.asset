@@ -15,9 +15,9 @@ MonoBehaviour:
   itemName: "\u666E\u901A\u306E\u30AB\u30D6\u306E\u7A2E"
   itemType: 0
   defaltValue: 10
-  growthSpeed: 10
+  growthSpeed: 30
   quality: 50
-  upQuality: 2
+  upQuality: 4
   downQuality: 2
   plantPrice: 20
   plantValue: 1

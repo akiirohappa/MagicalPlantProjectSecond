@@ -35,6 +35,7 @@ public class Item
         info = pl.info;
         icon = pl.icon;
         itemNum = 0;
+        getValue = pl.getValue;
     }
     public string itemName;
     public ItemType itemType;

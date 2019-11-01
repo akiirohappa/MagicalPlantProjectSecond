@@ -65,7 +65,7 @@ public class MenuManager : MonoBehaviour
     }
     public void SendMenuButton(string st)
     {
-        if(state != MenuState.None)
+        if(state != MenuState.None && state != MenuState.EventSelect)
         {
             ButtonToMain();
         }
@@ -121,7 +121,6 @@ public class MenuManager : MonoBehaviour
     }
     public void ButtonToMain()
     {
-        Debug.Log(state);
         if (state == MenuState.None)
         {
             return;

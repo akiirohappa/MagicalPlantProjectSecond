@@ -94,6 +94,7 @@ class Field:MapEventBase
         if (text == events[3].eventText)
         {
             field.Harvest(pos);
+            menu.state = MenuState.None;
         }
         if(text == "None")
         {
