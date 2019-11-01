@@ -11,6 +11,8 @@ public class MapEventManager
     List<MapEventBase> events;
     GameObject mousePoint;
     TileManager tile;
+    MapEventBase cullentMenu;
+    MenuManager menu; 
     public static MapEventManager GetInstance()
     {
         if (_map == null)
@@ -26,6 +28,7 @@ public class MapEventManager
         mousePoint = GameObject.Instantiate(Resources.Load<GameObject>("MousePoint"));
         mousePoint.SetActive(false);
         tile = TileManager.GetInstance();
+        menu = GameObject.Find("Manager").GetComponent<MenuManager>();
     }
     public MapEventBase MapEventGet(Vector3Int vec)
     {
@@ -40,18 +43,43 @@ public class MapEventManager
     {
         Vector3Int vec = TileManager.GetInstance().MousePosToCell();
         MapEventBase m = MapEventGet(vec);
-        if(Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
+        
+        if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
         {
-            if(m != null)
+            if (m != null)
             {
                 if (m.eventStr != "Field" && FieldManager.GetInstance().View.GetIsView())
                 {
                     FieldManager.GetInstance().View.PlantVSetActive(false);
                 }
+                if(menu.state == MenuState.EventSelect)
+                {
+                    if (menu.Cullent == null)
+                    {
+                        m.MenuClose();
+                        FieldManager.GetInstance().View.PlantVSetActive(false);
+                        menu.state = MenuState.None;
+                        m = null;
+                    }
+                }
+
             }
-            else FieldManager.GetInstance().View.PlantVSetActive(false);
+            else
+            {
+                if(menu.state == MenuState.EventSelect)
+                {
+                    if (cullentMenu != null && menu.Cullent == null)
+                    {
+                        cullentMenu.MenuClose();
+                        FieldManager.GetInstance().View.PlantVSetActive(false);
+                        menu.state = MenuState.None;
+                    }
+                }
+
+                FieldManager.GetInstance().View.PlantVSetActive(false);
+            }
         }
-        switch (GameObject.Find("Manager").GetComponent<MenuManager>().state)
+        switch (menu.state)
         {
             case MenuState.None:
             case MenuState.ItemSet:
@@ -77,6 +105,7 @@ public class MapEventManager
             }
             else
             {
+                cullentMenu = m;
                 m.OnHoverRun(vec);
                 mousePoint.SetActive(true);
                 Vector3 pos = tile.CellToWorldPos(tile.MousePosToCell());

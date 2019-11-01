@@ -19,8 +19,15 @@ public class ItemList
         {
             if(listI.itemName == item.itemName)
             {
-                listI.itemName += num;
-                return;
+                if(listI.sellPrice == item.sellPrice)
+                {
+                    listI.itemNum += num;
+                    if (listI.itemNum <= 0)
+                    {
+                        list.Remove(listI);
+                    }
+                    return;
+                }
             }
         }
         item.itemNum = num;

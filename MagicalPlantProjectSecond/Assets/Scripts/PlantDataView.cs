@@ -22,7 +22,7 @@ public class PlantDataView
         myObj.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "成長度：" + plant.nowGrowth;
         myObj.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = "品質：" + plant.quality;
         myObj.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = "土：<br>" + (plant.soilState == Soil.Dry ? "乾いている" : "湿っている");
-        myObj.transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = "成長速度：\n" + plant.growthSpeed + "%/日";
+        myObj.transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = "成長速度：<br>" + plant.growthSpeed + "%/日";
     }
     public void PlantVSetActive(bool b)
     {

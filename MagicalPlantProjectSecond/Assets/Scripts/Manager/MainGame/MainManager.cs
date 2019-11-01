@@ -33,6 +33,6 @@ public class MainManager : MonoBehaviour
     void Update()
     {
         map.CheckEvent();
-        time.TimeCalc(5);
+        time.TimeCalc(50);
     }
 }

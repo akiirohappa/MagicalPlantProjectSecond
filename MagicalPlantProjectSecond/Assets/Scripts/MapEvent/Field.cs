@@ -11,12 +11,12 @@ using UnityEngine;
 class Field:MapEventBase
 {
     FieldManager field;
-    MenuManager menu;
-    
+    PlantDataView view;
     public Field(int num) : base(num)
     {
+        eventStr = "Field";
         field = FieldManager.GetInstance();
-        menu = GameObject.Find("Manager").GetComponent<MenuManager>();
+        view = FieldManager.GetInstance().View;
         events = new EventCode[] 
         {
             new EventCode("種を植える", "Seed"),
@@ -66,34 +66,40 @@ class Field:MapEventBase
     }
     public override void EventStart(string text)
     {
+        //種を植える
         if (text == events[0].eventText)
         {
             menu.SendMenuButton("ItemSet");
+            menu.MenuManagerB.Open(pos);
+            view.PlantVSetActive(false);
             ItemSetManager setM = (ItemSetManager)menu.MenuManagerB;
             setM.TypeSet(ItemType.Seed);
         }
+        //肥料をあげる
         if (text == events[1].eventText)
         {
             menu.SendMenuButton("ItemSet");
+            view.PlantVSetActive(false);
             ItemSetManager setM = (ItemSetManager)menu.MenuManagerB;
             setM.TypeSet(ItemType.Fertilizer);
         }
+        //水やり
         if (text == events[2].eventText)
         {
             field.GetPlantData(pos).soilState = Soil.Moist;
+            view.PlantVSetActive(false);
+            menu.state = MenuState.None;
         }
+        //収穫
         if (text == events[3].eventText)
         {
-
+            field.Harvest(pos);
         }
         if(text == "None")
         {
+            view.PlantVSetActive(false);
             menu.state = MenuState.None;
-            foreach (Transform t in buttonParent.transform)
-            {
-                t.gameObject.SetActive(false);
-            }
-            buttonParent.SetActive(false);
         }
+        MenuClose();
     }
 }

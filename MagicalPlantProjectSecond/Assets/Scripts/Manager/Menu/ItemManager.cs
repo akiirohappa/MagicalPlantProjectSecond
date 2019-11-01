@@ -6,7 +6,7 @@ public class ItemManager:MenuManagerBase
 {
     public ItemManager(MenuManager m):base(m)
     {
-
+        myObjct = GameObject.Find("Menu").transform.Find("Item").gameObject;
     }
     public override void Open()
     {

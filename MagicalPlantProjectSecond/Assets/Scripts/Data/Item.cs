@@ -11,16 +11,6 @@ public enum ItemType
 }
 public class Item
 {
-    public Item(string name,ItemType type = ItemType.Seed,int value = 10,int qua = 50,string ifo = "",Sprite ic = null)
-    {
-        itemName = name;
-        itemType = type;
-        defaltValue = value;
-        quality = qua;
-        info = ifo;
-        icon = ic;
-        itemNum = 0;
-    }
     public Item(ItemData it)
     {
         itemName = it.itemName;
@@ -31,9 +21,19 @@ public class Item
         icon = it.icon;
         growthSpeed = it.growthSpeed;
         downQuality = it.downQuality;
-        downQuality = it.downQuality;
-        plantPrice = it.plantPrice;
-        plantValue = it.plantValue;
+        upQuality = it.upQuality;
+        sellPrice = it.plantPrice;
+        getValue = it.plantValue;
+        itemNum = 0;
+    }
+    public Item(Plant pl)
+    {
+        itemName = pl.name;
+        itemType = ItemType.Plant;
+        defaltValue = pl.defValue;
+        quality = pl.quality;
+        info = pl.info;
+        icon = pl.icon;
         itemNum = 0;
     }
     public string itemName;
@@ -43,9 +43,10 @@ public class Item
     public int quality;
     public int upQuality;
     public int downQuality;
-    public int plantPrice;
-    public int plantValue;
+    public int sellPrice;
+    public int getValue;
     public Sprite icon;
     public string info;
     public int itemNum;
+    public SeasonData vestSeason;
 }

@@ -26,8 +26,9 @@ public class Plant
     public int upQuality;
     public int downQuality;
     public PlantState plantState;
-
-
+    public string info;
+    public int defValue;
+    public int getValue;
     public Plant()
     {
         name = "から";
@@ -56,5 +57,16 @@ public class Plant
         upQuality = i.upQuality;
         downQuality = i.downQuality;
         plantState = PlantState.Growth;
+        info = i.info;
+        defValue = i.sellPrice;
+        getValue = i.getValue;
+    }
+    public void Reset()
+    {
+        name = "から";
+        nowGrowth = 0f;
+        growthSpeed = 0f;
+        quality = 50;
+        plantState = PlantState.None;
     }
 }

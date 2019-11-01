@@ -28,12 +28,17 @@ public class MenuManager : MonoBehaviour
         get { return Menus[state]; }
     }
     [SerializeField] EventSystem eventSystem;
+    public GameObject Cullent
+    {
+        get { return eventSystem.currentSelectedGameObject; }
+    }
     // Start is called before the first frame update
     void Start()
     {
         state = MenuState.None;
         openButton = GameObject.Find("MenuButton");
         Menus = new Dictionary<MenuState, MenuManagerBase>();
+        Menus[MenuState.Item] = new ItemManager(this);
         Menus[MenuState.Shop] = new ShopManager(this);
         Menus[MenuState.ItemSet] = new ItemSetManager(this);
     }
@@ -60,6 +65,10 @@ public class MenuManager : MonoBehaviour
     }
     public void SendMenuButton(string st)
     {
+        if(state != MenuState.None)
+        {
+            ButtonToMain();
+        }
         MenuState transst = (MenuState)Enum.Parse(typeof(MenuState), st);
         Array menustA = Enum.GetValues(typeof(MenuState));
         foreach(MenuState s in menustA)
@@ -76,7 +85,10 @@ public class MenuManager : MonoBehaviour
                 }
             }
         }
-        MenuButton();
+        if (MenuOpen)
+        {
+            MenuButton();
+        }
     }
     public void ButtonSubmit()
     {
@@ -109,6 +121,7 @@ public class MenuManager : MonoBehaviour
     }
     public void ButtonToMain()
     {
+        Debug.Log(state);
         if (state == MenuState.None)
         {
             return;
@@ -119,6 +132,5 @@ public class MenuManager : MonoBehaviour
         }
         Menus[state].Close();
         state = MenuState.None;
-        
     }
 }

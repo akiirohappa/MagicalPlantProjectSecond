@@ -11,8 +11,9 @@ public class FieldManager
     private Vector3Int[] fieldTileData;
     private GameObject plantField;
     PlantDataView view;
-    public PlantDataView View { get { return view; } } 
+    public PlantDataView View { get { return view; } }
 
+    public HarvestCalc harvest;
     private static FieldManager _field;
     public static FieldManager GetInstance()
     {
@@ -30,28 +31,38 @@ public class FieldManager
             myField[i] = new Plant();
         }
         fieldTileData = TileManager.GetInstance().TileFieldGet();
-        view = new PlantDataView(); 
+        view = new PlantDataView();
+        harvest = new HarvestCalc();
     }
     //作物の成長
     public void PlantGrowth()
     {
         foreach(Plant p in myField)
         {
-            p.nowGrowth += p.growthSpeed;
-            if(p.nowGrowth >= 100)
+            switch (p.plantState)
             {
-                p.nowGrowth = 100;
-                p.plantState = PlantState.Harvest;
+                case PlantState.Growth:
+                    p.nowGrowth += p.growthSpeed;
+                    if (p.nowGrowth >= 100)
+                    {
+                        p.nowGrowth = 100;
+                        p.plantState = PlantState.Harvest;
+                    }
+                    else if (p.soilState == Soil.Dry)
+                    {
+                        p.quality -= p.downQuality;
+                    }
+                    else if (p.soilState == Soil.Moist)
+                    {
+                        p.quality += p.upQuality;
+                        Debug.Log(p.quality);
+                    }
+                    p.soilState = Soil.Dry;
+                    break;
+                default:
+                    break;
             }
-            else if(p.soilState == Soil.Dry)
-            {
-                p.quality -= p.downQuality;
-            }
-            else if (p.soilState == Soil.Moist)
-            {
-                p.quality -= p.upQuality;
-            }
-            p.soilState = Soil.Dry;
+            
         }
     }
     public void SetPlantData(Vector3Int vec,Plant plant)
@@ -91,5 +102,14 @@ public class FieldManager
             }
         }
         return -1;
+    }
+    //収穫
+    public void Harvest(Vector3Int vec)
+    {
+        Plant pl = GetPlantData(vec);
+        Item it = harvest.Harvest(pl);
+        PlayerData.GetInstance().Item.ItemGet(it,it.getValue);
+        pl.Reset();
+        SetPlantData(vec, pl);
     }
 }

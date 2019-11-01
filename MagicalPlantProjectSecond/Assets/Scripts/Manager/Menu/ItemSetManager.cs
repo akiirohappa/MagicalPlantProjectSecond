@@ -36,15 +36,16 @@ public class ItemSetManager :MenuManagerBase
     }
     public override void PlessItemButton(Item item)
     {
-        Debug.Log(pos);
         field.SetPlantData(pos,new Plant(item));
+        PlayerData.GetInstance().Item.ItemGet(item, -1);
+        mManager.ButtonToMain();
     }
-    public override void Open(Vector3Int p)
+    public override void Open(Vector3Int vec)
     {
+        Debug.Log(vec);
+        pos = vec;
         field = FieldManager.GetInstance();
-        pos = TileManager.GetInstance().MousePosToCell();
         base.Open();
-
     }
     public void TypeSet(ItemType t)
     {
@@ -79,7 +80,7 @@ public class ItemSetManager :MenuManagerBase
     void SeedButtonMake(Item i)
     {
         GameObject g = ButtonMake(i);
-        g.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = i.itemName;
-        g.transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = i.itemName;
+        g.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = "成長速度:"+i.growthSpeed + "%/日";
+        g.transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = "";
     }
 }
