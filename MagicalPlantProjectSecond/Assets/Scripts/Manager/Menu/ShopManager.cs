@@ -29,6 +29,7 @@ public class ShopManager:MenuManagerBase
     ItemList nowJanl;
     GameObject shopListParent;
     GameObject itemButtonPrefab;
+    List<GameObject> itemButtons;
     Item nowViewItem;
     Transform goodsPanel;
     int shopValue;
@@ -42,6 +43,7 @@ public class ShopManager:MenuManagerBase
         ShopListGet();
         shopListParent = ShopObject[ShopState.GoodsPanel].transform.GetChild(0).GetChild(0).GetChild(0).gameObject;
         itemButtonPrefab = Resources.Load<GameObject>("Prefabs/ItemButton");
+        itemButtons = new List<GameObject>();
         goodsPanel = ShopObject[ShopState.GoodsPanel].transform.Find("GoodsPanel");
         sort = myObjct.transform.GetChild(0).GetChild(2).Find("SortPanel").GetComponent<ItemListSort>();
     }
@@ -85,9 +87,30 @@ public class ShopManager:MenuManagerBase
             case ShopState.ValueSelect:
                 if(trade == TradeState.Buy)
                 {
-                    PlayerData.GetInstance().Money -= nowViewItem.defaltValue * shopValue;
-                    PlayerData.GetInstance().Item.ItemGet(nowViewItem, shopValue);
+                    //金が足りてる時の処理
+                    if(PlayerData.GetInstance().Money >= nowViewItem.defaltValue * shopValue)
+                    {
+                        PlayerData.GetInstance().Money -= nowViewItem.defaltValue * shopValue;
+                        PlayerData.GetInstance().Item.ItemGet(nowViewItem, shopValue);
+                        Cancel();
+                    }
+                    //金が足りない時の処理
+                    else
+                    {
+
+                    }
+                }
+                else
+                {
+
+                    PlayerData.GetInstance().Money += nowViewItem.sellPrice * shopValue;
+                    PlayerData.GetInstance().Item.ItemGet(nowViewItem, -shopValue);
                     Cancel();
+                    if (nowViewItem.itemNum - shopValue <= 0)
+                    {
+                        PlessItemButton(null);
+                    }
+                    GoodsButtonMake();
                 }
                 break;
             default:
@@ -104,8 +127,15 @@ public class ShopManager:MenuManagerBase
                 trade = TradeState.None;
                 break;
             case ShopState.GoodsSelect:
-                state = ShopState.JanlSelect;
-                nowJanl = null;
+                if(trade == TradeState.Buy)
+                {
+                    state = ShopState.JanlSelect;
+                    nowJanl = null;
+                }
+                else
+                {
+                    state = ShopState.Menu;
+                }
                 break;
             case ShopState.ValueSelect:
                 state = ShopState.GoodsSelect;
@@ -126,13 +156,25 @@ public class ShopManager:MenuManagerBase
                 switch (st)
                 {
                     case "Buy":
-                        trade = TradeState.Buy;
-                        break;
+                            trade = TradeState.Buy;
+                            state = ShopState.JanlSelect;
+                            break;
                     case "Sell":
-                        trade = TradeState.Sell;
-                        break;
+                            trade = TradeState.Sell;
+                            nowJanl = PlayerData.GetInstance().Item;
+                            sort.item = PlayerData.GetInstance().Item;
+                            sort.states = new SortState[]{
+                                SortState.ItemName,
+                                SortState.ItemType,
+                                SortState.ItemValue,
+                                SortState.GrowthSpeed,
+                            };
+                            state = ShopState.GoodsSelect;
+                            GoodsButtonMake();
+                            PlessItemButton(null);
+                            break;
                 }
-                state = ShopState.JanlSelect;
+                
                 ObjectActive(state);
                 }
                 break;
@@ -145,6 +187,7 @@ public class ShopManager:MenuManagerBase
                             sort.item = nowJanl;
                             sort.states = new SortState[]{
                                 SortState.ItemName,
+                                SortState.ItemType,
                                 SortState.ItemValue,
                                 SortState.GrowthSpeed,
                             };
@@ -168,9 +211,15 @@ public class ShopManager:MenuManagerBase
                             GoodsValueChange(5);
                             break;
                         case "+All":
-                            shopValue = PlayerData.GetInstance().Money / nowViewItem.defaltValue;
-                            if (shopValue > 99) shopValue = 99;
+                            if (PlayerData.GetInstance().Money / nowViewItem.defaltValue > 99)
+                            {
+                                shopValue = 99;
+                            }
                             else if (shopValue == 0) shopValue = 1;
+                            else
+                            {
+                                shopValue = (int)PlayerData.GetInstance().Money / nowViewItem.defaltValue;
+                            }
                             GoodsValueChange(0);
                             break;
                         case "-1":
@@ -195,36 +244,30 @@ public class ShopManager:MenuManagerBase
                 break;
         }
     }
-    void SetStateObject()
-    {
-        switch (state)
-        {
-            case ShopState.Menu:
-                state = ShopState.Menu;
-                ObjectActive(state);
-                break;
-            case ShopState.JanlSelect:
-
-                break;
-            default:
-                break;
-        }
-    }
     void GoodsButtonMake()
     {
-        foreach(Transform t in shopListParent.transform)
+        if(itemButtons.Count != 0)
         {
-            GameObject.Destroy(t.gameObject);
+            foreach (GameObject g in itemButtons)
+            {
+                g.SetActive(false);
+            }
         }
-        GameObject g;
-        foreach(Item i in nowJanl.Item)
+        for(int i = 0;i < nowJanl.Item.Count; i++)
         {
-            g = GameObject.Instantiate(itemButtonPrefab,shopListParent.transform);
-            g.GetComponent<ItemButton>().item = i;
-            g.GetComponent<Button>().onClick.AddListener(mManager.ButtonItem);
-            g.transform.Find("Name").GetComponent<TextMeshProUGUI>().text = i.itemName;
-            g.transform.Find("Icon").GetComponent<Image>().sprite = i.icon;
-            g.transform.Find("Price").GetComponent<TextMeshProUGUI>().text = i.defaltValue + "株";
+            if(itemButtons.Count <= i)
+            {
+                itemButtons.Add(GameObject.Instantiate(itemButtonPrefab, shopListParent.transform));
+            }
+            else
+            {
+                itemButtons[i].SetActive(true);
+            }
+            itemButtons[i].GetComponent<ItemButton>().item = nowJanl.Item[i];
+            itemButtons[i].GetComponent<Button>().onClick.AddListener(mManager.ButtonItem);
+            itemButtons[i].transform.Find("Name").GetComponent<TextMeshProUGUI>().text = nowJanl.Item[i].itemName;
+            itemButtons[i].transform.Find("Icon").GetComponent<Image>().sprite = nowJanl.Item[i].icon;
+            itemButtons[i].transform.Find("Price").GetComponent<TextMeshProUGUI>().text = (trade == TradeState.Buy ?  nowJanl.Item[i].defaltValue:nowJanl.Item[i].sellPrice) + "株";
         }
     }
     public override void PlessItemButton(Item item)
@@ -234,7 +277,7 @@ public class ShopManager:MenuManagerBase
             nowViewItem = item;
             goodsPanel.Find("Icon").GetComponent<Image>().sprite = item.icon;
             goodsPanel.Find("NameText").GetComponent<TextMeshProUGUI>().text = item.itemName;
-            goodsPanel.Find("PriceText").GetComponent<TextMeshProUGUI>().text = item.defaltValue + "株";
+            goodsPanel.Find("PriceText").GetComponent<TextMeshProUGUI>().text = (trade == TradeState.Buy ? item.defaltValue : item.sellPrice) + "株";
             ShopObject[ShopState.GoodsSelect].transform.Find("GrowthText").GetComponent<TextMeshProUGUI>().text = "成長速度：" + item.growthSpeed + "%/日";
             ShopObject[ShopState.GoodsSelect].transform.Find("InfoText").GetComponent<TextMeshProUGUI>().text = item.info;
         }
@@ -273,14 +316,18 @@ public class ShopManager:MenuManagerBase
         {
             shopValue = 1;
         }
-        else if (shopValue > 99)
+        else if (trade == TradeState.Buy && shopValue > 99)
         {
             shopValue = 99;
         }
-        int nowValue = nowViewItem.defaltValue * shopValue;
+        else if(trade == TradeState.Sell && shopValue > nowViewItem.itemNum)
+        {
+            shopValue = nowViewItem.itemNum;
+        }
+        int nowValue = (trade == TradeState.Buy ? nowViewItem.defaltValue: nowViewItem.sellPrice) * shopValue;
         goodsPanel.Find("PriceText").GetComponent<TextMeshProUGUI>().text = nowValue + "株";
         ShopObject[ShopState.ValueSelect].transform.Find("ValueText").GetComponent<TextMeshProUGUI>().text = shopValue + "個";
-        if (nowValue > PlayerData.GetInstance().Money)
+        if (trade == TradeState.Buy && nowValue > PlayerData.GetInstance().Money)
         {
             ShopObject[ShopState.ValueSelect].transform.Find("ArartText").gameObject.SetActive(true);
         }

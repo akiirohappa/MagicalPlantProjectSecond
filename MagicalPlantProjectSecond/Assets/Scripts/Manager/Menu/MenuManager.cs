@@ -121,7 +121,7 @@ public class MenuManager : MonoBehaviour
     }
     public void ButtonToMain()
     {
-        if (state == MenuState.None)
+        if (state == MenuState.None || state == MenuState.EventSelect)
         {
             return;
         }

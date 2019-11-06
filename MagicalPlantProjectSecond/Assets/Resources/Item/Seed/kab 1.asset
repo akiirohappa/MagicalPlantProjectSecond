@@ -15,11 +15,11 @@ MonoBehaviour:
   itemName: "\u3059\u3054\u3044\u30AB\u30D6\u306E\u7A2E"
   itemType: 0
   defaltValue: 110
-  growthSpeed: 100.27
+  growthSpeed: 100
   quality: 129
   upQuality: 4
   downQuality: 2
-  plantPrice: 835
+  plantPrice: 50
   plantValue: 90
   icon: {fileID: 21300000, guid: 6a822e8a73ce91549800d7d796336e99, type: 3}
   itemNum: 0

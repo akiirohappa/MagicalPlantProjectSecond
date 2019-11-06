@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 public abstract class MapEventBase
 {
     //マネージャーから参照用の番号
@@ -49,7 +50,10 @@ public abstract class MapEventBase
     protected virtual void MenuButtonMake()
     {
         buttonParent.SetActive(true);
-        buttonParent.transform.position = Input.mousePosition;
+        Vector3 mousePos = Input.mousePosition;
+        mousePos.x += 16;
+        mousePos.y += 16;
+        buttonParent.transform.position = mousePos;
         foreach (Transform t in buttonParent.transform)
         {
             t.gameObject.SetActive(false);
@@ -74,6 +78,14 @@ public abstract class MapEventBase
         g.GetComponent<Button>().onClick.AddListener(g.GetComponent<MapEVButton>().ButtonPressd);
         g.GetComponent<MapEVButton>().eventCode = eventText;
         g.GetComponent<MapEVButton>().eventB = this;
+        if(g.GetComponent<EventTrigger>().triggers.Count == 0)
+        {
+            EventTrigger.Entry entry = new EventTrigger.Entry();
+            entry.eventID = EventTriggerType.PointerEnter;
+            entry.callback.AddListener((x) => MapEventManager.GetInstance().ButtonOnPointar());
+            g.GetComponent<EventTrigger>().triggers.Add(entry);
+        }
+
     }
     public abstract void EventStart(string text);
     public void MenuClose()

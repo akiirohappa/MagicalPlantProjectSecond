@@ -8,6 +8,7 @@ public class MapEVButton : MonoBehaviour
     public MapEventBase eventB;
     public void ButtonPressd()
     {
+        MapEventManager.GetInstance().buttonPressd = true;
         eventB.EventStart(eventCode);
     }
 }

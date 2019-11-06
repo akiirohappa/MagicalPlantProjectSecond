@@ -64,8 +64,12 @@ public class HeaderDataView
         float shortf = time.hour * 30;
         clockShort.transform.Rotate(0, 0, -shortf);
     }
-    public void MoneySet(int money)
+    public void MoneySet(long money)
     {
-        MoneyText.text = money + "株";
+        MoneyText.text = 
+            (money  / 1000000000000 != 0 ? money % 10000000000000000 / 1000000000000 + "兆" : "") + 
+            (money % 1000000000000 / 100000000 != 0 ? money % 1000000000000 / 100000000 + "億" : "") + 
+            (money % 100000000 / 10000 != 0 ? money% 100000000 / 10000 + "万":"")+ 
+            (money % 10000 != 0 ? (money %10000).ToString(): "") + "株";
     }
 }

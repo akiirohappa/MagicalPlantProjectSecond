@@ -12,7 +12,8 @@ public class MapEventManager
     GameObject mousePoint;
     TileManager tile;
     MapEventBase cullentMenu;
-    MenuManager menu; 
+    MenuManager menu;
+    public bool buttonPressd = false;
     public static MapEventManager GetInstance()
     {
         if (_map == null)
@@ -52,27 +53,36 @@ public class MapEventManager
                 {
                     FieldManager.GetInstance().View.PlantVSetActive(false);
                 }
-                if(menu.state == MenuState.EventSelect)
+                if (menu.state == MenuState.EventSelect)
                 {
-                    if (menu.Cullent == null)
+                    if (!buttonPressd)
                     {
                         m.MenuClose();
                         FieldManager.GetInstance().View.PlantVSetActive(false);
                         menu.state = MenuState.None;
                         m = null;
                     }
+                    else
+                    {
+                        buttonPressd = false;
+                    }
                 }
 
             }
             else
             {
-                if(menu.state == MenuState.EventSelect)
+                if (menu.state == MenuState.EventSelect)
                 {
-                    if (cullentMenu != null && menu.Cullent == null)
+                    //cullentMenu != null &&
+                    if ( !buttonPressd)
                     {
                         cullentMenu.MenuClose();
                         FieldManager.GetInstance().View.PlantVSetActive(false);
                         menu.state = MenuState.None;
+                    }
+                    else
+                    {
+                        buttonPressd = false;
                     }
                 }
 
@@ -118,5 +128,9 @@ public class MapEventManager
         {
             mousePoint.SetActive(false);
         }
+    }
+    public void ButtonOnPointar()
+    {
+        buttonPressd = true;
     }
 }

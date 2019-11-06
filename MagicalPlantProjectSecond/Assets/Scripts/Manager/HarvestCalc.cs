@@ -8,7 +8,6 @@ public class HarvestCalc
     {
         Item it = new Item(pl);
         it.sellPrice = (int)(((float)it.defaltValue /50) * it.quality);
-
         return it;
     }
 }

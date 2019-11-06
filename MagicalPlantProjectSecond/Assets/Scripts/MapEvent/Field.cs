@@ -31,6 +31,7 @@ class Field:MapEventBase
     }
     public override void OnLeftClickRun()
     {
+        menu.ButtonToMain();
         menu.state = MenuState.EventSelect;
         field.ShowPlantData(TileManager.GetInstance().MousePosToCell());
         pos = TileManager.GetInstance().MousePosToCell();
@@ -38,9 +39,19 @@ class Field:MapEventBase
     }
     public override void OnRightClickRun()
     {
-        if (menu.state == MenuState.None)
+        switch (field.GetPlantData(pos).plantState)
         {
-            field.ShowPlantData(TileManager.GetInstance().MousePosToCell());
+            case PlantState.None:
+                EventStart(events[0].eventText);
+                break;
+            case PlantState.Growth:
+                EventStart(events[2].eventText);
+                break;
+            case PlantState.Harvest:
+                EventStart(events[3].eventText);
+                break;
+            default:
+                break;
         }
     }
     protected override void MenuButtonMake()
@@ -102,5 +113,6 @@ class Field:MapEventBase
             menu.state = MenuState.None;
         }
         MenuClose();
+        MapEventManager.GetInstance().buttonPressd = false;
     }
 }

@@ -10,6 +10,7 @@ public class ItemManager:MenuManagerBase
     GameObject buttonField;
     GameObject infoPanel;
     GameObject itemButtonPrefab;
+    List<GameObject> itemButtons;
     bool panelOn = false;
     Item showItem;  
     ItemListSort sort;
@@ -20,6 +21,7 @@ public class ItemManager:MenuManagerBase
         infoPanel = myObjct.transform.GetChild(2).gameObject;
         itemButtonPrefab = Resources.Load<GameObject>("Prefabs/ItemButton");
         sort = myObjct.transform.Find("SortPanel").GetComponent<ItemListSort>();
+        itemButtons = new List<GameObject>();
     }
     public override void Open()
     {
@@ -35,19 +37,28 @@ public class ItemManager:MenuManagerBase
             SortState.ItemNum,
             SortState.ItemType,
         };
-        foreach (Transform t in buttonField.transform)
+        if (itemButtons.Count != 0)
         {
-            GameObject.Destroy(t.gameObject);
+            foreach (GameObject g in itemButtons)
+            {
+                g.SetActive(false);
+            }
         }
-        GameObject g;
-        foreach (Item i in list.Item)
+        for (int i = 0; i < list.Item.Count; i++)
         {
-            g = GameObject.Instantiate(itemButtonPrefab, buttonField.transform);
-            g.GetComponent<ItemButton>().item = i;
-            g.GetComponent<Button>().onClick.AddListener(mManager.ButtonItem);
-            g.transform.Find("Name").GetComponent<TextMeshProUGUI>().text = i.itemName;
-            g.transform.Find("Icon").GetComponent<Image>().sprite = i.icon;
-            g.transform.Find("Price").GetComponent<TextMeshProUGUI>().text = "個数:" + i.itemNum + "個";
+            if (itemButtons.Count <= i)
+            {
+                itemButtons.Add(GameObject.Instantiate(itemButtonPrefab, buttonField.transform));
+            }
+            else
+            {
+                itemButtons[i].SetActive(true);
+            }
+            itemButtons[i].GetComponent<ItemButton>().item = list.Item[i];
+            itemButtons[i].GetComponent<Button>().onClick.AddListener(mManager.ButtonItem);
+            itemButtons[i].transform.Find("Name").GetComponent<TextMeshProUGUI>().text = list.Item[i].itemName;
+            itemButtons[i].transform.Find("Icon").GetComponent<Image>().sprite = list.Item[i].icon;
+            itemButtons[i].transform.Find("Price").GetComponent<TextMeshProUGUI>().text = list.Item[i].defaltValue + "株";
         }
     }
     public override void Submit()
