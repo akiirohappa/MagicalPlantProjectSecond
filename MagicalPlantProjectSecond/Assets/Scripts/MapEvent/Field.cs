@@ -39,6 +39,7 @@ class Field:MapEventBase
     }
     public override void OnRightClickRun()
     {
+        pos = TileManager.GetInstance().MousePosToCell();
         switch (field.GetPlantData(pos).plantState)
         {
             case PlantState.None:
@@ -77,12 +78,12 @@ class Field:MapEventBase
     }
     public override void EventStart(string text)
     {
+        Debug.Log(pos);
         //種を植える
         if (text == events[0].eventText)
         {
             menu.SendMenuButton("ItemSet");
             menu.MenuManagerB.Open(pos);
-            view.PlantVSetActive(false);
             ItemSetManager setM = (ItemSetManager)menu.MenuManagerB;
             setM.TypeSet(ItemType.Seed);
         }
@@ -90,7 +91,6 @@ class Field:MapEventBase
         if (text == events[1].eventText)
         {
             menu.SendMenuButton("ItemSet");
-            view.PlantVSetActive(false);
             ItemSetManager setM = (ItemSetManager)menu.MenuManagerB;
             setM.TypeSet(ItemType.Fertilizer);
         }
@@ -98,7 +98,6 @@ class Field:MapEventBase
         if (text == events[2].eventText)
         {
             field.GetPlantData(pos).soilState = Soil.Moist;
-            view.PlantVSetActive(false);
             menu.state = MenuState.None;
         }
         //収穫
@@ -109,10 +108,10 @@ class Field:MapEventBase
         }
         if(text == "None")
         {
-            view.PlantVSetActive(false);
             menu.state = MenuState.None;
         }
         MenuClose();
+        view.PlantVSetActive(false);
         MapEventManager.GetInstance().buttonPressd = false;
     }
 }

@@ -7,13 +7,12 @@ using UnityEngine;
 
 public class FieldManager
 {
-    Plant[] myField;
+    public Plant[] myField;
     private Vector3Int[] fieldTileData;
     private GameObject plantField;
     PlantDataView view;
     public PlantDataView View { get { return view; } }
-
-    public HarvestCalc harvest;
+    private HarvestCalc harvest;
     private static FieldManager _field;
     public static FieldManager GetInstance()
     {
@@ -106,9 +105,17 @@ public class FieldManager
     //収穫
     public void Harvest(Vector3Int vec)
     {
+        Debug.Log(vec);
         Plant pl = GetPlantData(vec);
+        Debug.Log(pl.name);
+        if (pl.name == "から")
+        {
+            Debug.Log("無を取得した");
+            return;
+        }
         Item it = harvest.Harvest(pl);
         PlayerData.GetInstance().Item.ItemGet(it,it.getValue);
+        MainManager.GetInstance.Log.LogMake(it.itemName + "を手に入れた！", it.icon);
         pl.Reset();
         SetPlantData(vec, pl);
     }

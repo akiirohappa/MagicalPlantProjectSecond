@@ -49,7 +49,7 @@ public class PlayerData
     }
     private PlayerData()
     {
-        mm = GameObject.Find("Manager").GetComponent<MainManager>();
+        mm = MainManager.GetInstance;
         money = 4999999999999999;
         mm.View.MoneySet(money);
         item = new ItemList();

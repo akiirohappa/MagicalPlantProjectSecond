@@ -9,6 +9,7 @@ public enum ItemType
     Plant,
     Fertilizer,
 }
+[System.Serializable]
 public class Item
 {
     public Item(ItemData it)

@@ -15,6 +15,7 @@ public enum PlantState
     Harvest,
     DontUse,
 }
+[System.Serializable]
 public class Plant
 {
     public string name;

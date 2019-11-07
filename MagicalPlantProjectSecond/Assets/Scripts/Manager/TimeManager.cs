@@ -27,7 +27,7 @@ public class TimeManager
     private TimeManager()
     {
         time = new TimeData();
-        mm = GameObject.Find("Manager").GetComponent<MainManager>();
+        mm = MainManager.GetInstance;
         time.preHour = 0;
         time.preMinit = 0;
         TimeSet(time);
@@ -88,8 +88,10 @@ public class TimeManager
         mm.View.TimeSet(newTime);
     }
 }
+[System.Serializable]
 public class TimeData
 {
+    public int year;
     public int day;
     public int hour;
     public float minit;
@@ -98,6 +100,7 @@ public class TimeData
     public SeasonData nowSeason;
     public TimeData()
     {
+        year = 1;
         day = 1;
         hour = 7;
         minit = 0;
