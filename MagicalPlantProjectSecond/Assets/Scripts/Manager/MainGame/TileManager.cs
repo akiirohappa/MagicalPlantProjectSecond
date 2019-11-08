@@ -17,7 +17,6 @@ enum MapLayer
 public class TileManager
 {
     private static TileManager _tile;
-
     Dictionary<MapLayer,Tilemap> tiles;
     Grid grid;
     TileBase tiletest;
@@ -25,10 +24,13 @@ public class TileManager
     Sprite[] eventTiles;
     private TileManager()
     {
+
+    }
+    public void Start()
+    {
         eventTiles = Resources.LoadAll<Sprite>("Tile/EventTile");
         TileMapSet();
         TileFieldSet(tiles[MapLayer.Event]);
-       
     }
     public static TileManager GetInstance()
     {

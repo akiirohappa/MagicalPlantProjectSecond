@@ -26,11 +26,15 @@ public class TimeManager
     }
     private TimeManager()
     {
+
+    }
+    public void Start()
+    {
         time = new TimeData();
         mm = MainManager.GetInstance;
         time.preHour = 0;
         time.preMinit = 0;
-        TimeSet(time);
+        //TimeSet(time);
     }
     public TimeData GetTime()
     {
@@ -78,7 +82,7 @@ public class TimeManager
         }
         mm.View.TimeView(time,speed);
     }
-    void TimeSet(TimeData newTime)
+    public void TimeSet(TimeData newTime)
     {
         time = newTime;
         float longf = Mathf.Floor(time.minit) * 6;
@@ -88,7 +92,6 @@ public class TimeManager
         mm.View.TimeSet(newTime);
     }
 }
-[System.Serializable]
 public class TimeData
 {
     public int year;
@@ -105,5 +108,68 @@ public class TimeData
         hour = 7;
         minit = 0;
         nowSeason = SeasonData.Spring;
+    }
+    public void TimeSet(TimeForSave t)
+    {
+        year = t.year;
+        day = t.day;
+        hour = t.hour;
+        minit = t.minit;
+        nowSeason = t.nowSeason;
+    }
+    public string SeasonToStr
+    {
+        get
+        {
+            switch (nowSeason)
+            {
+                case SeasonData.Spring:
+                    return"春";
+                case SeasonData.Summer:
+                    return "夏";
+                case SeasonData.Autumn:
+                    return "秋";
+                case SeasonData.Winter:
+                    return "冬";
+                default:
+                    return "空";
+            }
+        }
+    }
+}
+[System.Serializable]
+public class TimeForSave
+{
+    public int year;
+    public int day;
+    public int hour;
+    public float minit;
+    public SeasonData nowSeason;
+    public string SeasonToStr
+    {
+        get
+        {
+            switch (nowSeason)
+            {
+                case SeasonData.Spring:
+                    return "春";
+                case SeasonData.Summer:
+                    return "夏";
+                case SeasonData.Autumn:
+                    return "秋";
+                case SeasonData.Winter:
+                    return "冬";
+                default:
+                    return "空";
+            }
+        }
+    }
+    public TimeForSave(TimeData t)
+    {
+        year = t.year;
+        day = t.day;
+        hour = t.hour;
+        minit = t.minit;
+        nowSeason = t.nowSeason;
     }
 }

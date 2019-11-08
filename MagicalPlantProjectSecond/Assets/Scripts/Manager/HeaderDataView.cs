@@ -23,24 +23,7 @@ public class HeaderDataView
     public void TimeView(TimeData time,float speed)
     {
         string text;
-        switch (time.nowSeason)
-        {
-            case SeasonData.Spring:
-                text = "春";
-                break;
-            case SeasonData.Summer:
-                text = "夏";
-                break;
-            case SeasonData.Autumn:
-                text = "秋";
-                break;
-            case SeasonData.Winter:
-                text = "冬";
-                break;
-            default:
-                text = "空";
-                break;
-        }
+        text = time.SeasonToStr;
         seasonText.text = text;
         dayText.text = time.day + "日";
         timeText.text = time.hour + "：" + (time.minit < 10 ? "0" : "") + Mathf.Floor(time.minit);

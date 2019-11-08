@@ -24,6 +24,10 @@ public class MapEventManager
     }
     private MapEventManager()
     {
+
+    }
+    public void Start()
+    {
         events = new List<MapEventBase>();
         events.Add(new Field(0));
         mousePoint = GameObject.Instantiate(Resources.Load<GameObject>("MousePoint"));

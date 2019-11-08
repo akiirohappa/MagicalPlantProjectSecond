@@ -46,11 +46,16 @@ public class PlayerData
     public ItemList Item
     {
         get { return item; }
+        set { item = value; }
     }
     private PlayerData()
     {
+
+    }
+    public void Start()
+    {
         mm = MainManager.GetInstance;
-        money = 4999999999999999;
+        money = 5000000000000000;
         mm.View.MoneySet(money);
         item = new ItemList();
         time = TimeManager.GetInstance().GetTime();

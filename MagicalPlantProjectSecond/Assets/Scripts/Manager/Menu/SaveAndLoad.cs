@@ -13,7 +13,7 @@ using UnityEngine;
 public class SaveAndLoad
 {
     string saveDataPassBase = "SaveData";
-    SaveData[] saveDatas = new SaveData[10]; 
+    string[] saveDatas = new string[10];
     public void GetSaveData()
     {
         for(int i = 0;i < 10; i++)
@@ -21,7 +21,7 @@ public class SaveAndLoad
             string json = PlayerPrefs.GetString(saveDataPassBase + i,"None");
             if(json != "None")
             {
-                saveDatas[i] = JsonUtility.FromJson<SaveData>(json);
+                saveDatas[i] = json;
             }
             else
             {
@@ -31,19 +31,19 @@ public class SaveAndLoad
     }
     public void Save(int num,SaveData s)
     {
-        if(num > 10)
+        if (num > 9 && num < 0)
         {
             Debug.Log("Error");
             return;
         }
         string json = JsonUtility.ToJson(s);
-        Debug.Log(json);
+        saveDatas[num] = json;
         PlayerPrefs.SetString(saveDataPassBase + num, json);
         PlayerPrefs.Save();
     }
     public SaveData Load(int num)
     {
-        if (num > 10)
+        if (num > 9 && num < 0)
         {
             Debug.Log("Error");
             return null;
@@ -52,20 +52,29 @@ public class SaveAndLoad
         {
             GetSaveData();
         }
-        return saveDatas[num];
+        return JsonUtility.FromJson<SaveData>(saveDatas[num]) ;
     }
+    //public void SaveDataSet(SaveData sd)
+    //{
+    //    TimeManager.GetInstance().GetTime().TimeSet(sd.time);
+    //    TimeManager.GetInstance().TimeSet(TimeManager.GetInstance().GetTime());
+    //    PlayerData.GetInstance().Item = sd.myItems;
+    //    FieldManager.GetInstance().SetFieldData(sd.plants);
+    //    PlayerData.GetInstance().Money = sd.money;
+    //}
 }
 public class SaveData
 {
-    public SaveData(PlayerData pl,FieldManager fi)
+    public SaveData()
     {
-        time = TimeManager.GetInstance().GetTime();
-        plants = fi.myField;
-        myItems = pl.Item;
-        money = pl.Money;
+        time = new TimeForSave(TimeManager.GetInstance().GetTime());
+        plants = FieldManager.GetInstance().myField;
+        myItems = PlayerData.GetInstance().Item;
+        money = PlayerData.GetInstance().Money;
     }
-    public TimeData time;
+    public TimeForSave time;
     public ItemList myItems;
     public Plant[] plants;
     public long money;
+
 }

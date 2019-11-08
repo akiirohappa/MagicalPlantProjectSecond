@@ -12,21 +12,6 @@ public enum ItemType
 [System.Serializable]
 public class Item
 {
-    public Item(ItemData it)
-    {
-        itemName = it.itemName;
-        itemType = it.itemType;
-        defaltValue = it.defaltValue;
-        quality = it.quality;
-        info = it.info;
-        icon = it.icon;
-        growthSpeed = it.growthSpeed;
-        downQuality = it.downQuality;
-        upQuality = it.upQuality;
-        sellPrice = it.plantPrice;
-        getValue = it.plantValue;
-        itemNum = 0;
-    }
     public Item(Plant pl)
     {
         itemName = pl.name;
@@ -48,6 +33,7 @@ public class Item
     public int sellPrice;
     public int getValue;
     public Sprite icon;
+    [Multiline(3)]
     public string info;
     public int itemNum;
     public SeasonData vestSeason;

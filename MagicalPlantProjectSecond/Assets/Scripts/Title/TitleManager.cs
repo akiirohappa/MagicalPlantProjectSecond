@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
 public class TitleManager : MonoBehaviour
 {
     TitleBackGround bg;
     GameObject plantObj;
+    LoadManager load;
     // Start is called before the first frame update
     void Start()
     {
         bg = new TitleBackGround();
         plantObj = Resources.Load<GameObject>("Prefabs/TitleBackObj");
+        load = new LoadManager(this);
     }
 
     // Update is called once per frame
@@ -28,5 +31,30 @@ public class TitleManager : MonoBehaviour
             GameObject g = Instantiate(plantObj, new Vector3(900, pos),new Quaternion(),GameObject.Find("BackGroundObj").transform);
             g.GetComponent<TitlePlantObj>().SetPlantImage(Resources.Load<Sprite>("PlantImages/kab"));
         }
+    }
+    public void NewGame()
+    {
+        LoadMainScene(new SaveData());
+    }
+    public void LoadGame()
+    {
+        load.Open();
+    }
+    public void SelectSaveData(int num)
+    {
+        load.cullentDataNum = num;
+        load.SaveDataShow(true);
+    }
+    public void SaveSubmit()
+    {
+        LoadMainScene(load.GetSaveData());
+    }
+    public void SaveCancel()
+    {
+        load.SaveDataShow(false);
+    }
+    void LoadMainScene(SaveData sd)
+    {
+
     }
 }

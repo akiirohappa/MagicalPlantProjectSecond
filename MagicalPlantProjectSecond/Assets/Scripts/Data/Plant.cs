@@ -37,15 +37,15 @@ public class Plant
         growthSpeed = 0f;
         quality = 50;
     }
-    public Plant(PlantData p)
-    {
-        name = p.Plantname;
-        icon = p.icon;
-        nowGrowth = p.nowGrowth;
-        growthSpeed = p.growthSpeed;
-        soilState = p.soilState;
-        quality = p.quality;
-    }
+    //public Plant(PlantData p)
+    //{
+    //    name = p.Plantname;
+    //    icon = p.icon;
+    //    nowGrowth = p.nowGrowth;
+    //    growthSpeed = p.growthSpeed;
+    //    soilState = p.soilState;
+    //    quality = p.quality;
+    //}
     public Plant(Item i)
     {
         Regex reg = new Regex("の種");

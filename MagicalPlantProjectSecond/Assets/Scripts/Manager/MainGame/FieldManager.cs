@@ -24,6 +24,10 @@ public class FieldManager
     }
     private FieldManager()
     {
+
+    }
+    public void Start()
+    {
         myField = new Plant[25];
         for (int i = 0; i < 25; i++)
         {
@@ -118,5 +122,10 @@ public class FieldManager
         MainManager.GetInstance.Log.LogMake(it.itemName + "を手に入れた！", it.icon);
         pl.Reset();
         SetPlantData(vec, pl);
+    }
+    //作物データセット
+    public void SetFieldData(Plant[] pls)
+    {
+        myField = pls;
     }
 }

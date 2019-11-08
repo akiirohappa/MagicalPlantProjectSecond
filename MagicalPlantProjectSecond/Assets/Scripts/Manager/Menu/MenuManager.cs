@@ -41,6 +41,7 @@ public class MenuManager : MonoBehaviour
         Menus[MenuState.Item] = new ItemManager(this);
         Menus[MenuState.Shop] = new ShopManager(this);
         Menus[MenuState.ItemSet] = new ItemSetManager(this);
+        Menus[MenuState.Save] = new SaveManager(this);
     }
 
     // Update is called once per frame

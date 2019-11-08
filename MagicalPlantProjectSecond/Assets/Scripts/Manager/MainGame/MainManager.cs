@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainManager : MonoBehaviour
 {
@@ -20,6 +21,10 @@ public class MainManager : MonoBehaviour
         {
             if(main == null)
             {
+                if(SceneManager.GetActiveScene().name != "Main")
+                {
+                    return null;
+                }
                 GameObject g = GameObject.Find("Manager");
                 main = g.GetComponent<MainManager>();
                 if(main == null)
@@ -59,12 +64,18 @@ public class MainManager : MonoBehaviour
         time = TimeManager.GetInstance();
         view = new HeaderDataView();
         sl = new SaveAndLoad();
-        sl.Save(0, new SaveData(player, field));
+        tile.Start();
+        field.Start();
+        map.Start();
+        time.Start();
+        player.Start();
+        //sl.Save(0, new SaveData());
     }
 
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(this.gameObject);
         map.CheckEvent();
         time.TimeCalc(ExTime);
     }
