@@ -1,31 +1,38 @@
 ﻿using UnityEngine;
 using UnityEditor;
-
-public class EditorStyle
+using System.Collections.Generic;
+[CreateAssetMenu(fileName ="EditorStyle",menuName = "EditorStyle")]
+public class EditorStyle:ScriptableObject
 { 
+    [SerializeField]
     public GUISkin skin;
-    public GUIStyle top;
-    public GUIStyle text;
-    public GUIStyle text2;
-    public GUIStyle hbox;
-    public GUIStyle toggle;
+    public Dictionary<string, GUIStyle> Styles;
     public EditorStyle()
     {
-        skin = Resources.Load<GUISkin>("GUISkin");
-        top = new GUIStyle(EditorStyles.label)
-        {
-            font = skin.font,
-            fontSize = 20,
-        };
-        text = new GUIStyle(EditorStyles.label)
-        {
-            fontSize = 15,
-        };
-        hbox = new GUIStyle(EditorStyles.helpBox);
-        toggle = new GUIStyle(skin.toggle);
-        text2 = new GUIStyle(skin.label)
-        {
 
+    }
+    public void Setup()
+    {
+        Styles = new Dictionary<string, GUIStyle>();
+        Styles["label"] = new GUIStyle()
+        {
+            fontSize = 20
+        };
+        Styles["Button"] = new GUIStyle(skin.button)
+        {
+            margin = new RectOffset(0, 0, 0, 0),
+            alignment = TextAnchor.MiddleLeft,
+            hover = new GUIStyleState(),
+            normal = new GUIStyleState(),
+            active = new GUIStyleState(),
+        };
+        Styles["Child"] = new GUIStyle(skin.box)
+        {
+            margin = new RectOffset(40, 0, 0, 0),
+        };
+        Styles["Center"] = new GUIStyle()
+        {
+            alignment = TextAnchor.MiddleCenter
         };
     }
 }
