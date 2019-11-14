@@ -12,3 +12,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58ce04ff08dfce145ae576e9e2040f4d, type: 3}
   m_Name: SoundList
   m_EditorClassIdentifier: 
+  BGMs:
+  - key: Title
+    audio: {fileID: 8300000, guid: d607c8840e40a1a46a4d7fac53c450db, type: 3}
+  - key: Main_Spring
+    audio: {fileID: 8300000, guid: f5ecc9c154d235b4498ed4081eb79b4b, type: 3}
+  - key: Main_Summer
+    audio: {fileID: 8300000, guid: 54d6c9b872add784882cc65765e46d6d, type: 3}
+  - key: Main_Autumn
+    audio: {fileID: 8300000, guid: b9d5239d574b1fd409a22c3ebdd7bbb5, type: 3}
+  - key: Main_Winter
+    audio: {fileID: 8300000, guid: 6334854b2158cb34a804ab49049a1374, type: 3}
+  SEs:
+  - key: Submit_S
+    audio: {fileID: 8300000, guid: 4f336e531dfbe5d438662e82a372044a, type: 3}
+  - key: Submit_L
+    audio: {fileID: 8300000, guid: 55065718f7d592848a4e20b3e3e31562, type: 3}
+  - key: Cancel
+    audio: {fileID: 8300000, guid: 6a78429485afe06488c4c04f1f128b93, type: 3}
+  - key: Cursor
+    audio: {fileID: 8300000, guid: d2b46feba05c40a4281f8e38e33ec294, type: 3}
+  - key: Pay
+    audio: {fileID: 8300000, guid: 0e0f745753fbf9f4db2affdf464aaade, type: 3}
+  - key: Dig
+    audio: {fileID: 8300000, guid: fc44d1e4425505246a140f033ac6a0dd, type: 3}
+  - key: Water
+    audio: {fileID: 8300000, guid: 9e275ba832b7ddf4b8dd047121219ad5, type: 3}

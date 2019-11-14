@@ -12,7 +12,7 @@ public class ItemManager:MenuManagerBase
     GameObject itemButtonPrefab;
     List<GameObject> itemButtons;
     bool panelOn = false;
-    Item showItem;  
+    Item showItem;
     ItemListSort sort;
     public ItemManager(MenuManager m):base(m)
     {

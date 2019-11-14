@@ -12,3 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3a1b84e7b7d8b0429bd3b0881c02629, type: 3}
   m_Name: kab
   m_EditorClassIdentifier: 
+  data:
+    name: "\u304B\u3089"
+    icon: {fileID: 0}
+    nowGrowth: 0
+    growthSpeed: 0
+    soilState: 0
+    quality: 50
+    upQuality: 0
+    downQuality: 0
+    plantState: 0
+    info: 
+    defValue: 0
+    getValue: 0

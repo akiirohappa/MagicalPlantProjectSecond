@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "SoundList", menuName = "SoundList")]
-//[SerializeField]
+[System.Serializable]
 public class SoundList : ScriptableObject
 {
-    
-    public List<SoundData> BGMs = new List<SoundData>();
-    public List<SoundData> SEs = new List<SoundData>();
+    int a;
+    public List<SoundData> BGMs;
+    public List<SoundData> SEs;
 }

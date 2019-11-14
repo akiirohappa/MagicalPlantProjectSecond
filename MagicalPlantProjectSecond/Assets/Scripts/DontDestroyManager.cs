@@ -5,9 +5,9 @@ using UnityEngine;
 public class DontDestroyManager : MonoBehaviour
 {
     static public DontDestroyManager my;
-
+    public SoundManager sound;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         if (my == null)
         {
@@ -18,6 +18,17 @@ public class DontDestroyManager : MonoBehaviour
         {
             Destroy(this);
         }
+        sound = GetComponent<SoundManager>();
     }
-    
+    private void Update()
+    {
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    StartCoroutine(sound.FadeIn());
+        //}
+        //else if (Input.GetMouseButtonDown(1))
+        //{
+        //    StartCoroutine(sound.FadeOut());
+        //}
+    }
 }
