@@ -2,11 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+public enum SoundType
+{
+    Master,
+    BGM,
+    SE,
+
+}
 public class SoundManager : MonoBehaviour
 {
     [SerializeField] AudioSource BGM;
     [SerializeField] AudioSource SE;
     [SerializeField] AudioMixer audioMixer;
+    public AudioMixer Mixer
+    {
+        get { return audioMixer;  }
+    }
     [SerializeField] SoundList sound;
     [SerializeField] float fadeNowValue = 0f;
     //BGMを再生、ループはデフォルトでtrue
@@ -30,8 +41,13 @@ public class SoundManager : MonoBehaviour
         {
             Debug.Log(key + "は見つかりませんでした");
         }
-        BGM.loop = loop;
-        BGM.Play();
+        else
+        {
+            BGM.clip = clip;
+            BGM.loop = loop;
+            BGM.Play();
+        }
+
     }
     //SEを再生
     public void PlaySE(string key)
@@ -49,7 +65,12 @@ public class SoundManager : MonoBehaviour
         {
             Debug.Log(key + "は見つかりませんでした");
         }
-        SE.Play();
+        else
+        {
+            //SE.clip = clip;
+            SE.PlayOneShot(clip);
+        }
+       
     }
     public IEnumerator FadeIn()
     {
@@ -57,7 +78,7 @@ public class SoundManager : MonoBehaviour
         while (true)
         {
             fadeNowValue += 0.15f;
-            SetVolume("BGMVolume", fadeNowValue);
+            SetVolume(SoundType.BGM, fadeNowValue);
             if(fadeNowValue >= 0)
             {
                 break;
@@ -71,7 +92,7 @@ public class SoundManager : MonoBehaviour
         while (true)
         {
             fadeNowValue -= 0.15f;
-            SetVolume("BGMVolume", fadeNowValue);
+            SetVolume(SoundType.BGM, fadeNowValue);
             if (fadeNowValue <= -80)
             {
                 break;
@@ -80,8 +101,38 @@ public class SoundManager : MonoBehaviour
         }
     }
     //音量調整
-    public void SetVolume(string name,float vol)
+    public void SetVolume(SoundType s,float vol)
     {
-        audioMixer.SetFloat(name, vol);
+        string name;
+        switch (s)
+        {
+            case SoundType.BGM:
+                name = "BGMVolume";
+                break;
+            case SoundType.SE:
+                name = "SEVolume";
+                break;
+            case SoundType.Master:
+                name = "MasterVolume";
+                break;
+            default:
+                name = "";
+                break;
+        }
+        if(name != "")
+        {
+            audioMixer.SetFloat(name, vol);
+        }
+        else
+        {
+            Debug.Log("再生できません。");
+        } 
+    }
+    //コンフィグデータから音量丸ごとセット
+    public void ConfigSet(ConfigData c)
+    {
+        SetVolume(SoundType.Master, c.MasterVol);
+        SetVolume(SoundType.BGM, c.BGMVol);
+        SetVolume(SoundType.SE, c.SEVol);
     }
 }

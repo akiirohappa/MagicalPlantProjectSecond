@@ -34,7 +34,7 @@ public class TitleManager : MonoBehaviour
     }
     public void NewGame()
     {
-        LoadMainScene(new SaveData());
+        DontDestroyManager.my.Scene.LoadScene("Main");
     }
     public void LoadGame()
     {
@@ -55,6 +55,6 @@ public class TitleManager : MonoBehaviour
     }
     void LoadMainScene(SaveData sd)
     {
-
+        DontDestroyManager.my.Scene.LoadScene("Main",sd);
     }
 }

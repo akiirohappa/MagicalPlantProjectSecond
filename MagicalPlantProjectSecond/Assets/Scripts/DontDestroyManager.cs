@@ -5,7 +5,16 @@ using UnityEngine;
 public class DontDestroyManager : MonoBehaviour
 {
     static public DontDestroyManager my;
-    public SoundManager sound;
+    SoundManager sound;
+    SceneChangeManager scene;
+    public SoundManager Sound
+    {
+        get { return sound; }
+    }
+    public SceneChangeManager Scene
+    {
+        get { return scene; }
+    }
     // Start is called before the first frame update
     void Awake()
     {
@@ -19,6 +28,7 @@ public class DontDestroyManager : MonoBehaviour
             Destroy(this);
         }
         sound = GetComponent<SoundManager>();
+        scene = GetComponent<SceneChangeManager>();
     }
     private void Update()
     {
@@ -31,4 +41,5 @@ public class DontDestroyManager : MonoBehaviour
         //    StartCoroutine(sound.FadeOut());
         //}
     }
+    
 }

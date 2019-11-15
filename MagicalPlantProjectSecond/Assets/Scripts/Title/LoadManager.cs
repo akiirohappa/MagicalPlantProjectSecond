@@ -53,6 +53,7 @@ public class LoadManager
             SaveData sd = sl.Load(i);
             if (sd != null)
             {
+                Debug.Log(sd.myItems);
                 saveButtons[i].transform.GetChild(1).GetComponent<TextMeshProUGUI>().text =
                     sd.time.year + "年　" +
                     sd.time.SeasonToStr + "　" +
@@ -68,6 +69,7 @@ public class LoadManager
             else
             {
                 saveButtons[i].transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "から";
+                saveButtons[i].transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = "";
             }
         }
     }

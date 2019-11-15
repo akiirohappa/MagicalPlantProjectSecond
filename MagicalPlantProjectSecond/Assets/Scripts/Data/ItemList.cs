@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
+
 public class ItemList
 {
     List<Item> list;
@@ -33,5 +33,19 @@ public class ItemList
         }
         item.itemNum = num;
         list.Add(item);
+    }
+    public void SetItemList(List<Item> i)
+    {
+        list = i;
+    }
+}
+[System.Serializable]
+public class ItemListForSave
+{
+    public Item[] list;
+
+    public ItemListForSave(List<Item> i)
+    {
+        list = i.ToArray();
     }
 }

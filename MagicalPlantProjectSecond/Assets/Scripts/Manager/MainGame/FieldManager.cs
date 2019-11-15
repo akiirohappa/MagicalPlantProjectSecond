@@ -129,3 +129,12 @@ public class FieldManager
         myField = pls;
     }
 }
+[System.Serializable]
+public class PlantDataForSave
+{
+    public PlantDataForSave(Plant[] p)
+    {
+        plants = p;
+    }
+    public Plant[] plants;
+}

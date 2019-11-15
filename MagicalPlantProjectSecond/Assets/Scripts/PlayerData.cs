@@ -45,8 +45,26 @@ public class PlayerData
     }
     public ItemList Item
     {
-        get { return item; }
+        get
+        {
+            if(item == null)
+            {
+                item = new ItemList();
+            }
+            return item;
+        }
         set { item = value; }
+    }
+    public List<Item> ListItem
+    {
+        get
+        {
+            if(Item.Item == null)
+            {
+                item.SetItemList(new List<Item>());
+            }
+            return item.Item;
+        }
     }
     private PlayerData()
     {
@@ -57,7 +75,7 @@ public class PlayerData
         mm = MainManager.GetInstance;
         money = 5000000000000000;
         mm.View.MoneySet(money);
-        item = new ItemList();
+        //item = new ItemList();
         time = TimeManager.GetInstance().GetTime();
     }
 }

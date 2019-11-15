@@ -65,7 +65,7 @@ public class ShopManager:MenuManagerBase
         ItemData[] items = Resources.LoadAll<ItemData>("Item");
         foreach(ItemData i in items)
         {
-            ShopList[ItemType.Seed].Item.Add(i.GetItem());
+            ShopList[ItemType.Seed].Item.Add(new Item(i));
         }
         
     }
@@ -272,6 +272,7 @@ public class ShopManager:MenuManagerBase
     }
     public override void PlessItemButton(Item item)
     {
+        ObjectActive( state = ShopState.GoodsSelect);
         if(item != null)
         {
             nowViewItem = item;

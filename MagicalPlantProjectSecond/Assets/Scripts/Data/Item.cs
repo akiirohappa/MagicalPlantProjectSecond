@@ -23,6 +23,22 @@ public class Item
         itemNum = 0;
         getValue = pl.getValue;
     }
+    public Item(ItemData id)
+    {
+        itemName = id.itemName;
+        itemType = id.itemType;
+        defaltValue = id.defaltValue;
+        growthSpeed = id.growthSpeed;
+        quality = id.quality;
+        upQuality = id.upQuality;
+        downQuality = id.downQuality;
+        sellPrice = id.sellPrice;
+        getValue = id.getValue;
+        icon = id.icon;
+        info = id.info;
+        itemNum = id.itemNum;
+        vestSeason = id.vestSeason;
+    }
     public string itemName;
     public ItemType itemType;
     public int defaltValue;

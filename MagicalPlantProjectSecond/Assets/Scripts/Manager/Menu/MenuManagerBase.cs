@@ -25,6 +25,10 @@ public abstract class  MenuManagerBase
     {
         Debug.Log("アイテムボタンの処理が空");
     }
+    public virtual void SliderChange(float f)
+    {
+        Debug.Log("スライダー処理が空ですよー");
+    }
     public virtual void Open()
     {
         myObjct.SetActive(true);

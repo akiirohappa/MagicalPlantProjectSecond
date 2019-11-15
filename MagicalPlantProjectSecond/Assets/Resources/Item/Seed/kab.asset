@@ -12,8 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3311b6188d1b3bd48959b8eff3558bb8, type: 3}
   m_Name: kab
   m_EditorClassIdentifier: 
+  itemName: "\u30AB\u30D6\u306E\u7A2E"
+  itemType: 0
+  defaltValue: 10
+  growthSpeed: 20
+  quality: 50
+  upQuality: 10
+  downQuality: 10
+  sellPrice: 30
+  getValue: 1
+  icon: {fileID: 21300000, guid: 6a822e8a73ce91549800d7d796336e99, type: 3}
+  info: "\u30AB\u30D6\u3067\u3059"
+  itemNum: 0
+  vestSeason: 0
   data:
-    itemName: "\u30AB\u30D6"
+    itemName: "\u30AB\u30D6\u306E\u7A2E"
     itemType: 0
     defaltValue: 10
     growthSpeed: 15

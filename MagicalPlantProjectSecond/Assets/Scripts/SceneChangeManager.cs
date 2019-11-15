@@ -7,10 +7,11 @@ public class SceneChangeManager : MonoBehaviour
 {
     LoadPanel load;
     [SerializeField]float loadminTime = 3f;
+    SaveAndLoad sl;
     private void Awake()
     {
         load = transform.GetChild(0).GetComponent<LoadPanel>();
-        LoadScene("Main");
+        
     }
 
     // Update is called once per frame
@@ -18,15 +19,15 @@ public class SceneChangeManager : MonoBehaviour
     {
         
     }
-    public void LoadScene(string name)
+    public void LoadScene(string name,SaveData s = null)
     {
         transform.GetChild(0).gameObject.SetActive(true);
-        StartCoroutine(Loading(name));
+        StartCoroutine(Loading(name,s));
     }
-    IEnumerator Loading(string name)
+    IEnumerator Loading(string name,SaveData s)
     {
         float time = 0;
-        while (true)
+        while (time >= loadminTime)
         {
             time += Time.deltaTime;
             if(time >= loadminTime)
@@ -43,6 +44,12 @@ public class SceneChangeManager : MonoBehaviour
             yield return null;
         }
         yield return new WaitForSeconds(0.1f);
+
         transform.GetChild(0).gameObject.SetActive(false);
+        if (s != null)
+        {
+            sl = new SaveAndLoad();
+            sl.SaveDataSet(s);
+        }
     }
 }

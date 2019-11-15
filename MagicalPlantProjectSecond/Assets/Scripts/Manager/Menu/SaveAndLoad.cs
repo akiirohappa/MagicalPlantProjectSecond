@@ -38,6 +38,7 @@ public class SaveAndLoad
         }
         string json = JsonUtility.ToJson(s);
         saveDatas[num] = json;
+//        Debug.Log(json);
         PlayerPrefs.SetString(saveDataPassBase + num, json);
         PlayerPrefs.Save();
     }
@@ -54,27 +55,30 @@ public class SaveAndLoad
         }
         return JsonUtility.FromJson<SaveData>(saveDatas[num]) ;
     }
-    //public void SaveDataSet(SaveData sd)
-    //{
-    //    TimeManager.GetInstance().GetTime().TimeSet(sd.time);
-    //    TimeManager.GetInstance().TimeSet(TimeManager.GetInstance().GetTime());
-    //    PlayerData.GetInstance().Item = sd.myItems;
-    //    FieldManager.GetInstance().SetFieldData(sd.plants);
-    //    PlayerData.GetInstance().Money = sd.money;
-    //}
+    public void SaveDataSet(SaveData sd)
+    {
+        TimeManager.GetInstance().GetTime().TimeSet(sd.time);
+        TimeManager.GetInstance().TimeSet(TimeManager.GetInstance().GetTime());
+        PlayerData.GetInstance().Item.SetItemList(sd.myItems.list.ToList());
+        FieldManager.GetInstance().SetFieldData(sd.plants.plants);
+        PlayerData.GetInstance().Money = sd.money;
+        DontDestroyManager.my.Sound.ConfigSet(sd.config);
+    }
 }
 public class SaveData
 {
     public SaveData()
     {
         time = new TimeForSave(TimeManager.GetInstance().GetTime());
-        plants = FieldManager.GetInstance().myField;
-        myItems = PlayerData.GetInstance().Item;
+        plants = new PlantDataForSave(FieldManager.GetInstance().myField);
+        myItems = new ItemListForSave(PlayerData.GetInstance().ListItem);
         money = PlayerData.GetInstance().Money;
+        config = new ConfigData();
+        config.CoufigLoad();
     }
     public TimeForSave time;
-    public ItemList myItems;
-    public Plant[] plants;
+    public ItemListForSave myItems;
+    public PlantDataForSave plants;
+    public ConfigData config;
     public long money;
-
 }

@@ -42,6 +42,7 @@ public class MenuManager : MonoBehaviour
         Menus[MenuState.Shop] = new ShopManager(this);
         Menus[MenuState.ItemSet] = new ItemSetManager(this);
         Menus[MenuState.Save] = new SaveManager(this);
+        Menus[MenuState.Config] = new ConfigManager(this);
     }
 
     // Update is called once per frame
@@ -119,6 +120,10 @@ public class MenuManager : MonoBehaviour
     {
         GameObject bt = eventSystem.currentSelectedGameObject;
         Menus[state].PlessItemButton(bt.GetComponent<ItemButton>().item);
+    }
+    public void SliderValue(float f)
+    {
+        Menus[state].SliderChange(f);
     }
     public void ButtonToMain()
     {

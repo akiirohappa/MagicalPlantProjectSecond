@@ -24,6 +24,7 @@ public class SaveManager:MenuManagerBase
     }
     public override void Open()
     {
+        DontDestroyManager.my.Sound.PlaySE("Submit_S");
         base.Open();
         cullentDataNum = -1;
         ButtonSetUp();
@@ -67,12 +68,15 @@ public class SaveManager:MenuManagerBase
     }
     public override void Submit()
     {
+        
         sl.Save(cullentDataNum, new SaveData());
+        DontDestroyManager.my.Sound.PlaySE("Submit_L");
         ButtonSetUp();
-        Cancel();
+        SaveDataShow(false);
     }
     public override void Cancel()
     {
+        DontDestroyManager.my.Sound.PlaySE("Cancel");
         SaveDataShow(false);
     }
     void SaveDataShow(bool b)
@@ -113,7 +117,7 @@ public class SaveManager:MenuManagerBase
             return;
         }
         cullentDataNum = num;
-
+        DontDestroyManager.my.Sound.PlaySE("Submit_S");
         SaveDataShow(true);
     }
 }
