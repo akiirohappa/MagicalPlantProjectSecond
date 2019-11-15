@@ -12,6 +12,8 @@ public class SoundListEditor : Editor
     EditorStyle style;
     bool foutB = false;
     bool foutS = false;
+    Vector2 posB = Vector2.zero;
+    Vector2 posS = Vector2.zero;
     public override void OnInspectorGUI()
     {
         if (style == null)
@@ -51,8 +53,10 @@ public class SoundListEditor : Editor
             }
         }
         EditorGUILayout.EndHorizontal();
+        
         if(foutB)
         {
+            posB = EditorGUILayout.BeginScrollView(posB,style.Styles["Child"],GUILayout.Height(250));
             if (list.BGMs.Count == 0)
             {
                 EditorGUILayout.BeginHorizontal(style.Styles["Child"],GUILayout.Height(35));
@@ -63,7 +67,7 @@ public class SoundListEditor : Editor
             }
             for (int i = 0; i < list.BGMs.Count; i++)
             {
-                EditorGUILayout.BeginHorizontal(style.Styles["Child"]);
+                EditorGUILayout.BeginHorizontal(style.skin.box);
                 {
                     EditorGUILayout.BeginVertical();
                     list.BGMs[i].key = EditorGUILayout.TextField("名前", list.BGMs[i].key);
@@ -76,7 +80,9 @@ public class SoundListEditor : Editor
                 }
                 EditorGUILayout.EndHorizontal();
             }
+            EditorGUILayout.EndScrollView();
         }
+        
         EditorGUILayout.BeginHorizontal(style.skin.box, GUILayout.Height(35));
         {
             if (GUILayout.Button((foutS ? "▼" : "▶") + "SE" + "　合計" + list.SEs.Count + "個", style.Styles["Button"], GUILayout.Height(35)))
@@ -92,6 +98,7 @@ public class SoundListEditor : Editor
         EditorGUILayout.EndHorizontal();
         if (foutS)
         {
+            posS = EditorGUILayout.BeginScrollView(posS, style.Styles["Child"], GUILayout.Height(250));
             if (list.SEs.Count == 0)
             {
                 EditorGUILayout.BeginHorizontal(style.Styles["Child"], GUILayout.Height(35));
@@ -102,7 +109,7 @@ public class SoundListEditor : Editor
             }
             for (int i = 0; i < list.SEs.Count; i++)
             {
-                EditorGUILayout.BeginHorizontal(style.Styles["Child"]);
+                EditorGUILayout.BeginHorizontal(style.skin.box);
                 {
                     EditorGUILayout.BeginVertical();
                     list.SEs[i].key = EditorGUILayout.TextField("名前", list.SEs[i].key);
@@ -115,6 +122,7 @@ public class SoundListEditor : Editor
                 }
                 EditorGUILayout.EndHorizontal();
             }
+            EditorGUILayout.EndScrollView();
         }
     }
 

@@ -7910,7 +7910,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1db30cb4a3aa96741bae1e6268bb331d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ExTime: 500
+  ExTime: 5
 --- !u!114 &507090923
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25264,7 +25264,7 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 0
+  m_ChildAlignment: 2
   m_Spacing: 0
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1

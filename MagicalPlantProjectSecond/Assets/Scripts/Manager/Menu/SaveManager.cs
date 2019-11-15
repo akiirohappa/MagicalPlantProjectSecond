@@ -39,7 +39,7 @@ public class SaveManager:MenuManagerBase
             {
                 saveButtons[i] = GameObject.Instantiate(saveButtonPref, saveButtonPer.transform);
                 int n = i;
-                saveButtons[i].GetComponent<Button>().onClick.AddListener(() => { mManager.ButtonEx(n.ToString()); });
+                saveButtons[i].GetComponent<Button>().onClick.AddListener(() => { mManager.ButtonEx(n.ToString());});
             }
         }
         for (int i = 0; i < saveButtons.Length; i++)

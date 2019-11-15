@@ -40,6 +40,10 @@ public class TitleManager : MonoBehaviour
     {
         load.Open();
     }
+    public void CloseLoad()
+    {
+        load.Close();
+    }
     public void SelectSaveData(int num)
     {
         load.cullentDataNum = num;

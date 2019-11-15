@@ -24,8 +24,8 @@ public class LoadManager
         sl = new SaveAndLoad();
         titleobj = GameObject.Find("Canvas").transform.Find("Title").gameObject;
         myobj = GameObject.Find("Canvas").transform.Find("LoadMenu").gameObject;
-        saveButtonPer = myobj.transform.GetChild(1).GetChild(0).GetChild(0).gameObject;
-        saveDataShow = myobj.transform.GetChild(2).gameObject;
+        saveButtonPer = myobj.transform.GetChild(2).GetChild(0).GetChild(0).gameObject;
+        saveDataShow = myobj.transform.GetChild(3).gameObject;
         saveButtonPref = Resources.Load<GameObject>("Prefabs/SaveButton");
     }
     public void Open()
@@ -33,6 +33,11 @@ public class LoadManager
         titleobj.SetActive(false);
         myobj.SetActive(true);
         ButtonSetUp();
+    }
+    public void Close()
+    {
+        titleobj.SetActive(true);
+        myobj.SetActive(false);
     }
     void ButtonSetUp()
     {
@@ -53,7 +58,6 @@ public class LoadManager
             SaveData sd = sl.Load(i);
             if (sd != null)
             {
-                Debug.Log(sd.myItems);
                 saveButtons[i].transform.GetChild(1).GetComponent<TextMeshProUGUI>().text =
                     sd.time.year + "年　" +
                     sd.time.SeasonToStr + "　" +

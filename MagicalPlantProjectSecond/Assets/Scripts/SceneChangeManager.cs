@@ -27,19 +27,16 @@ public class SceneChangeManager : MonoBehaviour
     IEnumerator Loading(string name,SaveData s)
     {
         float time = 0;
-        while (time >= loadminTime)
+        while (time <= loadminTime)
         {
             time += Time.deltaTime;
-            if(time >= loadminTime)
-            {
-                break;
-            }
             StartCoroutine(load.LoadingTextAnimation());
             yield return null;
         }
         AsyncOperation loadasync = SceneManager.LoadSceneAsync(name);
-        while (loadasync.isDone)
+        while (loadasync.isDone || time <= loadminTime)
         {
+            time += Time.deltaTime;
             StartCoroutine( load.LoadingTextAnimation());
             yield return null;
         }

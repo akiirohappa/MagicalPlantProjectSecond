@@ -28,7 +28,7 @@ public class LoadPanel : MonoBehaviour
             for (int i = 0; i < loadingTexts.Length; i++)
             {
                 loadingTexts[i].SetTrigger("Go");
-                yield return new WaitForSeconds(0.6f);
+                yield return new WaitForSeconds(0.5f);
             }
             isEnd = true;
         }
