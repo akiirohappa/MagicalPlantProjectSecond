@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ff578c3c369e384584e3d3dabc5eab2, type: 3}
+  m_Name: PlantTile
+  m_EditorClassIdentifier: 
+  plant0: {fileID: 11400000, guid: 8432edc926e8eb74c831b6e44c6ca0aa, type: 2}
+  plant20: {fileID: 11400000, guid: 4c8afc4863a2b734fb7eb9da333ee558, type: 2}
+  plant50: {fileID: 11400000, guid: 616043bb63e13bf41bee590c706541c0, type: 2}
+  plant70: {fileID: 11400000, guid: a2e7ab45e46a170468dc3ecfa88dc078, type: 2}
+  plant100: {fileID: 11400000, guid: f0c48e01f8aab10478ba3dca30601988, type: 2}

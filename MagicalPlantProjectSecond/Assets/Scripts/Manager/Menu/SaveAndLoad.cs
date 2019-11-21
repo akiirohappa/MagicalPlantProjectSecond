@@ -60,7 +60,12 @@ public class SaveAndLoad
         TimeManager.GetInstance().GetTime().TimeSet(sd.time);
         TimeManager.GetInstance().TimeSet(TimeManager.GetInstance().GetTime());
         PlayerData.GetInstance().Item.SetItemList(sd.myItems.list.ToList());
-        FieldManager.GetInstance().SetFieldData(sd.plants.plants);
+        Plant[] plants = new Plant[sd.plants.Length];
+        for(int i = 0;i < plants.Length; i++)
+        {
+            plants[i] = new Plant( sd.plants[i]);
+        }
+        FieldManager.GetInstance().SetFieldData(plants);
         PlayerData.GetInstance().Money = sd.money;
         DontDestroyManager.my.Sound.ConfigSet(sd.config);
     }
@@ -69,8 +74,15 @@ public class SaveData
 {
     public SaveData()
     {
+    }
+    public void SaveSet()
+    {
         time = new TimeForSave(TimeManager.GetInstance().GetTime());
-        plants = new PlantDataForSave(FieldManager.GetInstance().myField);
+        plants = new PlantDataForSave[25];
+        for (int i = 0; i < plants.Length; i++)
+        {
+            plants[i] = new PlantDataForSave(FieldManager.GetInstance().myField[i]);
+        }
         myItems = new ItemListForSave(PlayerData.GetInstance().ListItem);
         money = PlayerData.GetInstance().Money;
         config = new ConfigData();
@@ -78,7 +90,7 @@ public class SaveData
     }
     public TimeForSave time;
     public ItemListForSave myItems;
-    public PlantDataForSave plants;
+    public PlantDataForSave[] plants;
     public ConfigData config;
     public long money;
 }

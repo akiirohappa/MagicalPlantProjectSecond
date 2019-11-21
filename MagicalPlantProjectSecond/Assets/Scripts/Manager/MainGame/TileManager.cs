@@ -12,7 +12,17 @@ enum MapLayer
     Layer1,
     Layer2,
     Layer3,
+    PlantData,
     Event,
+}
+public enum PlantTileData
+{
+    None,
+    Zero,
+    Twenty,
+    Fifty,
+    Seventy,
+    Hundred,
 }
 public class TileManager
 {
@@ -22,6 +32,7 @@ public class TileManager
     TileBase tiletest;
     List<Vector3Int> plantFieldPos;
     Sprite[] eventTiles;
+    Dictionary<PlantTileData, Tile> PlantTiles;
     private TileManager()
     {
 
@@ -31,6 +42,14 @@ public class TileManager
         eventTiles = Resources.LoadAll<Sprite>("Tile/EventTile");
         TileMapSet();
         TileFieldSet(tiles[MapLayer.Event]);
+        PlantTiles = new Dictionary<PlantTileData, Tile>();
+        PlantTile p = Resources.Load<PlantTile>("PlantTile");
+        PlantTiles[PlantTileData.None] = null;
+        PlantTiles[PlantTileData.Zero] = p.plant0;
+        PlantTiles[PlantTileData.Twenty] = p.plant20;
+        PlantTiles[PlantTileData.Fifty] = p.plant50;
+        PlantTiles[PlantTileData.Seventy] = p.plant70;
+        PlantTiles[PlantTileData.Hundred] = p.plant100;
     }
     public static TileManager GetInstance()
     {
@@ -48,7 +67,9 @@ public class TileManager
         tiles[MapLayer.Layer1] = grid.transform.GetChild(1).GetComponent<Tilemap>();
         tiles[MapLayer.Layer2] = grid.transform.GetChild(2).GetComponent<Tilemap>();
         tiles[MapLayer.Layer3] = grid.transform.GetChild(3).GetComponent<Tilemap>();
-        tiles[MapLayer.Event] = grid.transform.GetChild(4).GetComponent<Tilemap>();
+        tiles[MapLayer.PlantData] = grid.transform.GetChild(4).GetComponent<Tilemap>();
+        tiles[MapLayer.Event] = grid.transform.GetChild(5).GetComponent<Tilemap>();
+        
     }
     //渡された座標にイベントが仕込まれているかを取得
     public int GetTileEvent(Vector3Int vec)
@@ -113,5 +134,10 @@ public class TileManager
     public Vector3 CellToWorldPos(Vector3Int pos)
     {
         return grid.CellToWorld(pos); ;
+    }
+    //畑描画用タイルマップの書き換え
+    public void ReWritePlantTile(PlantTileData tile,Vector3Int pos)
+    {
+        tiles[MapLayer.PlantData].SetTile(pos, PlantTiles[tile]);
     }
 }

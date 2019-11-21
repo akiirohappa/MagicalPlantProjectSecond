@@ -34,7 +34,7 @@ public class TimeManager
         mm = MainManager.GetInstance;
         time.preHour = 0;
         time.preMinit = 0;
-        //TimeSet(time);
+        TimeSet(time);
     }
     public TimeData GetTime()
     {

@@ -61,4 +61,8 @@ public class TitleManager : MonoBehaviour
     {
         DontDestroyManager.my.Scene.LoadScene("Main",sd);
     }
+    public void SaveReset()
+    {
+        PlayerPrefs.DeleteAll();
+    }
 }

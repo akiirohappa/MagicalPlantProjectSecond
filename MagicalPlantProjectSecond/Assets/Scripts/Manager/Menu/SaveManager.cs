@@ -68,8 +68,9 @@ public class SaveManager:MenuManagerBase
     }
     public override void Submit()
     {
-        
-        sl.Save(cullentDataNum, new SaveData());
+        SaveData s = new SaveData();
+        s.SaveSet();
+        sl.Save(cullentDataNum, s);
         DontDestroyManager.my.Sound.PlaySE("Submit_L");
         ButtonSetUp();
         SaveDataShow(false);
