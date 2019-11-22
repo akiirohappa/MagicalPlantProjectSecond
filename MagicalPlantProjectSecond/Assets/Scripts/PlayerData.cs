@@ -76,6 +76,6 @@ public class PlayerData
         money = 5000000000000000;
         mm.View.MoneySet(money);
         //item = new ItemList();
-        time = TimeManager.GetInstance().GetTime();
+        time = TimeManager.GetInstance().Time;
     }
 }

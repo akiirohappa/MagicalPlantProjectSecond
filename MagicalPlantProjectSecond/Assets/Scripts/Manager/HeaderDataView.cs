@@ -44,11 +44,8 @@ public class HeaderDataView
     public void TimeSet(TimeData time)
     {
         float longf = Mathf.Floor(time.minit) * 6;
-        
-
         clockLong.transform.Rotate(0, 0, -longf);
         float shortf = time.hour * 30;
-        Debug.Log(shortf);
         clockShort.transform.Rotate(0, 0, -shortf);
     }
     public void MoneySet(long money)

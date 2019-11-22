@@ -18,8 +18,23 @@ public class SoundManager : MonoBehaviour
     {
         get { return audioMixer;  }
     }
+    public AudioSource Bgm
+    {
+        get
+        {
+            return BGM;
+        }
+    }
+    public AudioSource Se
+    {
+        get
+        {
+            return SE;
+        }
+    }
     [SerializeField] SoundList sound;
     [SerializeField] float fadeNowValue = 0f;
+    float fadeBGMvolume;
     //BGMを再生、ループはデフォルトでtrue
     //keyに"Stop"と入れると停止
     public void PlayBGM(string key,bool loop = true)
@@ -89,6 +104,7 @@ public class SoundManager : MonoBehaviour
     public IEnumerator FadeOut()
     {
         fadeNowValue = 0;
+        fadeBGMvolume = BGM.volume;
         while (true)
         {
             fadeNowValue -= 0.15f;
@@ -103,30 +119,20 @@ public class SoundManager : MonoBehaviour
     //音量調整
     public void SetVolume(SoundType s,float vol)
     {
-        string name;
         switch (s)
         {
             case SoundType.BGM:
-                name = "BGMVolume";
+                BGM.volume = vol;
                 break;
             case SoundType.SE:
-                name = "SEVolume";
+                SE.volume = vol;
                 break;
             case SoundType.Master:
-                name = "MasterVolume";
+                audioMixer.SetFloat("MasterVolume", vol);
                 break;
             default:
-                name = "";
                 break;
         }
-        if(name != "")
-        {
-            audioMixer.SetFloat(name, vol);
-        }
-        else
-        {
-            Debug.Log("再生できません。");
-        } 
     }
     //コンフィグデータから音量丸ごとセット
     public void ConfigSet(ConfigData c)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using UnityEngine.SceneManagement;
 
 public class AudioPlayer : EditorWindow
 {
@@ -26,7 +27,8 @@ public class AudioPlayer : EditorWindow
                     s = g.AddComponent<AudioSource>();
                 }
                 s.hideFlags = HideFlags.HideAndDontSave;
-                s.volume = volume;
+                s.gameObject.hideFlags = HideFlags.HideAndDontSave;
+                s.volume = 0.1f;
             }
             return s;
         }
@@ -37,7 +39,6 @@ public class AudioPlayer : EditorWindow
     }
 
     public static GameObject g;
-    float volume = 0.1f;
     static int playNum = 0;
     int PlayNumChange
     {
@@ -92,7 +93,6 @@ public class AudioPlayer : EditorWindow
 
     static void GamePlayAct(PlayModeStateChange state)
     {
-        Debug.Log("a");
         if (state == PlayModeStateChange.EnteredPlayMode)
         {
             DontDestroyOnLoad(g);
@@ -107,7 +107,6 @@ public class AudioPlayer : EditorWindow
             EditorWindow w = GetWindow<AudioPlayer>("サウンドプレイヤー☆彡");
             w.maxSize = new Vector2(300f, 200f);
             w.minSize = new Vector2(300f, 200f);
-            
         }
         else
         {
@@ -214,26 +213,13 @@ public class AudioPlayer : EditorWindow
     
     private void OnGUI()
     {
-        bool b = false;
-        if (s != null)
-        {
-            b = Source.loop;
-        }
         if(clip == null)
         {
             clip = Audios[0];
+            Source.clip = clip;
         }
-        float f = EditorGUILayout.Slider("音量", volume, 0, 1);
-        if (f != volume)
-        {
-            volume = f;
-            Source.volume = volume;
-        }
-        b = EditorGUILayout.Toggle("ループ", b);
-        if(s != null)
-        {
-            Source.loop = b;
-        }
+        Source.volume = EditorGUILayout.Slider("音量", Source.volume, 0, 1);
+        Source.loop = EditorGUILayout.Toggle("ループ", Source.loop);
         EditorGUILayout.BeginHorizontal();
         if (GUILayout.Button("⇦", GUILayout.Width(40), GUILayout.Height(40)))
         {
@@ -242,6 +228,7 @@ public class AudioPlayer : EditorWindow
                 PlayNumChange--;
                 if (!Source.isPlaying)
                 {
+                    Source.time = 0;
                     Source.Play();
                 }
             }
@@ -270,6 +257,7 @@ public class AudioPlayer : EditorWindow
                 PlayNumChange++;
                 if (!Source.isPlaying)
                 {
+                    Source.time = 0;
                     Source.Play();
                 }
             }
@@ -280,15 +268,22 @@ public class AudioPlayer : EditorWindow
         {
             DestroyImmediate(Source.gameObject);
         }
-        GUILayout.Space(40);
+        GUILayout.Space(28);
         EditorGUILayout.BeginVertical();
-        if (clip != null)
+        if (Source.clip != null)
         {
             EditorGUILayout.LabelField(playNum+1 + "曲目　"+(Source.isPlaying ? "　　再生中" : "一時停止中") + "：" + clip.name);
+            float f;
+            f = EditorGUILayout.Slider(Source.time,0, Source.clip.length);
+            if(f != Source.time)
+            {
+                Source.time = f;
+            }
+
         }
         else
         {
-            GUILayout.Space(16);
+            GUILayout.Space(32);
         }
         EditorGUILayout.EndVertical();
         EditorGUILayout.BeginHorizontal();
@@ -326,12 +321,18 @@ public static class AudioPlayerSub
         if (state == PlayModeStateChange.EnteredPlayMode)
         {
             GameObject g = GameObject.Find("Audio");
+            
             if (g == null)
             {
                 return;
             }
+            AudioSource s = g.GetComponent<AudioSource>();
+            if (s == null)
+            {
+                return;
+            }
             GameObject.DontDestroyOnLoad(g);
-            GameObject.DontDestroyOnLoad(g.GetComponent<AudioSource>());
+            //GameObject.DontDestroyOnLoad(s);
         }
     }
 }

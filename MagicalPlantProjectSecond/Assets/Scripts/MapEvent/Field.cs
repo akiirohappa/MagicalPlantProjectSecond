@@ -63,22 +63,24 @@ class Field:MapEventBase
         {
             case PlantState.None:
                 ButtonTextSet(events[0].objText, events[0].eventText, buttonList[buttnCount++]);
+                ButtonTextSet(events[1].objText, events[1].eventText, buttonList[buttnCount++]);
                 break;
             case PlantState.Growth:
                 ButtonTextSet(events[2].objText, events[2].eventText, buttonList[buttnCount++]);
+                ButtonTextSet(events[1].objText, events[1].eventText, buttonList[buttnCount++]);
                 break;
             case PlantState.Harvest:
                 ButtonTextSet(events[3].objText, events[3].eventText, buttonList[buttnCount++]);
+                ButtonTextSet(events[1].objText, events[1].eventText, buttonList[buttnCount++]);
                 break;
             default:
                 break;
         }
-        ButtonTextSet(events[1].objText, events[1].eventText, buttonList[buttnCount++]);
+        
         ButtonTextSet("何もしない", "None", buttonList[buttnCount++]);
     }
     public override void EventStart(string text)
     {
-        Debug.Log(pos);
         //種を植える
         if (text == events[0].eventText)
         {

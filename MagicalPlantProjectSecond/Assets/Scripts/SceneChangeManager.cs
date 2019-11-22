@@ -8,6 +8,7 @@ public class SceneChangeManager : MonoBehaviour
     LoadPanel load;
     [SerializeField]float loadminTime = 3f;
     SaveAndLoad sl;
+    public SaveData s;
     private void Awake()
     {
         load = transform.GetChild(0).GetComponent<LoadPanel>();
@@ -45,8 +46,13 @@ public class SceneChangeManager : MonoBehaviour
         transform.GetChild(0).gameObject.SetActive(false);
         if (s != null)
         {
+            this.s = s;
             sl = new SaveAndLoad();
             sl.SaveDataSet(s);
+        }
+        else
+        {
+            TimeManager.GetInstance().TimeSet(TimeManager.GetInstance().Time);
         }
     }
 }

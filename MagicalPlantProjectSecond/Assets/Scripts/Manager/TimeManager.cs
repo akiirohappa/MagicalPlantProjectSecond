@@ -30,35 +30,36 @@ public class TimeManager
     }
     public void Start()
     {
-        time = new TimeData();
         mm = MainManager.GetInstance;
-        time.preHour = 0;
-        time.preMinit = 0;
         //TimeSet(time);
     }
-    public TimeData GetTime()
+    public TimeData Time
     {
-        if(time == null)
+        get
         {
-            time = new TimeData();
+            if (time == null)
+            {
+                time = new TimeData();
+            }
+            return time;
         }
-        return time;
+
     }
     public void TimeCalc(float speed)
     {
-        time.minit += Time.deltaTime * speed;
-        if(time.minit >= 60)
+        Time.minit += UnityEngine.Time.deltaTime * speed;
+        if(Time.minit >= 60)
         {
-            time.minit -= 60;
-            time.hour++;
+            Time.minit -= 60;
+            Time.hour++;
         }
-        if(time.hour == 24)
+        if(Time.hour == 24)
         {
             time.hour = 0;
             time.day++;
             FieldManager.GetInstance().PlantGrowth();
         }
-        if(time.day == 31)
+        if(Time.day == 31)
         {
             time.day = 1;
             switch (time.nowSeason)
@@ -80,7 +81,7 @@ public class TimeManager
                     break;
             }
         }
-        mm.View.TimeView(time,speed);
+        mm.View.TimeView(Time,speed);
     }
     public void TimeSet(TimeData newTime)
     {
@@ -89,14 +90,13 @@ public class TimeManager
         float shortf = time.hour * 30;
         time.preMinit = Mathf.Floor(time.minit);
         time.preHour = time.hour;
-        Debug.Log(time.hour + ":" + time.minit);
-        mm.View.TimeSet(newTime);
+        MainManager.GetInstance.View.TimeSet(newTime);
     }
     public void TimeSet(TimeForSave newTime)
     {
-        time.TimeSet(newTime);
-        time.preHour = time.hour;
-        time.preMinit = time.minit;
+        Time.TimeSet(newTime);
+        //time.preHour = time.hour;
+        //time.preMinit = time.minit;
         
     }
 }
@@ -115,6 +115,8 @@ public class TimeData
         day = 1;
         hour = 7;
         minit = 0;
+        preHour = hour;
+        preMinit = minit;
         nowSeason = SeasonData.Spring;
     }
     public void TimeSet(TimeForSave t)

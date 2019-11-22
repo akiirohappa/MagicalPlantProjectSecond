@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3311b6188d1b3bd48959b8eff3558bb8, type: 3}
+  m_Name: 05_siitake
+  m_EditorClassIdentifier: 
+  itemName: "\u3057\u3044\u305F\u3051\u306E\u7A2E"
+  itemType: 0
+  defaltValue: 20000
+  growthSpeed: 10
+  quality: 50
+  upQuality: 20
+  downQuality: 30
+  sellPrice: 30
+  getValue: 1
+  icon: {fileID: 21300000, guid: a257d1c97ed9e4f48a1f01e2392ff2d7, type: 3}
+  info: "\u3059\u3054\u304F\u304A\u9AD8\u3044\u91CE\u83DC\u3067\u3059\u3089\u306A\u3044\u3082\u306E\u3002\n\u30AD\u30CE\u30B3\u306E\u7A2E\u3082\u5B58\u5728\u3059\u308B\u3002\n\u305D\u3046\u3001\u3053\u306E\u4E16\u754C\u306A\u3089\u306D\u3002"
+  itemNum: 0
+  vestSeason: 2
+  data:
+    itemName: "\u30AB\u30D6\u306E\u7A2E"
+    itemType: 0
+    defaltValue: 10
+    growthSpeed: 15
+    quality: 50
+    upQuality: 5
+    downQuality: 3
+    sellPrice: 20
+    getValue: 1
+    icon: {fileID: 21300000, guid: 6a822e8a73ce91549800d7d796336e99, type: 3}
+    info: "\u306A\u305C\u304B\u3053\u306E\u4E16\u754C\u3067\u4EBA\u6C17\u306A\u91CE\u83DC\u3002\n\u521D\u5FC3\u8005\u306B\u304A\u3059\u3059\u3081\u3002"
+    itemNum: 0
+    vestSeason: 0

@@ -11,13 +11,13 @@ public class ConfigData
     public ConfigData()
     {
         MasterVol = -20f;
-        BGMVol = -20f;
-        SEVol = -20f;
+        BGMVol = 0.5f;
+        SEVol = 0.5f;
     }
     public void CoufigLoad()
     {
         DontDestroyManager.my.Sound.Mixer.GetFloat("MasterVolume",out MasterVol);
-        DontDestroyManager.my.Sound.Mixer.GetFloat("BGMVolume", out BGMVol);
-        DontDestroyManager.my.Sound.Mixer.GetFloat("SEVolume", out SEVol);
+        BGMVol = DontDestroyManager.my.Sound.Bgm.volume;
+        SEVol = DontDestroyManager.my.Sound.Se.volume;
     }
 }

@@ -58,7 +58,7 @@ public class SaveAndLoad
     public void SaveDataSet(SaveData sd)
     {
         TimeManager.GetInstance().TimeSet(sd.time);
-        TimeManager.GetInstance().TimeSet(TimeManager.GetInstance().GetTime());
+        TimeManager.GetInstance().TimeSet(TimeManager.GetInstance().Time);
         PlayerData.GetInstance().Item.SetItemList(sd.myItems.list.ToList());
         Plant[] plants = new Plant[sd.plants.Length];
         for(int i = 0;i < plants.Length; i++)
@@ -77,7 +77,7 @@ public class SaveData
     }
     public void SaveSet()
     {
-        time = new TimeForSave(TimeManager.GetInstance().GetTime());
+        time = new TimeForSave(TimeManager.GetInstance().Time);
         plants = new PlantDataForSave[25];
         for (int i = 0; i < plants.Length; i++)
         {

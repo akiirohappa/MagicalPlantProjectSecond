@@ -47,8 +47,11 @@ public class MapEventManager
     public void CheckEvent()
     {
         Vector3Int vec = TileManager.GetInstance().MousePosToCell();
+        if(vec.x == 99999)
+        {
+            return;
+        }
         MapEventBase m = MapEventGet(vec);
-        
         if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
         {
             if (m != null)
@@ -71,14 +74,13 @@ public class MapEventManager
                         buttonPressd = false;
                     }
                 }
-
             }
             else
             {
                 if (menu.state == MenuState.EventSelect)
                 {
                     //cullentMenu != null &&
-                    if ( !buttonPressd)
+                    if (!buttonPressd)
                     {
                         cullentMenu.MenuClose();
                         FieldManager.GetInstance().View.PlantVSetActive(false);

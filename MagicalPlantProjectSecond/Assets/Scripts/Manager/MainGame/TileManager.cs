@@ -126,6 +126,10 @@ public class TileManager
     public Vector3Int MousePosToCell()
     {
         Vector3 pos = Input.mousePosition;
+        if(pos.x > Screen.width && pos.y > Screen.height)
+        {
+            return new Vector3Int(99999, 99999, 99999);
+        }
         pos.z = 10f;
         pos = Camera.main.ScreenToWorldPoint(pos);
         Vector3Int cellpos = grid.WorldToCell(pos);
