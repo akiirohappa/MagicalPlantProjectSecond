@@ -34,7 +34,7 @@ public class TimeManager
         mm = MainManager.GetInstance;
         time.preHour = 0;
         time.preMinit = 0;
-        TimeSet(time);
+        //TimeSet(time);
     }
     public TimeData GetTime()
     {
@@ -89,7 +89,15 @@ public class TimeManager
         float shortf = time.hour * 30;
         time.preMinit = Mathf.Floor(time.minit);
         time.preHour = time.hour;
+        Debug.Log(time.hour + ":" + time.minit);
         mm.View.TimeSet(newTime);
+    }
+    public void TimeSet(TimeForSave newTime)
+    {
+        time.TimeSet(newTime);
+        time.preHour = time.hour;
+        time.preMinit = time.minit;
+        
     }
 }
 public class TimeData
@@ -115,6 +123,8 @@ public class TimeData
         day = t.day;
         hour = t.hour;
         minit = t.minit;
+        preHour = t.preHour;
+        preMinit = t.preMinit;
         nowSeason = t.nowSeason;
     }
     public string SeasonToStr
@@ -144,6 +154,8 @@ public class TimeForSave
     public int day;
     public int hour;
     public float minit;
+    public int preHour;
+    public float preMinit;
     public SeasonData nowSeason;
     public string SeasonToStr
     {
@@ -170,6 +182,8 @@ public class TimeForSave
         day = t.day;
         hour = t.hour;
         minit = t.minit;
+        preHour = t.preHour;
+        preMinit = t.preMinit;
         nowSeason = t.nowSeason;
     }
 }

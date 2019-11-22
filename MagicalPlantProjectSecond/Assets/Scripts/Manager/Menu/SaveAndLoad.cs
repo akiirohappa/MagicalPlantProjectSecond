@@ -57,7 +57,7 @@ public class SaveAndLoad
     }
     public void SaveDataSet(SaveData sd)
     {
-        TimeManager.GetInstance().GetTime().TimeSet(sd.time);
+        TimeManager.GetInstance().TimeSet(sd.time);
         TimeManager.GetInstance().TimeSet(TimeManager.GetInstance().GetTime());
         PlayerData.GetInstance().Item.SetItemList(sd.myItems.list.ToList());
         Plant[] plants = new Plant[sd.plants.Length];
