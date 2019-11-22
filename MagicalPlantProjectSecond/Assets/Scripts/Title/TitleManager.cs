@@ -8,12 +8,14 @@ public class TitleManager : MonoBehaviour
     TitleBackGround bg;
     GameObject plantObj;
     LoadManager load;
+    RectTransform rect;
     // Start is called before the first frame update
     void Start()
     {
         bg = new TitleBackGround();
         plantObj = Resources.Load<GameObject>("Prefabs/TitleBackObj");
         load = new LoadManager(this);
+        rect = GameObject.Find("Canvas").GetComponent<RectTransform>();
     }
 
     // Update is called once per frame
@@ -26,9 +28,9 @@ public class TitleManager : MonoBehaviour
     {
         if(Random.Range(0,300) < 1)
         {
-            float posy = GameObject.Find("Canvas").GetComponent<RectTransform>().sizeDelta.y;
-            float pos = Random.Range(100, posy-200);
-            GameObject g = Instantiate(plantObj, new Vector3(900, pos),new Quaternion(),GameObject.Find("BackGroundObj").transform);
+            float pos = Random.Range(-310,310);
+            GameObject g = Instantiate(plantObj,GameObject.Find("BackGroundObj").transform);
+            g.transform.localPosition = new Vector3(720, pos);
             g.GetComponent<TitlePlantObj>().SetPlantImage(Resources.Load<Sprite>("PlantImages/kab"));
         }
     }
@@ -60,6 +62,14 @@ public class TitleManager : MonoBehaviour
     void LoadMainScene(SaveData sd)
     {
         DontDestroyManager.my.Scene.LoadScene("Main",sd);
+    }
+    public void GameEnd()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else 
+        Application.Quit();
+#endif
     }
     public void SaveReset()
     {
