@@ -11,7 +11,7 @@ public class ItemManager:MenuManagerBase
     GameObject infoPanel;
     GameObject itemButtonPrefab;
     List<GameObject> itemButtons;
-    bool panelOn = false;
+    private bool panelOn = false;
     Item showItem;
     ItemListSort sort;
     public ItemManager(MenuManager m):base(m)
@@ -22,6 +22,7 @@ public class ItemManager:MenuManagerBase
         itemButtonPrefab = Resources.Load<GameObject>("Prefabs/ItemButton");
         sort = myObjct.transform.Find("SortPanel").GetComponent<ItemListSort>();
         itemButtons = new List<GameObject>();
+        panelOn = false;
     }
     public override void Open()
     {

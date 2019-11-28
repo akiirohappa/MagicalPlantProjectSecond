@@ -41,7 +41,7 @@ public class SceneChangeManager : MonoBehaviour
             StartCoroutine( load.LoadingTextAnimation());
             yield return null;
         }
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.5f);
 
         transform.GetChild(0).gameObject.SetActive(false);
         if (s != null)
@@ -49,9 +49,11 @@ public class SceneChangeManager : MonoBehaviour
             this.s = s;
             sl = new SaveAndLoad();
             sl.SaveDataSet(s);
+            DontDestroyManager.my.Sound.PlayBGM("Main_"+ s.time.nowSeason.ToString());
         }
         else
         {
+            DontDestroyManager.my.Sound.PlayBGM("Main_Spring");
             TimeManager.GetInstance().TimeSet(TimeManager.GetInstance().Time);
         }
     }

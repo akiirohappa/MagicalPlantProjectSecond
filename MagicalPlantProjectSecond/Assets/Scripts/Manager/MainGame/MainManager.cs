@@ -14,7 +14,7 @@ public class MainManager : MonoBehaviour
     HeaderDataView view;
     LogManager log;
     SaveAndLoad sl;
-    [SerializeField] int ExTime;
+    [SerializeField] int ExTime = 5;
     public static MainManager  GetInstance
     {
         get

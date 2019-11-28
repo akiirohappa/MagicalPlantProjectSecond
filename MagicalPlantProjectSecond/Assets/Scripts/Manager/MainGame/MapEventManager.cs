@@ -30,6 +30,7 @@ public class MapEventManager
     {
         events = new List<MapEventBase>();
         events.Add(new Field(0));
+        events.Add(new MeData_Fountain(8));
         mousePoint = GameObject.Instantiate(Resources.Load<GameObject>("MousePoint"));
         mousePoint.SetActive(false);
         tile = TileManager.GetInstance();
@@ -38,9 +39,16 @@ public class MapEventManager
     public MapEventBase MapEventGet(Vector3Int vec)
     {
         int evnum = TileManager.GetInstance().GetTileEvent(vec);
-        if (evnum != -1 && evnum < events.Count)
+        if (evnum != -1)
         {
-            return events[evnum];
+            for(int i = 0;i < events.Count;i++)
+            {
+                if(events[i].eventNum == evnum)
+                {
+                    return events[i];
+                }
+            }
+            return null;
         }
         else return null;
     }

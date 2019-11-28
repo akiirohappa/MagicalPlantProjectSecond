@@ -27,7 +27,7 @@ public class MenuManager : MonoBehaviour
     {
         get { return Menus[state]; }
     }
-    [SerializeField] EventSystem eventSystem;
+    [SerializeField] EventSystem eventSystem = null;
     public GameObject Cullent
     {
         get { return eventSystem.currentSelectedGameObject; }

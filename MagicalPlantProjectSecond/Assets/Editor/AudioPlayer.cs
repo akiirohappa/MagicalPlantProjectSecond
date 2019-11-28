@@ -48,13 +48,13 @@ public class AudioPlayer : EditorWindow
         }
         set
         {
-            if (value == Audios.Count)
+            if (value == Audios.Length)
             {
                 PlayNumChange = 0;
             }
             else if (value == -1)
             {
-                PlayNumChange = Audios.Count - 1;
+                PlayNumChange = Audios.Length - 1;
             }
             else
             {
@@ -66,19 +66,15 @@ public class AudioPlayer : EditorWindow
     }
     static bool windowOpen = false;
     [SerializeField]
-    static List<AudioClip> sl;
-    static List<AudioClip> Audios
+    static AudioClip[] sl;
+    static AudioClip[] Audios
     {
         get
         {
             if(sl == null)
             {
-                SoundList s = Resources.LoadAll<SoundList>("Extra")[0];
-                sl = new List<AudioClip>();
-                foreach(SoundData bgm in s.BGMs)
-                {
-                    sl.Add(bgm.audio);
-                }
+                AudioList s = Resources.LoadAll<AudioList>("Extra")[0];
+                sl = s.audios;
             }
             return sl;
         }
@@ -120,7 +116,7 @@ public class AudioPlayer : EditorWindow
     [MenuItem("Sound/Play _F11")]
     static void Play()
     {
-        if (Audios.Count == 0)
+        if (Audios.Length == 0)
         {
             return;
         }
@@ -147,11 +143,11 @@ public class AudioPlayer : EditorWindow
     [MenuItem("Sound/+ _F12")]
     static void MusicPlus()
     {
-        if (Audios.Count == 0)
+        if (Audios.Length == 0)
         {
             return;
         }
-        if (playNum + 1 == Audios.Count)
+        if (playNum + 1 == Audios.Length)
         {
             playNum = 0;
         }
@@ -169,9 +165,11 @@ public class AudioPlayer : EditorWindow
         {
             return;
         }
+        bool b = s.isPlaying;
         clip = Audios[playNum];
         s.clip = clip;
-        if (s.isPlaying)
+        s.time = 0;
+        if (b)
         {
             Play();
         }
@@ -181,13 +179,13 @@ public class AudioPlayer : EditorWindow
     static void MusicMinus()
 
     {
-        if (Audios.Count == 0)
+        if (Audios.Length == 0)
         {
             return;
         }
         if (playNum  == 0)
         {
-            playNum = Audios.Count-1;
+            playNum = Audios.Length-1;
         }
         else
         {
@@ -203,9 +201,11 @@ public class AudioPlayer : EditorWindow
         {
             return;
         }
+        bool b = s.isPlaying;
         clip = Audios[playNum];
         s.clip = clip;
-        if (s.isPlaying)
+        s.time = 0;
+        if (b)
         {
             Play();
         }
@@ -223,17 +223,7 @@ public class AudioPlayer : EditorWindow
         EditorGUILayout.BeginHorizontal();
         if (GUILayout.Button("⇦", GUILayout.Width(40), GUILayout.Height(40)))
         {
-            if(Audios.Count != 0)
-            {
-                PlayNumChange--;
-                if (!Source.isPlaying)
-                {
-                    Source.time = 0;
-                    Source.Play();
-                }
-            }
-
-
+            MusicMinus();
         }
         if (!Source.isPlaying)
         {
@@ -252,16 +242,7 @@ public class AudioPlayer : EditorWindow
         }
         if (GUILayout.Button("⇨", GUILayout.Width(40), GUILayout.Height(40)))
         {
-            if (Audios.Count != 0)
-            {
-                PlayNumChange++;
-                if (!Source.isPlaying)
-                {
-                    Source.time = 0;
-                    Source.Play();
-                }
-            }
-
+            MusicPlus();
         }
         EditorGUILayout.EndHorizontal();
         if (GUILayout.Button("停止"))
@@ -296,7 +277,7 @@ public class AudioPlayer : EditorWindow
         soundView = EditorGUILayout.BeginScrollView(soundView, GUILayout.Height(200));
         if (listOpen)
         {
-            for (int i = 0; i < Audios.Count; i++)
+            for (int i = 0; i < Audios.Length; i++)
             {
                 EditorGUILayout.BeginHorizontal();
                 EditorGUILayout.LabelField((i + 1) + "曲目", GUILayout.Width(100));
@@ -335,4 +316,9 @@ public static class AudioPlayerSub
             //GameObject.DontDestroyOnLoad(s);
         }
     }
+}
+[CreateAssetMenu(fileName ="AudioList",menuName ="AudioList")]
+public class AudioList:ScriptableObject
+{
+    public AudioClip[] audios;
 }

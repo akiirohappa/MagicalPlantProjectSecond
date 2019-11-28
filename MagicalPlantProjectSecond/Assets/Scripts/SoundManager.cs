@@ -11,9 +11,9 @@ public enum SoundType
 }
 public class SoundManager : MonoBehaviour
 {
-    [SerializeField] AudioSource BGM;
-    [SerializeField] AudioSource SE;
-    [SerializeField] AudioMixer audioMixer;
+    [SerializeField] AudioSource BGM = null;
+    [SerializeField] AudioSource SE = null;
+    [SerializeField] AudioMixer audioMixer = null;
     public AudioMixer Mixer
     {
         get { return audioMixer;  }
@@ -32,7 +32,7 @@ public class SoundManager : MonoBehaviour
             return SE;
         }
     }
-    [SerializeField] SoundList sound;
+    [SerializeField] SoundList sound = null;
     [SerializeField] float fadeNowValue = 0f;
     float fadeBGMvolume;
     //BGMを再生、ループはデフォルトでtrue

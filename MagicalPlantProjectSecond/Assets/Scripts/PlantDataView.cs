@@ -12,7 +12,7 @@ public class PlantDataView
     bool viewIsOpen = false;
     public PlantDataView()
     {
-        myObj =  GameObject.Instantiate(Resources.Load<GameObject>("PlantData"),GameObject.Find("Canvas").transform);
+        myObj =  GameObject.Instantiate(Resources.Load<GameObject>("PlantData"),GameObject.Find("Menu").transform);
         myObj.SetActive(false);
     }
     public void DataPreview(Plant plant)
