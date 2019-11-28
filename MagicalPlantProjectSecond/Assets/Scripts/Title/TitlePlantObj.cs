@@ -8,11 +8,13 @@ public class TitlePlantObj : MonoBehaviour
     Sprite plantImage;
     RectTransform pos;
     GameObject text;
+    float speed;
     // Start is called before the first frame update
     void Start()
     {
         pos = GetComponent<RectTransform>();
         text = Resources.Load<GameObject>("Prefabs/TitleBObjText");
+        speed = GameObject.Find("Canvas").GetComponent<RectTransform>().sizeDelta.x /  50f * (1f/60f);
     }
     public void SetPlantImage(Sprite img)
     {
@@ -21,7 +23,8 @@ public class TitlePlantObj : MonoBehaviour
     }
     private void Update()
     {
-        pos.transform.position = new Vector3(pos.position.x-0.25f,pos.position.y);
+        
+        pos.transform.position = new Vector3(pos.position.x-speed,pos.position.y);
         pos.transform.GetChild(0).Rotate(new Vector3(0, 0, 0.25f));
         if(pos.transform.position.x < -150)
         {
