@@ -12,6 +12,7 @@ public class TitleManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
         bg = new TitleBackGround();
         plantObj = Resources.Load<GameObject>("Prefabs/TitleBackObj");
         load = new LoadManager(this);
@@ -29,8 +30,9 @@ public class TitleManager : MonoBehaviour
         if(Random.Range(0,300) < 1)
         {
             float pos = Random.Range(-310,310);
-            GameObject g = Instantiate(plantObj,GameObject.Find("BackGroundObj").transform);
-            g.transform.localPosition = new Vector3(720, pos);
+            GameObject g = Instantiate(plantObj,GameObject.Find("ItemPos").transform);
+            g.transform.localPosition = new Vector3(0, pos);
+            g.transform.SetParent(GameObject.Find("BackGroundObj").transform);
             g.GetComponent<TitlePlantObj>().SetPlantImage(Resources.Load<Sprite>("PlantImages/kab"));
         }
     }
