@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 60976c5b2eb6e43498a966ca6d97a81d, type: 3}
   m_Name: AudioList
-  m_EditorClassIdentifier: Assembly-CSharp-Editor::AudioList
+  m_EditorClassIdentifier: 
   audios:
   - {fileID: 8300000, guid: d607c8840e40a1a46a4d7fac53c450db, type: 3}
   - {fileID: 8300000, guid: 2bd8f36ec9a4ef74083509cbc70a6625, type: 3}

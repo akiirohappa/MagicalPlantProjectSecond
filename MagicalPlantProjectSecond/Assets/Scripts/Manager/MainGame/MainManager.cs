@@ -14,7 +14,9 @@ public class MainManager : MonoBehaviour
     HeaderDataView view;
     LogManager log;
     SaveAndLoad sl;
-    [SerializeField] int ExTime = 5;
+    ParticleMaker pm;
+    [SerializeField] public int MultiplyTime = 5;
+    [SerializeField] public bool timeMove = true;
     public static MainManager  GetInstance
     {
         get
@@ -54,6 +56,10 @@ public class MainManager : MonoBehaviour
             return log;
         }
     }
+    public ParticleMaker Particle
+    {
+        get { return pm; }
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -64,6 +70,7 @@ public class MainManager : MonoBehaviour
         time = TimeManager.GetInstance();
         view = new HeaderDataView();
         sl = new SaveAndLoad();
+        pm = GetComponent<ParticleMaker>();
         tile.Start();
         field.Start();
         map.Start();
@@ -76,6 +83,9 @@ public class MainManager : MonoBehaviour
     void Update()
     {
         map.CheckEvent();
-        time.TimeCalc(ExTime);
+        if (timeMove)
+        {
+            time.TimeCalc(MultiplyTime);
+        }
     }
 }

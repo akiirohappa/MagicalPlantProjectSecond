@@ -14,7 +14,7 @@ public class TitlePlantObj : MonoBehaviour
     {
         pos = GetComponent<RectTransform>();
         text = Resources.Load<GameObject>("Prefabs/TitleBObjText");
-        speed = GameObject.Find("Canvas").GetComponent<RectTransform>().sizeDelta.x /  50f * (1f/60f);
+        speed = Screen.width /  50f * (1f/60f);
     }
     public void SetPlantImage(Sprite img)
     {
@@ -26,7 +26,7 @@ public class TitlePlantObj : MonoBehaviour
         
         pos.transform.position = new Vector3(pos.position.x-speed,pos.position.y);
         pos.transform.GetChild(0).Rotate(new Vector3(0, 0, 0.25f));
-        if(pos.transform.position.x < -150)
+        if(pos.transform.position.x < -50)
         {
             Destroy(gameObject);
         }

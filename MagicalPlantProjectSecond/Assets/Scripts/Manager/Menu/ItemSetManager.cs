@@ -37,6 +37,8 @@ public class ItemSetManager :MenuManagerBase
     public override void PlessItemButton(Item item)
     {
         field.SetPlantData(pos,new Plant(item));
+        MainManager.GetInstance.Particle.PaticleMake(MainManager.GetInstance.Particle.Particle[0], new Vector3(pos.x, pos.y + 0.75f, pos.z));
+        DontDestroyManager.my.Sound.PlaySE("Dig");
         PlayerData.GetInstance().Item.ItemGet(item, -1);
         mManager.ButtonToMain();
     }

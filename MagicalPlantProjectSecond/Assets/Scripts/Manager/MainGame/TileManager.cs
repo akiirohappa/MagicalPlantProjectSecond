@@ -31,6 +31,10 @@ public class TileManager
     Grid grid;
     TileBase tiletest;
     List<Vector3Int> plantFieldPos;
+    public List<Vector3Int> PlantField
+    {
+        get { return plantFieldPos; }
+    }
     Sprite[] eventTiles;
     Dictionary<PlantTileData, Tile> PlantTiles;
     private TileManager()

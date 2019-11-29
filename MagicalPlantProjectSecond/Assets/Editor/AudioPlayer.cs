@@ -25,10 +25,11 @@ public class AudioPlayer : EditorWindow
                 if (s == null)
                 {
                     s = g.AddComponent<AudioSource>();
+                    s.volume = 0.1f;
                 }
                 s.hideFlags = HideFlags.HideAndDontSave;
                 s.gameObject.hideFlags = HideFlags.HideAndDontSave;
-                s.volume = 0.1f;
+                
             }
             return s;
         }
@@ -316,9 +317,4 @@ public static class AudioPlayerSub
             //GameObject.DontDestroyOnLoad(s);
         }
     }
-}
-[CreateAssetMenu(fileName ="AudioList",menuName ="AudioList")]
-public class AudioList:ScriptableObject
-{
-    public AudioClip[] audios;
 }

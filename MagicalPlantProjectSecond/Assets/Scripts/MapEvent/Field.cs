@@ -12,11 +12,13 @@ class Field:MapEventBase
 {
     FieldManager field;
     PlantDataView view;
+    MapEventManager map;
     public Field(int num) : base(num)
     {
         eventStr = "Field";
         field = FieldManager.GetInstance();
         view = FieldManager.GetInstance().View;
+        map = MapEventManager.GetInstance(); 
         events = new EventCode[] 
         {
             new EventCode("種を植える", "Seed"),
@@ -28,6 +30,21 @@ class Field:MapEventBase
     public override void OnHoverRun(Vector3Int pos)
     {
         //field.ShowPlantData(pos);
+        switch (field.GetPlantData(pos).plantState)
+        {
+            case PlantState.None:
+                map.Bar.SetHotBar("施設メニュー", "種を植える");
+                break;
+            case PlantState.Growth:
+                map.Bar.SetHotBar("施設メニュー", "水をあげる");
+                break;
+            case PlantState.Harvest:
+                map.Bar.SetHotBar("施設メニュー", "収穫する");
+                break;
+            default:
+                map.Bar.SetHotBar("施設メニュー", "");
+                break;
+        }
     }
     public override void OnLeftClickRun()
     {
@@ -76,7 +93,6 @@ class Field:MapEventBase
             default:
                 break;
         }
-        
         ButtonTextSet("何もしない", "None", buttonList[buttnCount++]);
     }
     public override void EventStart(string text)
@@ -88,6 +104,7 @@ class Field:MapEventBase
             menu.MenuManagerB.Open(pos);
             ItemSetManager setM = (ItemSetManager)menu.MenuManagerB;
             setM.TypeSet(ItemType.Seed);
+            
         }
         //肥料をあげる
         if (text == events[1].eventText)
@@ -101,12 +118,16 @@ class Field:MapEventBase
         {
             field.GetPlantData(pos).soilState = Soil.Moist;
             menu.state = MenuState.None;
+            MainManager.GetInstance.Particle.PaticleMake(MainManager.GetInstance.Particle.Particle[1], new Vector3(pos.x, pos.y + 0.75f, pos.z));
+            DontDestroyManager.my.Sound.PlaySE("Water");
         }
         //収穫
         if (text == events[3].eventText)
         {
             field.Harvest(pos);
             menu.state = MenuState.None;
+            MainManager.GetInstance.Particle.PaticleMake(MainManager.GetInstance.Particle.Particle[0], new Vector3(pos.x, pos.y+0.75f, pos.z));
+            DontDestroyManager.my.Sound.PlaySE("Dig");
         }
         if(text == "None")
         {

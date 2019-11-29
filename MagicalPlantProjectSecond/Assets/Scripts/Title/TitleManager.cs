@@ -31,7 +31,7 @@ public class TitleManager : MonoBehaviour
         {
             float pos = Random.Range(-310,310);
             GameObject g = Instantiate(plantObj,GameObject.Find("ItemPos").transform);
-            g.transform.localPosition = new Vector3(0, pos);
+            g.transform.localPosition = new Vector3(50, pos);
             g.transform.SetParent(GameObject.Find("BackGroundObj").transform);
             g.GetComponent<TitlePlantObj>().SetPlantImage(Resources.Load<Sprite>("PlantImages/kab"));
         }

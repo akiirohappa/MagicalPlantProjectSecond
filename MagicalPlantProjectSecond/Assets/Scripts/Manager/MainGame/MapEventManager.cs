@@ -13,6 +13,16 @@ public class MapEventManager
     TileManager tile;
     MapEventBase cullentMenu;
     MenuManager menu;
+    HotBarView bar;
+    public HotBarView Bar
+    {
+        get { return bar;}
+    }
+    FacilitiesDataView facilities;
+    public FacilitiesDataView Facilities
+    {
+        get { return facilities; }
+    }
     public bool buttonPressd = false;
     public static MapEventManager GetInstance()
     {
@@ -35,6 +45,8 @@ public class MapEventManager
         mousePoint.SetActive(false);
         tile = TileManager.GetInstance();
         menu = GameObject.Find("Manager").GetComponent<MenuManager>();
+        bar = new HotBarView();
+        facilities = new FacilitiesDataView();
     }
     public MapEventBase MapEventGet(Vector3Int vec)
     {
@@ -140,6 +152,8 @@ public class MapEventManager
         }
         else
         {
+            bar.SetHideHotBar(false);
+            facilities.SetHideHotBar(false);
             mousePoint.SetActive(false);
         }
     }

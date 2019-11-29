@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 142966058335237746}
   - component: {fileID: 142966058335237749}
   - component: {fileID: 142966058335237748}
+  - component: {fileID: 6636520985842207749}
   m_Layer: 8
   m_Name: HarvestPar
   m_TagString: Untagged
@@ -746,7 +747,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 1
+      value: 0.5
       mode: 0
       spread: 0
       speed:
@@ -4698,3 +4699,15 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &6636520985842207749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 142966058335237751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29ac11fd550b3074d8047f00be1b53ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
