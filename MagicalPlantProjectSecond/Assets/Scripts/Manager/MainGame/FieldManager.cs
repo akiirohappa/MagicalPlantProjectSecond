@@ -33,17 +33,11 @@ public class FieldManager
         {
             myField[i] = new Plant();
         }
-        myField[4] = new Plant(PlantState.None);
-        myField[3] = new Plant(PlantState.None);
-        myField[9] = new Plant(PlantState.None);
-        myField[8] = new Plant(PlantState.None);
+        
         fieldTileData = TileManager.GetInstance().TileFieldGet();
         view = new PlantDataView();
         harvest = new HarvestCalc();
-        TileManager.GetInstance().ReWritePlantTile(PlantTileData.None, fieldTileData[4]);
-        TileManager.GetInstance().ReWritePlantTile(PlantTileData.None, fieldTileData[3]);
-        TileManager.GetInstance().ReWritePlantTile(PlantTileData.None, fieldTileData[9]);
-        TileManager.GetInstance().ReWritePlantTile(PlantTileData.None, fieldTileData[8]);
+        FieldUnlock(0);
     }
     //作物の成長
     public void PlantGrowth()
@@ -211,6 +205,18 @@ public class FieldManager
                 default:
 
                     break;
+            }
+        }
+    }
+    //畑のサイズ拡張
+    public void FieldUnlock(int level)
+    {
+        for (int i = 0; i < 25; i++)
+        {
+            if (i % 5 >= 5-2-level && i/5 <= level + 1 && myField[i].plantState == PlantState.DontUse)
+            {
+                myField[i].plantState = PlantState.None;
+                TileManager.GetInstance().ReWritePlantTile(PlantTileData.None, fieldTileData[i]);
             }
         }
     }

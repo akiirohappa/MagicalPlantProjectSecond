@@ -8,7 +8,6 @@ public class Log : MonoBehaviour
     public void AnimStart(LogManager l)
     {
         log = l;
-        Debug.Log(log);
         GetComponent<Animator>().SetTrigger("Start");
     }
     public void Break()

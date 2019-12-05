@@ -18,7 +18,7 @@ public class ItemList
     {
         foreach(Item listI in list)
         {
-            if(listI.itemName == item.itemName)
+            if(listI.itemName == item.itemName && listI.quality == item.quality)
             {
                 if(listI.sellPrice == item.sellPrice)
                 {

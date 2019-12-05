@@ -41,6 +41,8 @@ public class MapEventManager
         events = new List<MapEventBase>();
         events.Add(new Field(0));
         events.Add(new MeData_Fountain(8));
+        events.Add(new MeData_Bed(5));
+        events.Add(new MeData_Axe(6));
         mousePoint = GameObject.Instantiate(Resources.Load<GameObject>("MousePoint"));
         mousePoint.SetActive(false);
         tile = TileManager.GetInstance();
@@ -66,6 +68,10 @@ public class MapEventManager
     }
     public void CheckEvent()
     {
+        if (TimeManager.GetInstance().sleep)
+        {
+            return;
+        }
         Vector3Int vec = TileManager.GetInstance().MousePosToCell();
         if(vec.x == 99999)
         {
@@ -80,13 +86,13 @@ public class MapEventManager
                 {
                     FieldManager.GetInstance().View.PlantVSetActive(false);
                 }
-                if (menu.state == MenuState.EventSelect)
+                if (menu.State == MenuState.EventSelect)
                 {
                     if (!buttonPressd)
                     {
                         m.MenuClose();
                         FieldManager.GetInstance().View.PlantVSetActive(false);
-                        menu.state = MenuState.None;
+                        menu.State = MenuState.None;
                         m = null;
                     }
                     else
@@ -97,14 +103,14 @@ public class MapEventManager
             }
             else
             {
-                if (menu.state == MenuState.EventSelect)
+                if (menu.State == MenuState.EventSelect)
                 {
                     //cullentMenu != null &&
                     if (!buttonPressd)
                     {
                         cullentMenu.MenuClose();
                         FieldManager.GetInstance().View.PlantVSetActive(false);
-                        menu.state = MenuState.None;
+                        menu.State = MenuState.None;
                     }
                     else
                     {
@@ -115,7 +121,7 @@ public class MapEventManager
                 FieldManager.GetInstance().View.PlantVSetActive(false);
             }
         }
-        switch (menu.state)
+        switch (menu.State)
         {
             case MenuState.None:
             case MenuState.ItemSet:
@@ -157,7 +163,7 @@ public class MapEventManager
             mousePoint.SetActive(false);
         }
     }
-    public void ButtonOnPointar()
+    public void ButtonOnPointer()
     {
         buttonPressd = true;
     }

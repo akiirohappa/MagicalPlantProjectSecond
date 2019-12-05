@@ -15,27 +15,44 @@ public enum MenuState
     Config,
     ItemSet,
     EventSelect,
+    Sleep,
 }
 
 public class MenuManager : MonoBehaviour
 {
     bool MenuOpen = false;
     GameObject openButton;
-    public MenuState state;
+    MenuState state;
+
     Dictionary<MenuState, MenuManagerBase> Menus;
     public MenuManagerBase MenuManagerB
     {
-        get { return Menus[state]; }
+        get { return Menus[State]; }
     }
     [SerializeField] EventSystem eventSystem = null;
     public GameObject Cullent
     {
         get { return eventSystem.currentSelectedGameObject; }
     }
+    public MenuState State
+    {
+        get { return state; }
+        set
+        {
+            foreach (KeyValuePair<MenuState, MenuManagerBase> m in Menus)
+            {
+                if (m.Value.Obj.activeSelf)
+                {
+                    m.Value.Obj.SetActive(false);
+                }
+            }
+            state = value;
+        }
+    }
     // Start is called before the first frame update
     void Start()
     {
-        state = MenuState.None;
+        
         openButton = GameObject.Find("MenuButton");
         Menus = new Dictionary<MenuState, MenuManagerBase>();
         Menus[MenuState.Item] = new ItemManager(this);
@@ -43,6 +60,7 @@ public class MenuManager : MonoBehaviour
         Menus[MenuState.ItemSet] = new ItemSetManager(this);
         Menus[MenuState.Save] = new SaveManager(this);
         Menus[MenuState.Config] = new ConfigManager(this);
+        State = MenuState.None;
     }
 
     // Update is called once per frame
@@ -52,6 +70,10 @@ public class MenuManager : MonoBehaviour
     }
     public void MenuButton()
     {
+        if (TimeManager.GetInstance().sleep)
+        {
+            return;
+        }
         if (!MenuOpen)
         {
             openButton.GetComponent<Animator>().SetTrigger("Open");
@@ -67,7 +89,7 @@ public class MenuManager : MonoBehaviour
     }
     public void SendMenuButton(string st)
     {
-        if(state != MenuState.None && state != MenuState.EventSelect)
+        if(State != MenuState.None && State != MenuState.EventSelect)
         {
             ButtonToMain();
         }
@@ -77,12 +99,12 @@ public class MenuManager : MonoBehaviour
         {
             if(transst == s)
             {
-                if(state != s)
+                if(State != s)
                 {
-                    state = transst;
-                    if (Menus[state] != null)
+                    State = transst;
+                    if (Menus[State] != null)
                     {
-                        Menus[state].Open();
+                        Menus[State].Open();
                     }
                 }
             }
@@ -94,40 +116,40 @@ public class MenuManager : MonoBehaviour
     }
     public void ButtonSubmit()
     {
-        if (state == MenuState.None)
+        if (State == MenuState.None)
         {
             return;
         }
-        Menus[state].Submit();
+        Menus[State].Submit();
     }
     public void ButtonCancel()
     {
-        if (state == MenuState.None)
+        if (State == MenuState.None)
         {
             return;
         }
-        Menus[state].Cancel();
+        Menus[State].Cancel();
     }
     public void ButtonEx(string st)
     {
-        if(state == MenuState.None)
+        if(State == MenuState.None)
         {
             return;
         }
-        Menus[state].Button(st);
+        Menus[State].Button(st);
     }
     public void ButtonItem()
     {
         GameObject bt = eventSystem.currentSelectedGameObject;
-        Menus[state].PlessItemButton(bt.GetComponent<ItemButton>().item);
+        Menus[State].PlessItemButton(bt.GetComponent<ItemButton>().item);
     }
     public void SliderValue(float f)
     {
-        Menus[state].SliderChange(f);
+        Menus[State].SliderChange(f);
     }
     public void ButtonToMain()
     {
-        if (state == MenuState.None || state == MenuState.EventSelect)
+        if (State == MenuState.None || State == MenuState.EventSelect)
         {
             return;
         }
@@ -135,7 +157,7 @@ public class MenuManager : MonoBehaviour
         {
             MenuButton();
         }
-        Menus[state].Close();
-        state = MenuState.None;
+        Menus[State].Close();
+        State = MenuState.None;
     }
 }

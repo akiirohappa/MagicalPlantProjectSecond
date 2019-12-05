@@ -268,6 +268,18 @@ public class ShopManager:MenuManagerBase
             itemButtons[i].transform.Find("Name").GetComponent<TextMeshProUGUI>().text = nowJanl.Item[i].itemName;
             itemButtons[i].transform.Find("Icon").GetComponent<Image>().sprite = nowJanl.Item[i].icon;
             itemButtons[i].transform.Find("Price").GetComponent<TextMeshProUGUI>().text = (trade == TradeState.Buy ?  nowJanl.Item[i].defaltValue:nowJanl.Item[i].sellPrice) + "株";
+            if (nowJanl.Item[i].itemType == ItemType.Plant)
+            {
+                itemButtons[i].transform.Find("Quality").gameObject.SetActive(true);
+                itemButtons[i].transform.Find("Quality").GetComponent<TextMeshProUGUI>().text = "品質: " + nowJanl.Item[i].quality;
+                //itemButtons[i].transform.Find("Value").gameObject.SetActive(false);
+                //itemButtons[i].transform.Find("Value").GetComponent<TextMeshProUGUI>().text = "個数: " + nowJanl.Item[i].itemNum + "個";
+            }
+            else
+            {
+                itemButtons[i].transform.Find("Quality").gameObject.SetActive(false);
+                //itemButtons[i].transform.Find("Value").gameObject.SetActive(false);
+            }
         }
     }
     public override void PlessItemButton(Item item)

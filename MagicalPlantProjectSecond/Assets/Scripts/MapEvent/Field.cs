@@ -13,6 +13,7 @@ class Field:MapEventBase
     FieldManager field;
     PlantDataView view;
     MapEventManager map;
+    Vector3 pp;
     public Field(int num) : base(num)
     {
         eventStr = "Field";
@@ -49,14 +50,20 @@ class Field:MapEventBase
     public override void OnLeftClickRun()
     {
         menu.ButtonToMain();
-        menu.state = MenuState.EventSelect;
+        menu.State = MenuState.EventSelect;
         field.ShowPlantData(TileManager.GetInstance().MousePosToCell());
         pos = TileManager.GetInstance().MousePosToCell();
+        pp = TileManager.GetInstance().CellToWorldPos(pos);
+        pp.x += 0.5f;
+        pp.y += 0.5f;
         MenuButtonMake();
     }
     public override void OnRightClickRun()
     {
         pos = TileManager.GetInstance().MousePosToCell();
+        pp = TileManager.GetInstance().CellToWorldPos(pos);
+        pp.x += 0.5f;
+        pp.y += 0.5f;
         switch (field.GetPlantData(pos).plantState)
         {
             case PlantState.None:
@@ -117,21 +124,21 @@ class Field:MapEventBase
         if (text == events[2].eventText)
         {
             field.GetPlantData(pos).soilState = Soil.Moist;
-            menu.state = MenuState.None;
-            MainManager.GetInstance.Particle.PaticleMake(MainManager.GetInstance.Particle.Particle[1], new Vector3(pos.x, pos.y + 0.75f, pos.z));
+            menu.State = MenuState.None;
+            MainManager.GetInstance.Particle.PaticleMake(MainManager.GetInstance.Particle.Particle[1], pp);
             DontDestroyManager.my.Sound.PlaySE("Water");
         }
         //収穫
         if (text == events[3].eventText)
         {
             field.Harvest(pos);
-            menu.state = MenuState.None;
-            MainManager.GetInstance.Particle.PaticleMake(MainManager.GetInstance.Particle.Particle[0], new Vector3(pos.x, pos.y+0.75f, pos.z));
+            menu.State = MenuState.None;
+            MainManager.GetInstance.Particle.PaticleMake(MainManager.GetInstance.Particle.Particle[0], pp);
             DontDestroyManager.my.Sound.PlaySE("Dig");
         }
         if(text == "None")
         {
-            menu.state = MenuState.None;
+            menu.State = MenuState.None;
         }
         MenuClose();
         view.PlantVSetActive(false);

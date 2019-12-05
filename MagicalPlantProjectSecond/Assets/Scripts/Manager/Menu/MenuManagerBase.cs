@@ -11,6 +11,10 @@ public abstract class  MenuManagerBase
     protected MenuManager mManager;
     //それぞれのメニュー部分のオブジェクト。
     protected GameObject myObjct;
+    public GameObject Obj
+    {
+        get { return myObjct; }
+    }
     public MenuManagerBase(MenuManager menu)
     {
         mManager = menu;

@@ -16,6 +16,20 @@ public class TimeManager
     private static TimeManager timeM;
     private TimeData time;
     MainManager mm;
+    public float accelTime = 5f;
+    public float AccelTime
+    {
+        set
+        {
+            accelTime = value;
+            AccelPanel.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "現在 " + (accelTime < 100 ? (accelTime < 10 ? "  " + accelTime.ToString():" " +accelTime.ToString()):accelTime.ToString()) + "分/秒";
+        }
+    }
+    public float[] accelTimeSet = new float[] {5, 30, 60, 120 };
+    GameObject AccelPanel;
+    Image BackGround;
+    Slider accelSl;
+    public bool sleep = false;
     public static TimeManager GetInstance()
     {
         if(timeM == null)
@@ -31,6 +45,8 @@ public class TimeManager
     public void Start()
     {
         mm = MainManager.GetInstance;
+        AccelPanel = GameObject.Find("Canvas").transform.Find("TimeAccel").gameObject;
+        BackGround = GameObject.Find("Canvas").transform.Find("SleepBack").GetComponent<Image>();
         //TimeSet(time);
     }
     public TimeData Time
@@ -97,7 +113,49 @@ public class TimeManager
         Time.TimeSet(newTime);
         //time.preHour = time.hour;
         //time.preMinit = time.minit;
-        
+    }
+    public void AccelStart(FaData_Bed data)
+    {
+        AccelPanel.SetActive(true);
+        accelSl = AccelPanel.transform.GetChild(0).GetComponent<Slider>();
+        accelSl.minValue = accelTimeSet[0];
+        accelSl.maxValue = accelTimeSet[data.nowLevel];
+        accelSl.value = accelTimeSet[0];
+        AccelPanel.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = "最小 " +accelTimeSet[0].ToString() + "分/秒";
+        AccelPanel.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = "最大 " + accelTimeSet[data.nowLevel].ToString() + "分/秒";
+        AccelTime = accelTimeSet[0];
+        sleep = true;
+        mm.BackFadeOut();
+    }
+    public void AccelEnd()
+    {
+        accelTime = accelTimeSet[0];
+        AccelPanel.SetActive(false);
+        BackGround.gameObject.SetActive(false);
+        sleep = false;
+    }
+    public void AccelCheck()
+    {
+        if(sleep)
+        {
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                AccelEnd();
+            }
+        }
+    }
+    public IEnumerator BackGroundFade()
+    {
+        BackGround.gameObject.SetActive(true);
+        Color c = BackGround.color;
+        c.a = 0;
+        BackGround.color = c;
+        for(int i = 1;i <= 40; i++)
+        {
+            c.a = (float)i/100;
+            BackGround.color = c;
+            yield return null;
+        }
     }
 }
 public class TimeData

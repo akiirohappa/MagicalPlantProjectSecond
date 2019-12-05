@@ -29,7 +29,7 @@ public class MeData_Fountain:MapEventBase
     {
         menu.ButtonToMain();
         MapEventManager.GetInstance().Facilities.SetData(data);
-        menu.state = MenuState.EventSelect;
+        menu.State = MenuState.EventSelect;
         MenuButtonMake();
     }
     public override void OnRightClickRun()
@@ -44,7 +44,7 @@ public class MeData_Fountain:MapEventBase
         if(text == events[0].eventText)
         {
             data.nowLevel++;
-            menu.state = MenuState.None;
+            menu.State = MenuState.None;
         }
         if (text == events[1].eventText)
         {
@@ -53,18 +53,18 @@ public class MeData_Fountain:MapEventBase
                 if (FieldManager.GetInstance().myField[i].plantState != PlantState.DontUse)
                 {
                     Vector3 vec = TileManager.GetInstance().CellToWorldPos(TileManager.GetInstance().PlantField[i]);
-                    vec.y += 1f;
-                    vec.x += 0.25f;
+                    vec.y += 0.5f;
+                    vec.x += 0.5f;
                     DontDestroyManager.my.Sound.PlaySE("Water");
                     MainManager.GetInstance.Particle.PaticleMake(MainManager.GetInstance.Particle.Particle[1], vec);
                     FieldManager.GetInstance().myField[i].soilState = Soil.Moist;
                 }
             }
-            menu.state = MenuState.None;
+            menu.State = MenuState.None;
         }
         if (text == "None")
         {
-            menu.state = MenuState.None;
+            menu.State = MenuState.None;
         }
         MenuClose();
         MapEventManager.GetInstance().buttonPressd = false;
@@ -81,7 +81,7 @@ public class MeData_Fountain:MapEventBase
         {
             ButtonTextSet(events[1].objText, events[1].eventText, buttonList[buttnCount++]);
         }
-        ButtonTextSet("何もしない", "None", buttonList[buttnCount++]);
+        ButtonTextSet("何もしない", "None", buttonList[buttnCount]);
        
     }
 }

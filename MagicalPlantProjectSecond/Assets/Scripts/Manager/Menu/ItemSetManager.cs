@@ -13,6 +13,7 @@ public class ItemSetManager :MenuManagerBase
     GameObject selectButton;
     FieldManager field;
     Vector3Int pos;
+    Vector3 pp;
     ItemList list;
     ItemType type;
     public ItemSetManager(MenuManager m):base(m)
@@ -37,7 +38,7 @@ public class ItemSetManager :MenuManagerBase
     public override void PlessItemButton(Item item)
     {
         field.SetPlantData(pos,new Plant(item));
-        MainManager.GetInstance.Particle.PaticleMake(MainManager.GetInstance.Particle.Particle[0], new Vector3(pos.x, pos.y + 0.75f, pos.z));
+        MainManager.GetInstance.Particle.PaticleMake(MainManager.GetInstance.Particle.Particle[0], pp);
         DontDestroyManager.my.Sound.PlaySE("Dig");
         PlayerData.GetInstance().Item.ItemGet(item, -1);
         mManager.ButtonToMain();
@@ -46,6 +47,9 @@ public class ItemSetManager :MenuManagerBase
     {
         Debug.Log(vec);
         pos = vec;
+        pp = TileManager.GetInstance().CellToWorldPos(pos);
+        pp.x += 0.5f;
+        pp.y += 0.5f;
         field = FieldManager.GetInstance();
         base.Open();
     }

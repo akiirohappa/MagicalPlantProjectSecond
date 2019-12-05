@@ -38,3 +38,5 @@ MonoBehaviour:
     audio: {fileID: 8300000, guid: fc44d1e4425505246a140f033ac6a0dd, type: 3}
   - key: Water
     audio: {fileID: 8300000, guid: 9e275ba832b7ddf4b8dd047121219ad5, type: 3}
+  - key: EreaChange
+    audio: {fileID: 8300000, guid: 92f9b33319bcf3c40b2c4b3748fb2c2d, type: 3}

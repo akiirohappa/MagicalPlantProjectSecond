@@ -59,7 +59,21 @@ public class ItemManager:MenuManagerBase
             itemButtons[i].GetComponent<Button>().onClick.AddListener(mManager.ButtonItem);
             itemButtons[i].transform.Find("Name").GetComponent<TextMeshProUGUI>().text = list.Item[i].itemName;
             itemButtons[i].transform.Find("Icon").GetComponent<Image>().sprite = list.Item[i].icon;
-            itemButtons[i].transform.Find("Price").GetComponent<TextMeshProUGUI>().text = list.Item[i].defaltValue + "株";
+            if(list.Item[i].itemType == ItemType.Plant)
+            {
+                itemButtons[i].transform.Find("Price").gameObject.SetActive(false);
+                itemButtons[i].transform.Find("Quality").gameObject.SetActive(true);
+                itemButtons[i].transform.Find("Quality").GetComponent<TextMeshProUGUI>().text = "品質: " + list.Item[i].quality;
+                itemButtons[i].transform.Find("Value").gameObject.SetActive(false);
+                itemButtons[i].transform.Find("Value").GetComponent<TextMeshProUGUI>().text = "個数: " + list.Item[i].itemNum + "個";
+            }
+            else
+            {
+                itemButtons[i].transform.Find("Price").gameObject.SetActive(true);
+                itemButtons[i].transform.Find("Price").GetComponent<TextMeshProUGUI>().text = list.Item[i].defaltValue + "株";
+                itemButtons[i].transform.Find("Quality").gameObject.SetActive(false);
+                itemButtons[i].transform.Find("Value").gameObject.SetActive(false);
+            }
         }
     }
     public override void Submit()

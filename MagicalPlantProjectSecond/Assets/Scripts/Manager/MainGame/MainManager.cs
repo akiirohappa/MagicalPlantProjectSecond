@@ -85,7 +85,20 @@ public class MainManager : MonoBehaviour
         map.CheckEvent();
         if (timeMove)
         {
-            time.TimeCalc(MultiplyTime);
+            time.TimeCalc(time.accelTime);
+            time.AccelCheck();
         }
+    }
+    public void AccelSet(float f)
+    {
+        time.AccelTime = f;
+    }
+    public void AccelEnd()
+    {
+        time.AccelEnd();
+    }
+    public void  BackFadeOut()
+    {
+        StartCoroutine(time.BackGroundFade());
     }
 }

@@ -49,6 +49,13 @@ public abstract class MapEventBase
     public abstract void OnRightClickRun();
     protected virtual void MenuButtonMake()
     {
+        if(buttonList.Count == 0)
+        {
+            foreach (Transform t in buttonParent.transform)
+            {
+                buttonList.Add(t.gameObject);
+            }
+        }
         buttonParent.SetActive(true);
         Vector3 mousePos = Input.mousePosition;
         mousePos.x += 16;
@@ -59,8 +66,7 @@ public abstract class MapEventBase
             t.gameObject.SetActive(false);
         }
         int childNum = buttonParent.transform.childCount;
-        
-        for (int i = 0; i < events.Length + 1; i++)
+        for (int i = 0; i <= events.Length + 1; i++)
         {
             if (i > buttonList.Count)
             {
@@ -72,7 +78,6 @@ public abstract class MapEventBase
     protected void ButtonTextSet(string objText, string eventText,GameObject g)
     {
         g.SetActive(true);
-
         g.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = objText;
         string t = eventText;
         g.GetComponent<Button>().onClick.AddListener(g.GetComponent<MapEVButton>().ButtonPressd);
@@ -82,7 +87,7 @@ public abstract class MapEventBase
         {
             EventTrigger.Entry entry = new EventTrigger.Entry();
             entry.eventID = EventTriggerType.PointerEnter;
-            entry.callback.AddListener((x) => MapEventManager.GetInstance().ButtonOnPointar());
+            entry.callback.AddListener((x) => MapEventManager.GetInstance().ButtonOnPointer());
             g.GetComponent<EventTrigger>().triggers.Add(entry);
         }
 

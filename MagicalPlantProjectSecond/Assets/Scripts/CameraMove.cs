@@ -54,6 +54,10 @@ public class CameraMove : MonoBehaviour
     }
     public void ToMain()
     {
+        if (TimeManager.GetInstance().sleep)
+        {
+            return;
+        }
         StartCoroutine(MoveBlackOut(mainPos));
     }
 }
