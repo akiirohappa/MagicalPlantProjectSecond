@@ -5,8 +5,10 @@ using UnityEngine;
 
 public enum Soil
 {
+    VeryDry,
     Dry,
     Moist,
+    VeryMoist,
 }
 public enum PlantState
 {
@@ -14,6 +16,12 @@ public enum PlantState
     Growth,
     Harvest,
     DontUse,
+}
+public enum PlantType
+{
+    Leaf,
+    Tree,
+    Mushroom,
 }
 [System.Serializable]
 public class Plant
@@ -23,6 +31,7 @@ public class Plant
     public float nowGrowth;
     public float growthSpeed;
     public Soil soilState;
+    public int soilWaterValue;
     public int quality;
     public int upQuality;
     public int downQuality;
@@ -30,6 +39,7 @@ public class Plant
     public string info;
     public int defValue;
     public int getValue;
+    public PlantType plantType;
     public Plant(PlantState p = PlantState.DontUse)
     {
         name = "から";
@@ -37,6 +47,7 @@ public class Plant
         growthSpeed = 0f;
         quality = 50;
         plantState = p;
+        
     }
     public Plant(PlantDataForSave p)
     {
@@ -52,6 +63,8 @@ public class Plant
         info= p.info;
         defValue= p.defValue;
         getValue= p.getValue;
+        plantType = p.plantType;
+        soilWaterValue = p.soilWaterValue;
     }
     public Plant(Item i)
     {
@@ -68,6 +81,8 @@ public class Plant
         info = i.info;
         defValue = i.sellPrice;
         getValue = i.getValue;
+        plantType = i.plantType;
+        soilWaterValue = 0;
     }
     public void Reset()
     {

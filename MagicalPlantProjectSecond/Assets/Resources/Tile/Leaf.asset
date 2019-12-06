@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2ff578c3c369e384584e3d3dabc5eab2, type: 3}
-  m_Name: PlantTile
+  m_Name: Leaf
   m_EditorClassIdentifier: 
   plant0: {fileID: 11400000, guid: 8432edc926e8eb74c831b6e44c6ca0aa, type: 2}
   plant20: {fileID: 11400000, guid: 4c8afc4863a2b734fb7eb9da333ee558, type: 2}

@@ -53,4 +53,5 @@ public class Item
     public string info;
     public int itemNum;
     public SeasonData vestSeason;
+    public PlantType plantType;
 }

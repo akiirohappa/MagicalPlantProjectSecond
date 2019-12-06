@@ -36,7 +36,7 @@ public class TileManager
         get { return plantFieldPos; }
     }
     Sprite[] eventTiles;
-    Dictionary<PlantTileData, Tile> PlantTiles;
+    Dictionary<PlantType,  Dictionary<PlantTileData, Tile>> PlantTiles;
     private TileManager()
     {
 
@@ -46,14 +46,33 @@ public class TileManager
         eventTiles = Resources.LoadAll<Sprite>("Tile/EventTile");
         TileMapSet();
         TileFieldSet(tiles[MapLayer.Event]);
-        PlantTiles = new Dictionary<PlantTileData, Tile>();
-        PlantTile p = Resources.Load<PlantTile>("PlantTile");
-        PlantTiles[PlantTileData.None] = null;
-        PlantTiles[PlantTileData.Zero] = p.plant0;
-        PlantTiles[PlantTileData.Twenty] = p.plant20;
-        PlantTiles[PlantTileData.Fifty] = p.plant50;
-        PlantTiles[PlantTileData.Seventy] = p.plant70;
-        PlantTiles[PlantTileData.Hundred] = p.plant100;
+        TileDataSet();
+    }
+    void TileDataSet()
+    {
+        PlantTiles = new Dictionary<PlantType, Dictionary<PlantTileData, Tile>>();
+        PlantTiles[PlantType.Leaf] = new Dictionary<PlantTileData, Tile>();
+        PlantTile p = Resources.Load<PlantTile>("Tile/Tree");
+        PlantTiles[PlantType.Tree][PlantTileData.None] = null;
+        PlantTiles[PlantType.Tree][PlantTileData.Zero] = p.plant0;
+        PlantTiles[PlantType.Tree][PlantTileData.Twenty] = p.plant20;
+        PlantTiles[PlantType.Tree][PlantTileData.Fifty] = p.plant50;
+        PlantTiles[PlantType.Tree][PlantTileData.Seventy] = p.plant70;
+        PlantTiles[PlantType.Tree][PlantTileData.Hundred] = p.plant100;
+        p = Resources.Load<PlantTile>("Tile/Leaf");
+        PlantTiles[PlantType.Leaf][PlantTileData.None] = null;
+        PlantTiles[PlantType.Leaf][PlantTileData.Zero] = p.plant0;
+        PlantTiles[PlantType.Leaf][PlantTileData.Twenty] = p.plant20;
+        PlantTiles[PlantType.Leaf][PlantTileData.Fifty] = p.plant50;
+        PlantTiles[PlantType.Leaf][PlantTileData.Seventy] = p.plant70;
+        PlantTiles[PlantType.Leaf][PlantTileData.Hundred] = p.plant100;
+        p = Resources.Load<PlantTile>("Tile/Mushroom");
+        PlantTiles[PlantType.Mushroom][PlantTileData.None] = null;
+        PlantTiles[PlantType.Mushroom][PlantTileData.Zero] = p.plant0;
+        PlantTiles[PlantType.Mushroom][PlantTileData.Twenty] = p.plant20;
+        PlantTiles[PlantType.Mushroom][PlantTileData.Fifty] = p.plant50;
+        PlantTiles[PlantType.Mushroom][PlantTileData.Seventy] = p.plant70;
+        PlantTiles[PlantType.Mushroom][PlantTileData.Hundred] = p.plant100;
     }
     public static TileManager GetInstance()
     {
@@ -144,8 +163,8 @@ public class TileManager
         return grid.CellToWorld(pos); ;
     }
     //畑描画用タイルマップの書き換え
-    public void ReWritePlantTile(PlantTileData tile,Vector3Int pos)
+    public void ReWritePlantTile(PlantType type,PlantTileData tile,Vector3Int pos)
     {
-        tiles[MapLayer.PlantData].SetTile(pos, PlantTiles[tile]);
+        tiles[MapLayer.PlantData].SetTile(pos, PlantTiles[type][tile]);
     }
 }

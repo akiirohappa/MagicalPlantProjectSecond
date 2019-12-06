@@ -12,3 +12,4 @@ public class PlantTile : ScriptableObject
     public Tile plant70;
     public Tile plant100;
 }
+

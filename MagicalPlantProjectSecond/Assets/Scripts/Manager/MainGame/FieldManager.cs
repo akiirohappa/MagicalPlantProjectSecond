@@ -39,6 +39,11 @@ public class FieldManager
         harvest = new HarvestCalc();
         FieldUnlock(0);
     }
+    //水の量の減少
+    public void WaterDown()
+    {
+
+    }
     //作物の成長
     public void PlantGrowth()
     {
@@ -53,22 +58,23 @@ public class FieldManager
                         p.nowGrowth = 100;
                         p.plantState = PlantState.Harvest;
                     }
+                    else if (p.soilState == Soil.VeryDry)
+                    {
+                        p.quality -= (int)(p.downQuality *1.5);
+                    }
                     else if (p.soilState == Soil.Dry)
                     {
                         p.quality -= p.downQuality;
                     }
-                    else if (p.soilState == Soil.Moist)
+                    else
                     {
                         p.quality += p.upQuality;
                         Debug.Log(p.quality);
                     }
-                    p.soilState = Soil.Dry;
-
                     break;
                 default:
                     break;
             }
-            
         }
         for (int i = 0; i < myField.Length; i++)
         {
@@ -236,6 +242,8 @@ public class PlantDataForSave
     public string info;
     public int defValue;
     public int getValue;
+    public PlantType plantType;
+    public int soilWaterValue;
     public PlantDataForSave(Plant p)
     {
         name = p.name;
@@ -250,5 +258,7 @@ public class PlantDataForSave
         info = p.info;
         defValue = p.defValue;
         getValue = p.getValue;
+        plantType = p.plantType;
+        soilWaterValue = p.soilWaterValue;
     }
 }
