@@ -67,6 +67,7 @@ public class TimeManager
         if(Time.minit >= 60)
         {
             Time.minit -= 60;
+            FieldManager.GetInstance().WaterDown();
             Time.hour++;
         }
         if(Time.hour == 24)

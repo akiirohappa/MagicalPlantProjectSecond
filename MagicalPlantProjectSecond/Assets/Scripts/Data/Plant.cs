@@ -40,6 +40,7 @@ public class Plant
     public int defValue;
     public int getValue;
     public PlantType plantType;
+    public SeasonData jastSeason;
     public Plant(PlantState p = PlantState.DontUse)
     {
         name = "から";
@@ -83,6 +84,7 @@ public class Plant
         getValue = i.getValue;
         plantType = i.plantType;
         soilWaterValue = 0;
+        jastSeason = i.vestSeason;
     }
     public void Reset()
     {

@@ -21,13 +21,37 @@ public class PlantDataView
         myObj.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = plant.name;
         myObj.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "成長度：" + plant.nowGrowth;
         myObj.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = "品質：" + plant.quality;
-        myObj.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = "土：<br>" + (plant.soilState == Soil.Dry ? "乾いている" : "湿っている");
+        myObj.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = "土：<br>" + SoilStateToString(plant.soilState);
         myObj.transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = "成長速度：<br>" + plant.growthSpeed + "%/日";
     }
     public void PlantVSetActive(bool b)
     {
         viewIsOpen = b;
         myObj.SetActive(b);
+    }
+    string SoilStateToString(Soil soil)
+    {
+        string s = "<size=30>";
+        switch (soil)
+        {
+            case Soil.Dry:
+                s += "乾いている";
+                break;
+            case Soil.VeryDry:
+                s += "すごく乾いている";
+                break;
+            case Soil.Moist:
+                s += "湿っている";
+                break;
+            case Soil.VeryMoist:
+                s += "すごく湿っている";
+                break;
+            default:
+                s = "";
+                break;
+        }
+        s += "</size>";
+        return s;
     }
     public bool GetIsView()
     {

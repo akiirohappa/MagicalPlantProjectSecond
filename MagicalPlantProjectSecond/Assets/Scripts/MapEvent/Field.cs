@@ -123,7 +123,8 @@ class Field:MapEventBase
         //水やり
         if (text == events[2].eventText)
         {
-            field.GetPlantData(pos).soilState = Soil.Moist;
+            field.GetPlantData(pos).soilWaterValue = 100;
+            field.GetPlantData(pos).soilState = Soil.VeryMoist;
             menu.State = MenuState.None;
             MainManager.GetInstance.Particle.PaticleMake(MainManager.GetInstance.Particle.Particle[1], pp);
             DontDestroyManager.my.Sound.PlaySE("Water");

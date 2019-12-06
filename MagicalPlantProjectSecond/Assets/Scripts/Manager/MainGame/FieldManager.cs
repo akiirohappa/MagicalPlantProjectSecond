@@ -42,7 +42,30 @@ public class FieldManager
     //水の量の減少
     public void WaterDown()
     {
-
+        foreach (Plant p in myField)
+        {
+            p.soilWaterValue -= 2;
+            if(p.soilWaterValue < 0)
+            {
+                p.soilWaterValue = 0;
+            }
+            if(p.soilWaterValue == 0)
+            {
+                p.soilState = Soil.VeryDry;
+            }
+            else if(p.soilWaterValue <= 50)
+            {
+                p.soilState = Soil.Dry;
+            }
+            else if (p.soilWaterValue < 100)
+            {
+                p.soilState = Soil.Moist;
+            }
+            else
+            {
+                p.soilState = Soil.VeryMoist;
+            }
+        }
     }
     //作物の成長
     public void PlantGrowth()
@@ -68,7 +91,7 @@ public class FieldManager
                     }
                     else
                     {
-                        p.quality += p.upQuality;
+                        p.quality += (TimeManager.GetInstance().Time.nowSeason == p.jastSeason ? 2:1)*p.upQuality;
                         Debug.Log(p.quality);
                     }
                     break;
@@ -98,10 +121,10 @@ public class FieldManager
                     {
                         tile = PlantTileData.Seventy;
                     }
-                    TileManager.GetInstance().ReWritePlantTile(tile, TileManager.GetInstance().TileFieldGet()[i]);
+                    TileManager.GetInstance().ReWritePlantTile(myField[i].plantType,tile, TileManager.GetInstance().TileFieldGet()[i]);
                     break;
                 case PlantState.Harvest:
-                    TileManager.GetInstance().ReWritePlantTile(PlantTileData.Hundred, TileManager.GetInstance().TileFieldGet()[i]);
+                    TileManager.GetInstance().ReWritePlantTile(myField[i].plantType, PlantTileData.Hundred, TileManager.GetInstance().TileFieldGet()[i]);
                     break;
                 default:
 
@@ -117,11 +140,11 @@ public class FieldManager
             myField[num] = plant;
             if (plant.plantState == PlantState.None)
             {
-                TileManager.GetInstance().ReWritePlantTile(PlantTileData.None, vec);
+                TileManager.GetInstance().ReWritePlantTile(myField[num].plantType, PlantTileData.None, vec);
             }
             else
             {
-                TileManager.GetInstance().ReWritePlantTile(PlantTileData.Zero, vec);
+                TileManager.GetInstance().ReWritePlantTile(myField[num].plantType, PlantTileData.Zero, vec);
             }
             
         }
@@ -182,7 +205,7 @@ public class FieldManager
             switch (pls[i].plantState)
             {
                 case PlantState.None:
-                    TileManager.GetInstance().ReWritePlantTile(PlantTileData.None, TileManager.GetInstance().TileFieldGet()[i]);
+                    TileManager.GetInstance().ReWritePlantTile(myField[i].plantType, PlantTileData.None, TileManager.GetInstance().TileFieldGet()[i]);
                     break;
                 case PlantState.Growth:
                     PlantTileData tile = PlantTileData.Zero;
@@ -203,10 +226,10 @@ public class FieldManager
                     {
                         tile = PlantTileData.Seventy;
                     }
-                    TileManager.GetInstance().ReWritePlantTile(tile, TileManager.GetInstance().TileFieldGet()[i]);
+                    TileManager.GetInstance().ReWritePlantTile(myField[i].plantType, tile, TileManager.GetInstance().TileFieldGet()[i]);
                     break;
                 case PlantState.Harvest:
-                    TileManager.GetInstance().ReWritePlantTile(PlantTileData.Hundred, TileManager.GetInstance().TileFieldGet()[i]);
+                    TileManager.GetInstance().ReWritePlantTile(myField[i].plantType, PlantTileData.Hundred, TileManager.GetInstance().TileFieldGet()[i]);
                     break;
                 default:
 
@@ -222,7 +245,7 @@ public class FieldManager
             if (i % 5 >= 5-2-level && i/5 <= level + 1 && myField[i].plantState == PlantState.DontUse)
             {
                 myField[i].plantState = PlantState.None;
-                TileManager.GetInstance().ReWritePlantTile(PlantTileData.None, fieldTileData[i]);
+                TileManager.GetInstance().ReWritePlantTile(myField[i].plantType, PlantTileData.None, fieldTileData[i]);
             }
         }
     }
@@ -244,6 +267,7 @@ public class PlantDataForSave
     public int getValue;
     public PlantType plantType;
     public int soilWaterValue;
+    public SeasonData jastSeason;
     public PlantDataForSave(Plant p)
     {
         name = p.name;
@@ -260,5 +284,6 @@ public class PlantDataForSave
         getValue = p.getValue;
         plantType = p.plantType;
         soilWaterValue = p.soilWaterValue;
+        jastSeason = p.jastSeason;
     }
 }

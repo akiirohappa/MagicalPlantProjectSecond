@@ -9,6 +9,10 @@ public class MapEventManager
 {
     private static MapEventManager _map;
     List<MapEventBase> events;
+    public List<MapEventBase> Events
+    {
+        get { return events; }
+    }
     GameObject mousePoint;
     TileManager tile;
     MapEventBase cullentMenu;
@@ -166,5 +170,38 @@ public class MapEventManager
     public void ButtonOnPointer()
     {
         buttonPressd = true;
+    }
+    public void MapEVLevelSet(MapEvent map)
+    {
+        for(int i = 0;i < events.Count; i++)
+        {
+            if(i >= map.events.Length)
+            {
+                break;
+            }
+            if(events[i].eventNum == 0)
+            {
+                continue;
+            }
+            events[i].Data.nowLevel = map.events[i];
+        }
+    }
+}
+[System.Serializable]
+public class MapEvent
+{
+
+    public int[] events;
+    public MapEvent(List<MapEventBase>map)
+    {
+        events = new int[map.Count];
+        for(int i = 0;i < map.Count; i++)
+        {
+            if(map[i].eventNum == 0)
+            {
+                continue;
+            }
+            events[i] = map[i].Data.nowLevel;
+        }
     }
 }

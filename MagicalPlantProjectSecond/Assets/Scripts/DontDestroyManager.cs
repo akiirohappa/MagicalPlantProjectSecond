@@ -16,7 +16,7 @@ public class DontDestroyManager : MonoBehaviour
         get { return scene; }
     }
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
         if (my == null)
         {
@@ -29,6 +29,18 @@ public class DontDestroyManager : MonoBehaviour
         }
         sound = GetComponent<SoundManager>();
         scene = GetComponent<SceneChangeManager>();
+    }
+    private void Awake()
+    {
+        if (my == null || my==this)
+        {
+            my = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(this);
+        }
     }
     private void Update()
     {

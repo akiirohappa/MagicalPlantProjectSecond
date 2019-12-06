@@ -19,6 +19,7 @@ public class ItemData : ScriptableObject
     public string info;
     public int itemNum;
     public SeasonData vestSeason;
+    public PlantType plantType;
     public Item data;
     public Item GetItem()
     {

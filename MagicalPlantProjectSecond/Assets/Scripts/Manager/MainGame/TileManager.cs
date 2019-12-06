@@ -52,6 +52,8 @@ public class TileManager
     {
         PlantTiles = new Dictionary<PlantType, Dictionary<PlantTileData, Tile>>();
         PlantTiles[PlantType.Leaf] = new Dictionary<PlantTileData, Tile>();
+        PlantTiles[PlantType.Tree] = new Dictionary<PlantTileData, Tile>();
+        PlantTiles[PlantType.Mushroom] = new Dictionary<PlantTileData, Tile>();
         PlantTile p = Resources.Load<PlantTile>("Tile/Tree");
         PlantTiles[PlantType.Tree][PlantTileData.None] = null;
         PlantTiles[PlantType.Tree][PlantTileData.Zero] = p.plant0;

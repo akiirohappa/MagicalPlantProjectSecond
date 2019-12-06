@@ -38,6 +38,7 @@ public class Item
         info = id.info;
         itemNum = id.itemNum;
         vestSeason = id.vestSeason;
+        plantType = id.plantType;
     }
     public string itemName;
     public ItemType itemType;

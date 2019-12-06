@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class MeData_Bed : MapEventBase
 {
-    FaData_Bed data;
     public MeData_Bed(int n):base(n)
     {
         data = new FaData_Bed();
@@ -46,7 +45,7 @@ public class MeData_Bed : MapEventBase
         if (text == events[1].eventText)
         {
             //寝るときの処理をここに
-            TimeManager.GetInstance().AccelStart(data);
+            TimeManager.GetInstance().AccelStart((FaData_Bed)data);
             menu.State = MenuState.None;
         }
         if (text == "None")

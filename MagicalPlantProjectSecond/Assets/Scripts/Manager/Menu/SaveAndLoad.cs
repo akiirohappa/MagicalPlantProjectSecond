@@ -68,6 +68,7 @@ public class SaveAndLoad
         FieldManager.GetInstance().SetFieldData(plants);
         PlayerData.GetInstance().Money = sd.money;
         DontDestroyManager.my.Sound.ConfigSet(sd.config);
+        MapEventManager.GetInstance().MapEVLevelSet(sd.mapE);
     }
 }
 public class SaveData
@@ -86,11 +87,13 @@ public class SaveData
         myItems = new ItemListForSave(PlayerData.GetInstance().ListItem);
         money = PlayerData.GetInstance().Money;
         config = new ConfigData();
+        mapE = new MapEvent(MapEventManager.GetInstance().Events);
         config.CoufigLoad();
     }
     public TimeForSave time;
     public ItemListForSave myItems;
     public PlantDataForSave[] plants;
     public ConfigData config;
+    public MapEvent mapE;
     public long money;
 }

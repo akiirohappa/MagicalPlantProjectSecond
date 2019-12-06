@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class MeData_Fountain:MapEventBase
 {
-    FaData_Fountain data;
     public MeData_Fountain(int num):base(num)
     {
         data = new FaData_Fountain();
@@ -57,7 +56,8 @@ public class MeData_Fountain:MapEventBase
                     vec.x += 0.5f;
                     DontDestroyManager.my.Sound.PlaySE("Water");
                     MainManager.GetInstance.Particle.PaticleMake(MainManager.GetInstance.Particle.Particle[1], vec);
-                    FieldManager.GetInstance().myField[i].soilState = Soil.Moist;
+                    FieldManager.GetInstance().myField[i].soilState = Soil.VeryMoist;
+                    FieldManager.GetInstance().myField[i].soilWaterValue = 100;
                 }
             }
             menu.State = MenuState.None;

@@ -13,7 +13,7 @@ public abstract class MapEventBase
     public int eventNum;
     //マネージャーから検索用の文字列
     public string eventStr;
-
+    
     public GameObject buttonParent;
     //選択時メニューのボタンプレハブ
     protected GameObject buttonPrefab;
@@ -31,7 +31,12 @@ public abstract class MapEventBase
         }
     }
     protected EventCode[] events;
-    protected Vector3Int pos; 
+    protected Vector3Int pos;
+    protected FacilitiesData data;
+    public FacilitiesData Data
+    {
+        get { return data; }
+    }
     //コンストラクタ君
     public MapEventBase(int num)
      {

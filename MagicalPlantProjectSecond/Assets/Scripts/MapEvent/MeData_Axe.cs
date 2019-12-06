@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class MeData_Axe : MapEventBase
 {
-    FaData_Axe data;
     public MeData_Axe(int n):base(n)
     {
         data = new FaData_Axe();
