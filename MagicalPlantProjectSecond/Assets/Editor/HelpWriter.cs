@@ -13,17 +13,25 @@ public class HelpWriter : EditorWindow
         w.minSize = new Vector2(500f, 600f);
     }
     HelpItem help;
-    Vector2 vec;
+    const string savePath = "Assets/Resources/Help";
+    int page;
     private void OnGUI()
     {
         if(help == null)
         {
             help = new HelpItem();
+            help.itemValue = new List<string>();
+            help.itemValue.Add("");
+            page = 0;
         }
         EditorGUILayout.BeginHorizontal();
         if (GUILayout.Button("セーブ",GUILayout.Height(30)))
         {
-            string path = EditorUtility.SaveFilePanel("セーブ", "Assets/Resource","New Help","json");
+            if (!Directory.Exists(savePath))
+            {
+                Directory.CreateDirectory(savePath);
+            }
+            string path = EditorUtility.SaveFilePanel("セーブ", savePath,"New Help","json");
             if (!string.IsNullOrEmpty(path))
             {
                 string json = JsonUtility.ToJson(help);
@@ -36,7 +44,7 @@ public class HelpWriter : EditorWindow
         }
         if (GUILayout.Button("ロード", GUILayout.Height(30)))
         {
-            string path = EditorUtility.OpenFilePanel("ロード", "Assets/Resource", "json");
+            string path = EditorUtility.OpenFilePanel("ロード", "Assets/Resource/Help", "json");
             if (!string.IsNullOrEmpty(path))
             {
                 string json = File.ReadAllText(path);
@@ -52,9 +60,44 @@ public class HelpWriter : EditorWindow
         EditorGUILayout.LabelField("名前",GUILayout.Width(50));
         help.itemName = EditorGUILayout.TextField(help.itemName);
         EditorGUILayout.EndHorizontal();
+        EditorGUILayout.BeginHorizontal();
+        if (GUILayout.Button("＜"))
+        {
+            GUI.FocusControl("");
+            if (page-1 != -1)
+            {
+                page--;
+            }
+            
+        }
+        if (GUILayout.Button("×"))
+        {
+            if(help.itemValue.Count != 1)
+            {
+                help.itemValue.Remove(help.itemValue[page]);
+                if (page != 0)
+                {
+                    page--;
+                }
+            }
+        }
+        if (GUILayout.Button("+"))
+        {
+            help.itemValue.Add("");
+        }
+        if (GUILayout.Button("＞"))
+        {
+            GUI.FocusControl("");
+            if(page+1 != help.itemValue.Count)
+            {
+                page++;
+            }
+        }
+        EditorGUILayout.EndHorizontal();
+        EditorGUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("項目");
-        vec = EditorGUILayout.BeginScrollView(vec);
-        help.itemValue = EditorGUILayout.TextArea(help.itemValue);
-        EditorGUILayout.EndScrollView();
+        EditorGUILayout.LabelField((page+1)+"/"+ help.itemValue.Count + "ページ");
+        EditorGUILayout.EndHorizontal();
+        help.itemValue[page] = EditorGUILayout.TextArea(help.itemValue[page], GUILayout.Height(175));
     }
 }

@@ -5,5 +5,5 @@ using UnityEngine;
 public class HelpItem
 {
     public string itemName;
-    public string itemValue;
+    public List<string> itemValue;
 }

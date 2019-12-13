@@ -47,6 +47,7 @@ public class MapEventManager
         events.Add(new MeData_Fountain(8));
         events.Add(new MeData_Bed(5));
         events.Add(new MeData_Axe(6));
+        events.Add(new MeData_Bookshelf(3));
         mousePoint = GameObject.Instantiate(Resources.Load<GameObject>("MousePoint"));
         mousePoint.SetActive(false);
         tile = TileManager.GetInstance();

@@ -22,7 +22,11 @@ public class MeData_Bed : MapEventBase
     }
     public override void OnRightClickRun()
     {
-        EventStart(events[1].eventText);
+        if (data.nowLevel != 0)
+        {
+            EventStart(events[1].eventText);
+        }
+        
     }
     public override void OnHoverRun(Vector3Int pos)
     {

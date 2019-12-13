@@ -16,6 +16,7 @@ public enum MenuState
     ItemSet,
     EventSelect,
     Sleep,
+    Help,
 }
 
 public class MenuManager : MonoBehaviour
@@ -49,6 +50,10 @@ public class MenuManager : MonoBehaviour
             state = value;
         }
     }
+    public Dictionary<MenuState, MenuManagerBase> MenusGet
+    {
+        get { return Menus; }
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -60,6 +65,7 @@ public class MenuManager : MonoBehaviour
         Menus[MenuState.ItemSet] = new ItemSetManager(this);
         Menus[MenuState.Save] = new SaveManager(this);
         Menus[MenuState.Config] = new ConfigManager(this);
+        Menus[MenuState.Help] = new HelpManager(this);
         State = MenuState.None;
     }
 
@@ -157,7 +163,7 @@ public class MenuManager : MonoBehaviour
         {
             MenuButton();
         }
-        Menus[State].Close();
+        //Menus[State].Close();
         State = MenuState.None;
     }
 }
