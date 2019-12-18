@@ -66,6 +66,7 @@ public class MenuManager : MonoBehaviour
         Menus[MenuState.Save] = new SaveManager(this);
         Menus[MenuState.Config] = new ConfigManager(this);
         Menus[MenuState.Help] = new HelpManager(this);
+        Menus[MenuState.Peformance] = new PeforManceManager(this);
         State = MenuState.None;
     }
 

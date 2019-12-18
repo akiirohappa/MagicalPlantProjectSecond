@@ -17,7 +17,7 @@ public class LogManager
     {
         GameObject g = GameObject.Instantiate(logDataobj,logParent.transform);
         g.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = text;
-        //g.transform.GetChild(1).GetComponent<Image>().sprite = image;
+        g.transform.GetChild(1).GetComponent<Image>().sprite = image;
         if (logParent.transform.childCount == 1)
         {
             logParent.transform.GetChild(0).GetComponent<Log>().AnimStart(this);
