@@ -184,7 +184,11 @@ public class MapEventManager
             {
                 continue;
             }
-            events[i].Data.nowLevel = map.events[i];
+            if(events[i].Data != null)
+            {
+                events[i].Data.nowLevel = map.events[i];
+            }
+            
         }
     }
 }
@@ -202,7 +206,13 @@ public class MapEvent
             {
                 continue;
             }
-            events[i] = map[i].Data.nowLevel;
+            if(map[i].Data != null)
+            {
+                events[i] = map[i].Data.nowLevel;
+            }
+            
+
+            
         }
     }
 }

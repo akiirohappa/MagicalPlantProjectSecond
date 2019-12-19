@@ -33,6 +33,6 @@ public class TitlePlantObj : MonoBehaviour
     }
     public void OnClickedEvent()
     {
-        Instantiate(text, transform);
+        Instantiate(text, transform).GetComponent<TitleObjText>().SetText("ｺﾝﾆﾁﾜ");
     }
 }

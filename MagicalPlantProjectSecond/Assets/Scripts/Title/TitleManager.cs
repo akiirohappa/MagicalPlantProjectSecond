@@ -9,6 +9,7 @@ public class TitleManager : MonoBehaviour
     GameObject plantObj;
     LoadManager load;
     RectTransform rect;
+    Sprite[] plantImages;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +18,7 @@ public class TitleManager : MonoBehaviour
         plantObj = Resources.Load<GameObject>("Prefabs/TitleBackObj");
         load = new LoadManager(this);
         rect = GameObject.Find("Canvas").GetComponent<RectTransform>();
+        plantImages = Resources.LoadAll<Sprite>("PlantImages");
     }
 
     // Update is called once per frame
@@ -33,7 +35,7 @@ public class TitleManager : MonoBehaviour
             GameObject g = Instantiate(plantObj,GameObject.Find("ItemPos").transform);
             g.transform.localPosition = new Vector3(50, pos);
             g.transform.SetParent(GameObject.Find("BackGroundObj").transform);
-            g.GetComponent<TitlePlantObj>().SetPlantImage(Resources.Load<Sprite>("PlantImages/kab"));
+            g.GetComponent<TitlePlantObj>().SetPlantImage(plantImages[Random.Range(0,plantImages.Length)]);
         }
     }
     public void NewGame()

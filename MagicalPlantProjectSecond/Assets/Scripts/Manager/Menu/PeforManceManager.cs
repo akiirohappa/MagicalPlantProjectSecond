@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public enum PeforManceMenuState
 {
@@ -10,9 +12,15 @@ public enum PeforManceMenuState
 public class PeforManceManager : MenuManagerBase
 {
     PeforManceMenuState state;
+    List<Button> ItemButtons;
+    List<Button> PeformanceButtons;
+    public Dictionary<string, PeforManceDataBase> PeforMances;
+
     public PeforManceManager(MenuManager m):base(m)
     {
         myObjct = GameObject.Find("Menu").transform.Find("Peformance").gameObject;
+        ItemButtons = new List<Button>();
+        PeformanceButtons = new List<Button>();
     }
     public override void Open()
     {
@@ -34,6 +42,10 @@ public class PeforManceManager : MenuManagerBase
     }
     void MenuSet()
     {
+        var buttons = (state == PeforManceMenuState.PeforMance ? PeformanceButtons:ItemButtons);
         
+
+
+
     }
 }

@@ -18,8 +18,8 @@ public class SaveManager:MenuManagerBase
     {
         sl = new SaveAndLoad();
         myObjct = GameObject.Find("Menu").transform.Find("Save").gameObject;
-        saveButtonPer = myObjct.transform.GetChild(0).GetChild(0).GetChild(0).gameObject;
-        saveDataShow = myObjct.transform.GetChild(1).gameObject;
+        saveButtonPer = myObjct.transform.GetChild(1).GetChild(0).GetChild(0).gameObject;
+        saveDataShow = myObjct.transform.GetChild(2).gameObject;
         saveButtonPref = Resources.Load<GameObject>("Prefabs/SaveButton");
     }
     public override void Open()
