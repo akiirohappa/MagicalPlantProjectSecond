@@ -14,13 +14,27 @@ public class PeforManceManager : MenuManagerBase
     PeforManceMenuState state;
     List<Button> ItemButtons;
     List<Button> PeformanceButtons;
-    public Dictionary<string, PeforManceDataBase> PeforMances;
+    public PeforManceDataBase[] PeforMances;
+
+    public GameObject listParent;
+    public GameObject peforManceButton;
+
 
     public PeforManceManager(MenuManager m):base(m)
     {
         myObjct = GameObject.Find("Menu").transform.Find("Peformance").gameObject;
         ItemButtons = new List<Button>();
         PeformanceButtons = new List<Button>();
+        PeforMances = Resources.LoadAll<PeforManceDataBase>("PeforMance");
+        peforManceButton = Resources.Load<GameObject>("Prefabs/PefoeManceButton");
+        listParent = myObjct.transform.GetChild(0).GetChild(1).GetChild(0).GetChild(0).gameObject;
+        for (int i = 0;i < PeforMances.Length; i++)
+        {
+            PeformanceButtons.Add(GameObject.Instantiate(peforManceButton, listParent.transform).GetComponent<Button>());
+            PeformanceButtons[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = PeforMances[i].Title;
+        }
+        
+       
     }
     public override void Open()
     {
@@ -43,7 +57,11 @@ public class PeforManceManager : MenuManagerBase
     void MenuSet()
     {
         var buttons = (state == PeforManceMenuState.PeforMance ? PeformanceButtons:ItemButtons);
-        
+        if(state == PeforManceMenuState.PeforMance)
+        {
+            
+
+        }
 
 
 
