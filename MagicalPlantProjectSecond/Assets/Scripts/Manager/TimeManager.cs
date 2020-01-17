@@ -6,6 +6,7 @@ using TMPro;
 
 public enum SeasonData
 {
+    None,
     Spring,
     Summer,
     Autumn,

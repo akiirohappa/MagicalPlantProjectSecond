@@ -8,6 +8,7 @@ public enum ItemType
     Seed,
     Plant,
     Fertilizer,
+    Extra,
 }
 [System.Serializable]
 public class Item

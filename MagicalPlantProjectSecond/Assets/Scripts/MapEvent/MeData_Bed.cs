@@ -43,7 +43,10 @@ public class MeData_Bed : MapEventBase
     {
         if (text == events[0].eventText)
         {
-            data.nowLevel++;
+            if (data.LevelUPPriceCheck())
+            {
+                data.nowLevel++;
+            }
             menu.State = MenuState.None;
         }
         if (text == events[1].eventText)

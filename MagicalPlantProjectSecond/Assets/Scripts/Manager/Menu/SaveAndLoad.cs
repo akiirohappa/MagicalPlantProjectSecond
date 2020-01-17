@@ -38,7 +38,7 @@ public class SaveAndLoad
         }
         string json = JsonUtility.ToJson(s);
         saveDatas[num] = json;
-//        Debug.Log(json);
+        Debug.Log(json);
         PlayerPrefs.SetString(saveDataPassBase + num, json);
         PlayerPrefs.Save();
     }
@@ -69,6 +69,7 @@ public class SaveAndLoad
         PlayerData.GetInstance().Money = sd.money;
         DontDestroyManager.my.Sound.ConfigSet(sd.config);
         MapEventManager.GetInstance().MapEVLevelSet(sd.mapE);
+        PlayerData.GetInstance().PD.DataSet(sd.pedata);
     }
 }
 public class SaveData
@@ -89,6 +90,7 @@ public class SaveData
         config = new ConfigData();
         mapE = new MapEvent(MapEventManager.GetInstance().Events);
         config.CoufigLoad();
+        pedata = new PeforManceSaveDatas(PlayerData.GetInstance().PD);
     }
     public TimeForSave time;
     public ItemListForSave myItems;
@@ -96,4 +98,5 @@ public class SaveData
     public ConfigData config;
     public MapEvent mapE;
     public long money;
+    public PeforManceSaveDatas pedata;
 }

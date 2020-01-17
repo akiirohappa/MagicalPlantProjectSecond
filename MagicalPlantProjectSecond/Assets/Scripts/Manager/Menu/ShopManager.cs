@@ -65,7 +65,11 @@ public class ShopManager:MenuManagerBase
         ItemData[] items = Resources.LoadAll<ItemData>("Item");
         foreach(ItemData i in items)
         {
-            ShopList[ItemType.Seed].Item.Add(new Item(i));
+            if(i.itemType == ItemType.Seed)
+            {
+                ShopList[ItemType.Seed].Item.Add(new Item(i));
+            }
+            
         }
         
     }
@@ -211,14 +215,21 @@ public class ShopManager:MenuManagerBase
                             GoodsValueChange(5);
                             break;
                         case "+All":
-                            if (PlayerData.GetInstance().Money / nowViewItem.defaltValue > 99)
+                            if(trade == TradeState.Buy)
                             {
-                                shopValue = 99;
+                                if (PlayerData.GetInstance().Money / nowViewItem.defaltValue > 99)
+                                {
+                                    shopValue = 99;
+                                }
+                                else if (shopValue == 0) shopValue = 1;
+                                else
+                                {
+                                    shopValue = (int)PlayerData.GetInstance().Money / nowViewItem.defaltValue;
+                                }
                             }
-                            else if (shopValue == 0) shopValue = 1;
                             else
                             {
-                                shopValue = (int)PlayerData.GetInstance().Money / nowViewItem.defaltValue;
+                                shopValue = nowViewItem.itemNum;
                             }
                             GoodsValueChange(0);
                             break;

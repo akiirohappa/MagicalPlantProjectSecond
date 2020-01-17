@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PeforManceUnlock : MonoBehaviour
+public class PeforManceUnlock
 {
     // Start is called before the first frame update
     void Start()

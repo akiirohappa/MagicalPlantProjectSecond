@@ -16,4 +16,20 @@ public abstract class FacilitiesData
         
     }
     public abstract void LevelUpAct();
+    public bool LevelUPPriceCheck()
+    {
+        long lvPl = levelUpPrice[nowLevel];
+        if(PlayerData.GetInstance().Money >= lvPl)
+        {
+            DontDestroyManager.my.Sound.PlaySE("Submit_S");
+            PlayerData.GetInstance().Money -= lvPl;
+            return true;
+        }
+        else
+        {
+            MainManager.GetInstance.Log.LogMake("お金が足りません！", null);
+            DontDestroyManager.my.Sound.PlaySE("Cancel");
+            return false;
+        }
+    }
 }

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ee74ebec4522824d8097e17595b7357, type: 3}
+  m_Name: MoneyL4
+  m_EditorClassIdentifier: 
+  Title: "5000\u5146\u682A\u6B32\u3057\u3044\uFF01"
+  icon: {fileID: 0}
+  conditionsText: "\u7D2F\u8A085\u5343\u5146\u682A\u5165\u624B"
+  rewardText: 
+  rewardItem: {fileID: 0}
+  rewardItemNum: 1
+  rewardGet: 0
+  DeText: "<size=50>5000\u5146\u682A<br>   \u6B32\u3057\u3044\uFF01</size>"
+  conditions: 5000000000000000
+  Clear: 0

@@ -30,8 +30,11 @@ public class MeData_Axe : MapEventBase
     {
         if (text == events[0].eventText)
         {
-            data.nowLevel++;
-            FieldManager.GetInstance().FieldUnlock(data.nowLevel);
+            if (data.LevelUPPriceCheck())
+            {
+                data.nowLevel++;
+                FieldManager.GetInstance().FieldUnlock(data.nowLevel);
+            }
             menu.State = MenuState.None;
         }
         if (text == "None")
