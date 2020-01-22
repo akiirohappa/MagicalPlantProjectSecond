@@ -22,6 +22,7 @@ public class ItemSetManager :MenuManagerBase
         list = pd.Item;
         myObjct = GameObject.Find("Menu").transform.Find("PlantSetWindow").gameObject;
         selectButton = Resources.Load<GameObject>("Prefabs/SeedButton");
+        field = FieldManager.GetInstance();
     }
     public override void Submit()
     {
@@ -37,7 +38,15 @@ public class ItemSetManager :MenuManagerBase
     }
     public override void PlessItemButton(Item item)
     {
-        field.SetPlantData(pos,new Plant(item));
+        field.SetPlantData(pos,item);
+        MainManager.GetInstance.Particle.PaticleMake(MainManager.GetInstance.Particle.Particle[0], pp);
+        DontDestroyManager.my.Sound.PlaySE("Dig");
+        PlayerData.GetInstance().Item.ItemGet(item, -1);
+        mManager.ButtonToMain();
+    }
+    public void PlessFtButton(Item item)
+    {
+        field.GetPlantData(pos).FertilizerAdd(new FertilizerData(item));
         MainManager.GetInstance.Particle.PaticleMake(MainManager.GetInstance.Particle.Particle[0], pp);
         DontDestroyManager.my.Sound.PlaySE("Dig");
         PlayerData.GetInstance().Item.ItemGet(item, -1);
@@ -70,6 +79,10 @@ public class ItemSetManager :MenuManagerBase
                 {
                     SeedButtonMake(i);
                 }
+                if(type == ItemType.Fertilizer)
+                {
+                    FertilizerButtonMake(i);
+                }
             }
         }
     }
@@ -88,5 +101,15 @@ public class ItemSetManager :MenuManagerBase
         GameObject g = ButtonMake(i);
         g.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = "成長速度:"+i.growthSpeed + "%/日";
         g.transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = "";
+        g.GetComponent<Button>().onClick.RemoveAllListeners();
+        g.GetComponent<Button>().onClick.AddListener(() => PlessItemButton(i));
+    }
+    void FertilizerButtonMake(Item i)
+    {
+        GameObject g = ButtonMake(i);
+        g.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = "成長速度:" + i.growthSpeed + "%/日";
+        g.transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = "";
+        g.GetComponent<Button>().onClick.RemoveAllListeners();
+        g.GetComponent<Button>().onClick.AddListener(() => PlessFtButton(i));
     }
 }

@@ -42,6 +42,7 @@ public class FieldManager
     //水の量の減少
     public void WaterDown()
     {
+        List<FertilizerData> fCp = new List<FertilizerData>();
         foreach (Plant p in myField)
         {
             p.soilWaterValue -= 2;
@@ -65,34 +66,62 @@ public class FieldManager
             {
                 p.soilState = Soil.VeryMoist;
             }
+            foreach(FertilizerData f in p.fertilizers)
+            {
+                f.getValue--;
+                if (f.getValue <= 0)
+                {
+                    fCp.Add(f);
+                }
+            }
+            foreach(FertilizerData f in fCp)
+            {
+                p.fertilizers.Remove(f);
+            }
+            fCp.Clear();
         }
     }
     //作物の成長
     public void PlantGrowth()
     {
-        foreach(Plant p in myField)
+        int exQuality;
+        int upQuality;
+        int downQuality;
+        float upSpeed;
+        foreach (Plant p in myField)
         {
+            exQuality = 0;
+            upQuality = 0;
+            downQuality = 0;
+            upSpeed = 0;
             switch (p.plantState)
             {
                 case PlantState.Growth:
-                    p.nowGrowth += p.growthSpeed;
+                    foreach(FertilizerData f in p.fertilizers)
+                    {
+                        exQuality += f.quality;
+                        upQuality += f.upQuality;
+                        downQuality += f.downQuality;
+                        upSpeed += f.growthSpeed;
+                    }
+                    p.nowGrowth += (p.growthSpeed+upSpeed);
                     if (p.nowGrowth >= 100)
                     {
                         p.nowGrowth = 100;
+                        p.quality += exQuality;
                         p.plantState = PlantState.Harvest;
                     }
                     else if (p.soilState == Soil.VeryDry)
                     {
-                        p.quality -= (int)(p.downQuality *1.5);
+                        p.quality -= (int)(p.downQuality *1.5)-downQuality;
                     }
                     else if (p.soilState == Soil.Dry)
                     {
-                        p.quality -= p.downQuality;
+                        p.quality -= p.downQuality-downQuality;
                     }
                     else
                     {
-                        p.quality += (TimeManager.GetInstance().Time.nowSeason == p.jastSeason ? 2:1)*p.upQuality;
-                        Debug.Log(p.quality);
+                        p.quality += (TimeManager.GetInstance().Time.nowSeason == p.jastSeason ? 2:1)*p.upQuality+upQuality;
                     }
                     break;
                 default:
@@ -132,21 +161,24 @@ public class FieldManager
             }
         }
     }
-    public void SetPlantData(Vector3Int vec,Plant plant)
+    public void SetPlantData(Vector3Int vec,Item item)
     {
         int num = GetPlantPos(vec);
         if (num != -1)
         {
-            myField[num] = plant;
-            if (plant.plantState == PlantState.None)
-            {
-                TileManager.GetInstance().ReWritePlantTile(myField[num].plantType, PlantTileData.None, vec);
-            }
-            else
-            {
-                TileManager.GetInstance().ReWritePlantTile(myField[num].plantType, PlantTileData.Zero, vec);
-            }
-            
+            myField[num].PlantDataSet(item);
+            TileSet(vec, myField[num]);
+        }
+    }
+    void TileSet(Vector3Int vec,Plant p)
+    {
+        if (p.plantState == PlantState.None)
+        {
+            TileManager.GetInstance().ReWritePlantTile(p.plantType, PlantTileData.None, vec);
+        }
+        else
+        {
+            TileManager.GetInstance().ReWritePlantTile(p.plantType, PlantTileData.Zero, vec);
         }
     }
     public Plant GetPlantData(Vector3Int vec)
@@ -156,7 +188,10 @@ public class FieldManager
         {
             return myField[num];
         }
-        else return null;
+        else
+        {
+            return null;
+        }
     }
     //畑の情報表示（仮）
     public void ShowPlantData(Vector3Int vec)
@@ -194,7 +229,7 @@ public class FieldManager
         PlayerData.GetInstance().Item.ItemGet(it,it.getValue);
         MainManager.GetInstance.Log.LogMake(it.itemName + "を手に入れた！", it.icon);
         pl.Reset();
-        SetPlantData(vec, pl);
+        TileSet(vec, pl);
     }
     //作物データセット
     public void SetFieldData(Plant[] pls)
@@ -268,6 +303,7 @@ public class PlantDataForSave
     public PlantType plantType;
     public int soilWaterValue;
     public SeasonData jastSeason;
+    public List<FertilizerSaveData> fertilizers;
     public PlantDataForSave(Plant p)
     {
         name = p.name;
@@ -285,5 +321,10 @@ public class PlantDataForSave
         plantType = p.plantType;
         soilWaterValue = p.soilWaterValue;
         jastSeason = p.jastSeason;
+        fertilizers = new List<FertilizerSaveData>();
+        foreach(FertilizerData f in p.fertilizers)
+        {
+            fertilizers.Add(new FertilizerSaveData(f));
+        }
     }
 }

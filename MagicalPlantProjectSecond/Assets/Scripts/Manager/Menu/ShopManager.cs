@@ -69,9 +69,16 @@ public class ShopManager:MenuManagerBase
             {
                 ShopList[ItemType.Seed].Item.Add(new Item(i));
             }
-            
         }
-        
+        items = Resources.LoadAll<ItemData>("Item/Fartilizer");
+        foreach (ItemData i in items)
+        {
+            if (i.itemType == ItemType.Fertilizer)
+            {
+                ShopList[ItemType.Fertilizer].Item.Add(new Item(i));
+            }
+        }
+
     }
     public override void Open()
     {
@@ -188,6 +195,20 @@ public class ShopManager:MenuManagerBase
                     {
                         case "Seed":
                             nowJanl = ShopList[ItemType.Seed];
+                            sort.item = nowJanl;
+                            sort.states = new SortState[]{
+                                SortState.ItemName,
+                                SortState.ItemType,
+                                SortState.ItemValue,
+                                SortState.GrowthSpeed,
+                            };
+                            state = ShopState.GoodsSelect;
+                            ObjectActive(state);
+                            GoodsButtonMake();
+                            PlessItemButton(null);
+                            break;
+                        case "Fartilizer":
+                            nowJanl = ShopList[ItemType.Fertilizer];
                             sort.item = nowJanl;
                             sort.states = new SortState[]{
                                 SortState.ItemName,

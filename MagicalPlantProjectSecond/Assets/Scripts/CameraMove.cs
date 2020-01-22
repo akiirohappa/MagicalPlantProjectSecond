@@ -5,12 +5,12 @@ using UnityEngine.UI;
 
 public class CameraMove : MonoBehaviour
 {
-    [SerializeField] GameObject mycamera;
-    [SerializeField] GameObject mainPos;
-    [SerializeField] GameObject homePos;
-    [SerializeField] GameObject toMainBT;
-    [SerializeField] GameObject toHomeBT;
-    [SerializeField] Image blackOut;
+    [SerializeField] GameObject mycamera = null;
+    [SerializeField] GameObject mainPos = null;
+    [SerializeField] GameObject homePos = null;
+    [SerializeField] GameObject toMainBT = null;
+    [SerializeField] GameObject toHomeBT = null;
+    [SerializeField] Image blackOut = null;
     // Start is called before the first frame update
     void Start()
     {

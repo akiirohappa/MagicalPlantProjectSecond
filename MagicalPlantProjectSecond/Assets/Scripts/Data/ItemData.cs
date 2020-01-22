@@ -4,7 +4,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "new Item", menuName = "MyData/Item")]
 public class ItemData : ScriptableObject
 {
-    
     public string itemName;
     public ItemType itemType;
     public int defaltValue;
@@ -20,6 +19,7 @@ public class ItemData : ScriptableObject
     public int itemNum;
     public SeasonData vestSeason;
     public PlantType plantType;
+    [HideInInspector]
     public Item data;
     public Item GetItem()
     {

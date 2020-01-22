@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ParticleMaker : MonoBehaviour
 {
-    [SerializeField]private GameObject[] particles;
+    [SerializeField]private GameObject[] particles = null;
     public GameObject[] Particle
     {
         get { return particles; }
