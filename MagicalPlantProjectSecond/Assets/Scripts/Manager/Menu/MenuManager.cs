@@ -24,13 +24,17 @@ public class MenuManager : MonoBehaviour
     bool MenuOpen = false;
     GameObject openButton;
     MenuState state;
-
+    
     Dictionary<MenuState, MenuManagerBase> Menus;
     public MenuManagerBase MenuManagerB
     {
         get { return Menus[State]; }
     }
     [SerializeField] EventSystem eventSystem = null;
+    public EventSystem eventS
+    {
+        get { return eventSystem; }
+    }
     public GameObject Cullent
     {
         get { return eventSystem.currentSelectedGameObject; }
@@ -69,11 +73,11 @@ public class MenuManager : MonoBehaviour
         Menus[MenuState.Peformance] = new PeforManceManager(this);
         State = MenuState.None;
     }
-
+    
     // Update is called once per frame
     void Update()
     {
-        
+        ((ConfigManager)Menus[MenuState.Config]).UpDate();
     }
     public void MenuButton()
     {
@@ -165,6 +169,7 @@ public class MenuManager : MonoBehaviour
             MenuButton();
         }
         //Menus[State].Close();
+        MainManager.GetInstance.Key.shortcutActive = true;
         State = MenuState.None;
     }
 }

@@ -103,6 +103,7 @@ public class ShopManager:MenuManagerBase
                     {
                         PlayerData.GetInstance().Money -= nowViewItem.defaltValue * shopValue;
                         PlayerData.GetInstance().Item.ItemGet(nowViewItem, shopValue);
+                        PlayerData.GetInstance().DicList.ItemGet(nowViewItem, shopValue);
                         Cancel();
                     }
                     //金が足りない時の処理

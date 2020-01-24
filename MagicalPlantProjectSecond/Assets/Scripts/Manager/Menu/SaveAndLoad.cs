@@ -70,6 +70,8 @@ public class SaveAndLoad
         DontDestroyManager.my.Sound.ConfigSet(sd.config);
         MapEventManager.GetInstance().MapEVLevelSet(sd.mapE);
         PlayerData.GetInstance().PD.DataSet(sd.pedata);
+        PlayerData.GetInstance().DicList.SetItemList(sd.dicItem.list.ToList());
+        MainManager.GetInstance.Key.Data.SaveDataSet(sd.key);
     }
 }
 public class SaveData
@@ -91,6 +93,8 @@ public class SaveData
         mapE = new MapEvent(MapEventManager.GetInstance().Events);
         config.CoufigLoad();
         pedata = new PeforManceSaveDatas(PlayerData.GetInstance().PD);
+        dicItem = new ItemListForSave(PlayerData.GetInstance().DicList.Item);
+        key = new ShortcutKeySaveData(MainManager.GetInstance.Key.Data);
     }
     public TimeForSave time;
     public ItemListForSave myItems;
@@ -99,4 +103,6 @@ public class SaveData
     public MapEvent mapE;
     public long money;
     public PeforManceSaveDatas pedata;
+    public ItemListForSave dicItem;
+    public ShortcutKeySaveData key;
 }

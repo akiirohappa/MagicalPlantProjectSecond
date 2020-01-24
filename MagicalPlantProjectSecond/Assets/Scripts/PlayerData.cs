@@ -25,6 +25,7 @@ public class PlayerData
     TimeData time;
     MainManager mm;
     PeforManceDatas Pd;
+    public ItemList DicList;
     public long Money
     {
         get
@@ -97,5 +98,6 @@ public class PlayerData
         mm.View.MoneySet(money);
         //item = new ItemList();
         time = TimeManager.GetInstance().Time;
+        DicList = new ItemList();
     }
 }

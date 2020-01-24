@@ -15,6 +15,7 @@ public class MainManager : MonoBehaviour
     LogManager log;
     SaveAndLoad sl;
     ParticleMaker pm;
+    ShortcutKey key;
     [SerializeField] public int MultiplyTime = 5;
     [SerializeField] public bool timeMove = true;
     public static MainManager  GetInstance
@@ -60,6 +61,17 @@ public class MainManager : MonoBehaviour
     {
         get { return pm; }
     }
+    public ShortcutKey Key
+    {
+        get
+        {
+            if(key == null)
+            {
+                key = GetComponent<ShortcutKey>();
+            }
+            return key;
+        }
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -76,6 +88,7 @@ public class MainManager : MonoBehaviour
         map.Start();
         time.Start();
         player.Start();
+        key = GetComponent<ShortcutKey>();
         //sl.Save(0, new SaveData());
     }
 
