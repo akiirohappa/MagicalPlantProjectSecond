@@ -100,8 +100,7 @@ public class Plant
         icon = i.icon;
         nowGrowth = 0;
         growthSpeed = i.growthSpeed;
-        soilState = Soil.Dry;
-        quality = i.quality;
+        quality = 50;
         upQuality = i.upQuality;
         downQuality = i.downQuality;
         plantState = PlantState.Growth;
@@ -109,7 +108,7 @@ public class Plant
         defValue = i.sellPrice;
         getValue = i.getValue;
         plantType = i.plantType;
-        soilWaterValue = 0;
+        //soilWaterValue = 0;
         jastSeason = i.vestSeason;
     }
     public void Reset()

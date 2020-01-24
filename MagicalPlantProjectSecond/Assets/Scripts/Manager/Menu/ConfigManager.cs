@@ -66,7 +66,7 @@ public class ConfigManager : MenuManagerBase
         if(keySetNum != -1)
         {
             code = Code;
-            if(Code != KeyCode.None)
+            if(code != KeyCode.None && code != KeyCode.Mouse0 && code != KeyCode.Mouse1)
             {
                 KeyCodeSet(keySetNum,code);
             }
@@ -168,32 +168,29 @@ public class ConfigManager : MenuManagerBase
     public void KeyCodeSet(int code,KeyCode c)
     {
         mManager.eventS.SetSelectedGameObject(null);
-        switch (code)
+        int num = KeyChack(c,code);
+        if (num != -1)
         {
-            case 0:
-                MainManager.GetInstance.Key.Data.ShopKey = c;
-                break;
-            case 1:
-                MainManager.GetInstance.Key.Data.ItemKey = c;
-                break;
-            case 2:
-                MainManager.GetInstance.Key.Data.PeforManceKey = c;
-                break;
-            case 3:
-                MainManager.GetInstance.Key.Data.SaveKey = c;
-                break;
-            case 4:
-                MainManager.GetInstance.Key.Data.HelpKey = c;
-                break;
-            case 5:
-                MainManager.GetInstance.Key.Data.ConfigKey = c;
-                break;
-            case 6:
-                MainManager.GetInstance.Key.Data.ToMainKey = c;
-                break;
+            KeyCode myc = MainManager.GetInstance.Key.GetCode(code);
+            MainManager.GetInstance.Key.SetCode(myc,num);
         }
+        MainManager.GetInstance.Key.SetCode(c, code);
         keySetNum = -1;
         KeyCodeButtonTxSet();
-
+    }
+    public int KeyChack(KeyCode c ,int myCode)
+    {
+        for(int i = 0;i < 7; i++)
+        {
+            if(i == myCode)
+            {
+                continue;
+            }
+            if(MainManager.GetInstance.Key.GetCode(i) == c)
+            {
+                return i;
+            }
+        }
+        return -1;
     }
 }

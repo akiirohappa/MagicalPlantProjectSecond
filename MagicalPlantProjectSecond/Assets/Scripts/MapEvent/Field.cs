@@ -117,6 +117,7 @@ class Field:MapEventBase
         if (text == events[1].eventText)
         {
             menu.SendMenuButton("ItemSet");
+            menu.MenuManagerB.Open(pos);
             ItemSetManager setM = (ItemSetManager)menu.MenuManagerB;
             setM.TypeSet(ItemType.Fertilizer);
         }
