@@ -15,7 +15,7 @@ MonoBehaviour:
   Title: "\u5C0F\u91D1\u6301\u3061"
   icon: {fileID: 0}
   conditionsText: "\u7D2F\u8A0810000\u682A\u5165\u624B"
-  rewardText: 
+  rewardText: "\u91D1\u8272\u306E\u7389\xD7\uFF15"
   rewardItem: {fileID: 11400000, guid: fd04293e7816ddd41bdcb2789faf8470, type: 2}
   rewardItemNum: 5
   rewardGet: 0

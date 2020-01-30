@@ -93,7 +93,7 @@ public class MainManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         map.CheckEvent();
         if (timeMove)

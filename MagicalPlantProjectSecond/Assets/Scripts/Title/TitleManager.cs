@@ -20,16 +20,15 @@ public class TitleManager : MonoBehaviour
         rect = GameObject.Find("Canvas").GetComponent<RectTransform>();
         plantImages = Resources.LoadAll<Sprite>("PlantImages");
     }
-
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         bg.Update();
         BackObjMake();
     }
     void BackObjMake()
     {
-        if(Random.Range(0,300) < 1)
+        if(Random.Range(0,100) < 1)
         {
             float pos = Random.Range(-310,310);
             GameObject g = Instantiate(plantObj,GameObject.Find("ItemPos").transform);

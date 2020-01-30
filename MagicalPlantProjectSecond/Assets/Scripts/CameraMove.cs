@@ -29,20 +29,20 @@ public class CameraMove : MonoBehaviour
         DontDestroyManager.my.Sound.PlaySE("EreaChange");
         blackOut.gameObject.SetActive(true);
         blackOut.transform.rotation = Quaternion.Euler(0,0,0);
-        for(int i = 0;i <= 100; i++)
+        for(int i = 0;i <= 50; i++)
         {
-            blackOut.fillAmount = (float)i / 100;
-            yield return null;
+            blackOut.fillAmount = (float)i / 50;
+            yield return new WaitForSeconds(Time.fixedDeltaTime/10);
         }
         mycamera.transform.position = toPos.transform.position;
         toHomeBT.gameObject.SetActive(!toHomeBT.gameObject.activeSelf);
         toMainBT.gameObject.SetActive(!toHomeBT.gameObject.activeSelf);
         yield return new WaitForSeconds(0.5f);
         blackOut.transform.rotation = Quaternion.Euler(0, 180, 0);
-        for (int i = 100; i >= 0; i--)
+        for (int i = 50; i >= 0; i--)
         {
-            blackOut.fillAmount = (float)i / 100;
-            yield return null;
+            blackOut.fillAmount = (float)i / 50;
+            yield return new WaitForSeconds(Time.fixedDeltaTime/10);
         }
         MainManager.GetInstance.timeMove = true;
         blackOut.gameObject.SetActive(false);

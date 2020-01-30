@@ -75,7 +75,7 @@ public class MenuManager : MonoBehaviour
     }
     
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         ((ConfigManager)Menus[MenuState.Config]).UpDate();
     }

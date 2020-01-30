@@ -104,7 +104,12 @@ public class FieldManager
                         downQuality += f.downQuality;
                         upSpeed += f.growthSpeed;
                     }
-                    p.nowGrowth += (p.growthSpeed+upSpeed);
+                    float c = p.growthSpeed + upSpeed;
+                    if(c <= 0)
+                    {
+                        c = 1;
+                    }
+                    p.nowGrowth += c;
                     if (p.nowGrowth >= 100)
                     {
                         p.nowGrowth = 100;

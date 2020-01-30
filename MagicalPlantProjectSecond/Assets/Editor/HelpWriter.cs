@@ -9,15 +9,16 @@ public class HelpWriter : EditorWindow
     public static void Open()
     {
         EditorWindow w = GetWindow<HelpWriter>("ヘルプライター☆彡");
-        w.maxSize = new Vector2(500f, 600f);
-        w.minSize = new Vector2(500f, 600f);
+        w.maxSize = new Vector2(400f, 600f);
+        w.minSize = new Vector2(400f, 600f);
     }
     HelpItem help;
     const string savePath = "Assets/Resources/Help";
     int page;
     private void OnGUI()
     {
-        if(help == null)
+        
+        if (help == null)
         {
             help = new HelpItem();
             help.itemValue = new List<string>();
@@ -35,7 +36,8 @@ public class HelpWriter : EditorWindow
             if (!string.IsNullOrEmpty(path))
             {
                 string json = JsonUtility.ToJson(help);
-                File.WriteAllText(path,json);
+                File.WriteAllText(path, json);
+                AssetDatabase.Refresh();
             }
             else
             {

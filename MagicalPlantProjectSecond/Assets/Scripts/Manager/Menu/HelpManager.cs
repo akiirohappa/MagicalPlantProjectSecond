@@ -97,7 +97,7 @@ public class HelpManager : MenuManagerBase
     }
     public void TextView(int helpnum,int pagenum)
     {
-        text.text = "<size=50>" + helps[helpnum].itemName + "</size><br>";
+        text.text = "<size=50>" + helps[helpnum].itemName + "</size><br><br>";
         text.text += helps[helpnum].itemValue[pagenum];
         pagetext.text = (pagenum + 1) + "/" + (helps[helpnum].itemValue.Count) + "ページ";
     }

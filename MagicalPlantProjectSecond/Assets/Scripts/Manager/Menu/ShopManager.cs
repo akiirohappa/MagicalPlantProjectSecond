@@ -109,7 +109,7 @@ public class ShopManager:MenuManagerBase
                     //金が足りない時の処理
                     else
                     {
-
+                        DontDestroyManager.my.Sound.PlaySE("Cancel");
                     }
                 }
                 else
@@ -170,6 +170,7 @@ public class ShopManager:MenuManagerBase
                     case "Buy":
                             trade = TradeState.Buy;
                             state = ShopState.JanlSelect;
+                            ShopObject[ShopState.GoodsPanel].transform.GetChild(1).GetChild(5).GetChild(0).GetComponent<TextMeshProUGUI>().text = "買う";
                             break;
                     case "Sell":
                             trade = TradeState.Sell;
@@ -184,9 +185,9 @@ public class ShopManager:MenuManagerBase
                             state = ShopState.GoodsSelect;
                             GoodsButtonMake();
                             PlessItemButton(null);
+                            ShopObject[ShopState.GoodsPanel].transform.GetChild(1).GetChild(5).GetChild(0).GetComponent<TextMeshProUGUI>().text = "売る";
                             break;
                 }
-                
                 ObjectActive(state);
                 }
                 break;
@@ -317,7 +318,7 @@ public class ShopManager:MenuManagerBase
     }
     public override void PlessItemButton(Item item)
     {
-        ObjectActive( state = ShopState.GoodsSelect);
+        ObjectActive(state = ShopState.GoodsSelect);
         if(item != null)
         {
             nowViewItem = item;
