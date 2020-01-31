@@ -233,6 +233,7 @@ public class FieldManager
         Item it = harvest.Harvest(pl);
         PlayerData.GetInstance().Item.ItemGet(it,it.getValue);
         PlayerData.GetInstance().DicList.ItemGet(it, it.getValue);
+        PlayerData.GetInstance().PD.DataUnlock(PeforManceType.Plant, 1);
         MainManager.GetInstance.Log.LogMake(it.itemName + "を手に入れた！", it.icon);
         pl.Reset();
         TileSet(vec, pl);

@@ -27,19 +27,17 @@ public class PeforManceManager : MenuManagerBase
         datas = PlayerData.GetInstance().PD;
         peforManceButton = Resources.Load<GameObject>("Prefabs/PefoeManceButton");
         listParent = myObjct.transform.GetChild(0).GetChild(1).GetChild(0).GetChild(0).gameObject;
-        string key = "Money";
-        for (int j = 0; j < 4; j++)
+        PeforManceType key = PeforManceType.Money;
+        int backNum = 0;
+        for (int j = 0; j < 3; j++)
         {
             switch (j)
             {
                 case 1:
-                    key = "Plant";
+                    key = PeforManceType.Plant;
                     break;
                 case 2:
-                    key = "Water";
-                    break;
-                case 3:
-                    key = "Time";
+                    key = PeforManceType.Time;
                     break;
                 default:
                     break;
@@ -47,9 +45,11 @@ public class PeforManceManager : MenuManagerBase
             for (int i = 0; i < datas.Peformances[key].Count; i++)
             {
                 PeformanceButtons.Add(GameObject.Instantiate(peforManceButton, listParent.transform).GetComponent<Button>());
-                PeformanceButtons[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = datas.Peformances[key][i].Title;
-                PeformanceButtons[i].gameObject.SetActive(false);
+                PeformanceButtons[backNum + i].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = datas.Peformances[key][i].Title;
+                PeformanceButtons[backNum + i].gameObject.SetActive(false);
+                
             }
+            backNum += datas.Peformances[key].Count;
         }
         myObjct.transform.GetChild(1).GetComponent<Button>().onClick.AddListener(() => StateChange(PeforManceMenuState.PeforMance));
         myObjct.transform.GetChild(2).GetComponent<Button>().onClick.AddListener(() => StateChange(PeforManceMenuState.Library));
@@ -96,21 +96,17 @@ public class PeforManceManager : MenuManagerBase
         }
         if (state == PeforManceMenuState.PeforMance)
         {
-
             myObjct.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "実績";
-            string key = "Money";
-            for (int j = 0; j < 4; j++)
+            PeforManceType key = PeforManceType.Money;
+            for (int j = 0; j < 3; j++)
             {
                 switch (j)
                 {
                     case 1:
-                        key = "Plant";
+                        key = PeforManceType.Plant;
                         break;
                     case 2:
-                        key = "Water";
-                        break;
-                    case 3:
-                        key = "Time";
+                        key = PeforManceType.Time;
                         break;
                     default:
                         break;
@@ -123,7 +119,7 @@ public class PeforManceManager : MenuManagerBase
                     buttons[count].transform.GetChild(1).GetComponent<Slider>().minValue = 0;
                     buttons[count].transform.GetChild(1).GetComponent<Slider>().value = datas.Peformances[key][i].NowState;
                     buttons[count].transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = datas.Peformances[key][i].NowState +"/\n" + datas.Peformances[key][i].conditions;
-                    PeforManceDataBase d = datas.Peformances[key][count];
+                    PeforManceDataBase d = datas.Peformances[key][i];
                     buttons[count].onClick.RemoveAllListeners();
                     buttons[count++].onClick.AddListener(() => ParagraphSet(d));
                 }
@@ -132,7 +128,8 @@ public class PeforManceManager : MenuManagerBase
         }
         else
         {
-            foreach(Item i in PlayerData.GetInstance().DicList.Item)
+            myObjct.transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "図鑑";
+            foreach (Item i in PlayerData.GetInstance().DicList.Item)
             {
                 if(count >= buttons.Count)
                 {
@@ -170,12 +167,20 @@ public class PeforManceManager : MenuManagerBase
     void ParagraphSet(PeforManceDataBase data)
     {
         myObjct.transform.GetChild(0).GetChild(2).gameObject.SetActive(true);
-        myObjct.transform.GetChild(0).GetChild(3).gameObject.SetActive(true);
         myObjct.transform.GetChild(0).GetChild(4).gameObject.SetActive(true);
         myObjct.transform.GetChild(0).GetChild(5).gameObject.SetActive(true);
         myObjct.transform.GetChild(0).GetChild(6).gameObject.SetActive(true);
         myObjct.transform.GetChild(0).GetChild(7).gameObject.SetActive(true);
         myObjct.transform.GetChild(0).GetChild(8).gameObject.SetActive(true);
+        if (data.icon != null)
+        {
+            myObjct.transform.GetChild(0).GetChild(3).gameObject.SetActive(true);
+            myObjct.transform.GetChild(0).GetChild(3).GetComponent<Image>().sprite = data.icon;
+        }
+        else
+        {
+            myObjct.transform.GetChild(0).GetChild(3).gameObject.SetActive(false);
+        }
         myObjct.transform.GetChild(0).GetChild(2).GetComponent<TextMeshProUGUI>().text = data.Title;
         myObjct.transform.GetChild(0).GetChild(3).GetComponent<Image>().sprite = data.icon;
         myObjct.transform.GetChild(0).GetChild(4).GetComponent<TextMeshProUGUI>().text = data.conditionsText;
@@ -190,22 +195,31 @@ public class PeforManceManager : MenuManagerBase
         {
             myObjct.transform.GetChild(0).GetChild(6).GetComponent<Button>().interactable = false;
         }
-        myObjct.transform.GetChild(0).GetChild(7).GetComponent<TextMeshProUGUI>().text = data.DeText;
+        myObjct.transform.GetChild(0).GetChild(7).GetComponent<TextMeshProUGUI>().text = (data.Clear ? data.DeText:"");
         myObjct.transform.GetChild(0).GetChild(8).GetComponent<TextMeshProUGUI>().text = data.NowState+"/" +data.conditions;
     }
     void ParagraphSet(Item data)
     {
         myObjct.transform.GetChild(0).GetChild(2).gameObject.SetActive(true);
-        myObjct.transform.GetChild(0).GetChild(3).gameObject.SetActive(true);
         myObjct.transform.GetChild(0).GetChild(4).gameObject.SetActive(true);
         myObjct.transform.GetChild(0).GetChild(5).gameObject.SetActive(true);
         myObjct.transform.GetChild(0).GetChild(6).gameObject.SetActive(false);
         myObjct.transform.GetChild(0).GetChild(7).gameObject.SetActive(true);
+        myObjct.transform.GetChild(0).GetChild(8).gameObject.SetActive(true);
         myObjct.transform.GetChild(0).GetChild(2).GetComponent<TextMeshProUGUI>().text = data.itemName;
-        myObjct.transform.GetChild(0).GetChild(3).GetComponent<Image>().sprite = data.icon;
+        if(data.icon != null)
+        {
+            myObjct.transform.GetChild(0).GetChild(3).gameObject.SetActive(true);
+            myObjct.transform.GetChild(0).GetChild(3).GetComponent<Image>().sprite = data.icon;
+        }
+        else
+        {
+            myObjct.transform.GetChild(0).GetChild(3).gameObject.SetActive(false);
+        }
         myObjct.transform.GetChild(0).GetChild(4).GetComponent<TextMeshProUGUI>().text = "獲得数"+data.itemNum;
-        myObjct.transform.GetChild(0).GetChild(5).GetComponent<TextMeshProUGUI>().text = "";
+        myObjct.transform.GetChild(0).GetChild(5).GetComponent<TextMeshProUGUI>().text = (data.itemType != ItemType.Extra ? "成長速度："+data.growthSpeed + "%/日<br>":"") + "基本売値：" + data.sellPrice + "株";
         myObjct.transform.GetChild(0).GetChild(7).GetComponent<TextMeshProUGUI>().text = data.info;
-        myObjct.transform.GetChild(0).GetChild(8).GetComponent<TextMeshProUGUI>().text = "";
+        myObjct.transform.GetChild(0).GetChild(8).GetComponent<TextMeshProUGUI>().text = (data.itemType != ItemType.Extra ? "品質上昇：" + data.upQuality + "・" + "下降：" + data.downQuality:"") 
+            + (data.itemType == ItemType.Fertilizer ? "<br>効果時間：" + (float)data.defaltValue/24 + "日":(data.itemType != ItemType.Extra ? "<br>旬：" + data.SeasonToStr :""));
     }
 }

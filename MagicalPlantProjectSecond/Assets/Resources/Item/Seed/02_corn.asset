@@ -24,7 +24,7 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: d5862939be245db4cbe58fdc0676e569, type: 3}
   info: "\u3064\u3076\u3064\u3076\u30B3\u30FC\u30F3\u3002\n\u7279\u6B8A\u306A\u52A0\u5DE5\u3092\u3059\u308B\u3068\u3001\n\u6B66\u5668\u3068\u3057\u3066\u4F7F\u3048\u308B\u3089\u3057\u3044\u3002"
   itemNum: 0
-  vestSeason: 1
+  vestSeason: 2
   plantType: 0
   data:
     itemName: "\u9EC4\u91D1\u8272\u306E\u30AB\u30D6\u306E\u7A2E"

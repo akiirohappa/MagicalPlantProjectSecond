@@ -258,7 +258,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: New Text
+  m_text: "\u3068\u3046\u3082\u308D\u3053\u3057\u306E\u7A2E"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b98eae3a033076f488021dfde63088c9, type: 2}
   m_sharedMaterial: {fileID: 21889688065626740, guid: b98eae3a033076f488021dfde63088c9,
@@ -287,12 +287,12 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 35
+  m_fontSize: 28
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 20
-  m_fontSizeMax: 35
+  m_fontSizeMax: 28
   m_fontStyle: 0
   m_textAlignment: 513
   m_characterSpacing: 0
@@ -330,8 +330,8 @@ MonoBehaviour:
     textComponent: {fileID: 3848078383883676551}
     characterCount: 8
     spriteCount: 0
-    spaceCount: 1
-    wordCount: 2
+    spaceCount: 0
+    wordCount: 1
     linkCount: 0
     lineCount: 1
     pageCount: 1

@@ -1,7 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+public enum PeforManceType
+{
+    Money,
+    Plant,
+    Time,
+}
 [CreateAssetMenu(fileName ="PeforMance",menuName ="PeforManceData")]
 public class PeforManceDataBase:ScriptableObject
 {
@@ -47,7 +52,7 @@ public class PeforManceDataBase:ScriptableObject
     }
 //    public void Unlock();
     //実績がクリアされてるか確認
-    public bool GetIsUnlock(int level)
+    public bool GetIsUnlock()
     {
         PeConditions();
         return Clear;
@@ -74,31 +79,26 @@ public class PeforManceDataBase:ScriptableObject
 }
 public class PeforManceDatas
 {
-    public Dictionary<string, List<PeforManceDataBase>> Peformances;
+    public Dictionary<PeforManceType, List<PeforManceDataBase>> Peformances;
     public PeforManceDatas()
     {
-        Peformances = new Dictionary<string, List<PeforManceDataBase>>();
-        Peformances["Money"] = new List<PeforManceDataBase>();
-        Peformances["Plant"] = new List<PeforManceDataBase>();
-        Peformances["Water"] = new List<PeforManceDataBase>();
-        Peformances["Time"] = new List<PeforManceDataBase>();
+        Peformances = new Dictionary<PeforManceType, List<PeforManceDataBase>>();
+        Peformances[PeforManceType.Money] = new List<PeforManceDataBase>();
+        Peformances[PeforManceType.Plant] = new List<PeforManceDataBase>();
+        Peformances[PeforManceType.Time] = new List<PeforManceDataBase>();
         PeforManceDataBase[] d = Resources.LoadAll<PeforManceDataBase>("PeforMance/Money");
-        string key = "Money";
-        for (int j = 0; j < 4; j++)
+        PeforManceType key = PeforManceType.Money;
+        for (int j = 0; j < 3; j++)
         {
             switch (j)
             {
                 case 1:
                     d = Resources.LoadAll<PeforManceDataBase>("PeforMance/Plant");
-                    key = "Plant";
+                    key = PeforManceType.Plant;
                     break;
                 case 2:
-                    d = Resources.LoadAll<PeforManceDataBase>("PeforMance/Water");
-                    key = "Water";
-                    break;
-                case 3:
                     d = Resources.LoadAll<PeforManceDataBase>("PeforMance/Time");
-                    key = "Time";
+                    key = PeforManceType.Time;
                     break;
                 default:
                     break;
@@ -114,31 +114,35 @@ public class PeforManceDatas
     }
     public void DataSet(PeforManceSaveDatas d)
     {
-        string key = "Money";
+        PeforManceType key = PeforManceType.Money;
         List<PeforManceSaveData> data = d.Money;
-        for (int j = 0; j < 4; j++)
+        for (int j = 0; j < 3; j++)
         {
             switch (j)
             {
                 case 1:
-                    key = "Plant";
+                    key = PeforManceType.Plant;
                     data = d.Plant;
                     break;
                 case 2:
-                    key = "Water";
-                    data = d.Water;
-                    break;
-                case 3:
-                    key = "Time";
+                    key = PeforManceType.Time;
                     data = d.Time;
                     break;
                 default:
                     break;
             }
-            for (int i = 0; i < data.Count; i++)
+            for (int i = 0; i < Peformances[key].Count; i++)
             {
                 Peformances[key][i].SaveDataSet(data[i]);
             }
+        }
+    }
+    public void DataUnlock(PeforManceType type,long value)
+    {
+        foreach(PeforManceDataBase data in Peformances[type])
+        {
+            data.NowState += value;
+            data.GetIsUnlock();
         }
     }
 }
@@ -147,27 +151,22 @@ public class PeforManceSaveDatas
 {
     public List<PeforManceSaveData> Money;
     public List<PeforManceSaveData> Plant;
-    public List<PeforManceSaveData> Water;
     public List<PeforManceSaveData> Time;
     public PeforManceSaveDatas(PeforManceDatas d)
     {
         Money = new List<PeforManceSaveData>();
         Plant = new List<PeforManceSaveData>();
-        Water = new List<PeforManceSaveData>();
         Time = new List<PeforManceSaveData>();
-        string key = "Money";
-        for (int j = 0; j < 4; j++)
+        PeforManceType key = PeforManceType.Money;
+        for (int j = 0; j < 3; j++)
         {
             switch (j)
             {
                 case 1:
-                    key = "Plant";
+                    key = PeforManceType.Plant;
                     break;
                 case 2:
-                    key = "Water";
-                    break;
-                case 3:
-                    key = "Time";
+                    key = PeforManceType.Time;
                     break;
                 default:
                     break;
@@ -180,13 +179,10 @@ public class PeforManceSaveDatas
                         Money.Add(new PeforManceSaveData(d.Peformances[key][i]));
                         break;
                     case 1:
-                        Money.Add(new PeforManceSaveData(d.Peformances[key][i]));
+                        Plant.Add(new PeforManceSaveData(d.Peformances[key][i]));
                         break;
                     case 2:
-                        Money.Add(new PeforManceSaveData(d.Peformances[key][i]));
-                        break;
-                    case 3:
-                        Money.Add(new PeforManceSaveData(d.Peformances[key][i]));
+                        Time.Add(new PeforManceSaveData(d.Peformances[key][i]));
                         break;
                 }
                 

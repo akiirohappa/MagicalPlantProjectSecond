@@ -6,6 +6,7 @@ public class LoadPanel : MonoBehaviour
 {
     Animator[] loadingTexts;
     bool isEnd = true;
+    float y;
     private void Awake()
     {
         loadingTexts = new Animator[transform.GetChild(0).childCount];
@@ -13,6 +14,7 @@ public class LoadPanel : MonoBehaviour
         {
             loadingTexts[i] = transform.GetChild(0).GetChild(i).GetComponent<Animator>();
         }
+        y = loadingTexts[0].transform.localPosition.y;
     }
 
     // Update is called once per frame
@@ -22,6 +24,8 @@ public class LoadPanel : MonoBehaviour
     }
     public IEnumerator LoadingTextAnimation()
     {
+        gameObject.SetActive(true);
+
         if (isEnd)
         {
             isEnd = false;
@@ -31,6 +35,12 @@ public class LoadPanel : MonoBehaviour
                 yield return new WaitForSeconds(0.5f);
             }
             isEnd = true;
+        }
+        for (int i = 0; i < loadingTexts.Length; i++)
+        {
+            loadingTexts[i].transform.localPosition = new Vector3(loadingTexts[i].transform.localPosition.x, y);
+
+            //Debug.Log(i + ":" + loadingTexts[i].transform.position);
         }
     }
 }

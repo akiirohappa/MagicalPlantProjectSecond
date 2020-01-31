@@ -9,12 +9,13 @@ public class HelpWriter : EditorWindow
     public static void Open()
     {
         EditorWindow w = GetWindow<HelpWriter>("ヘルプライター☆彡");
-        w.maxSize = new Vector2(400f, 600f);
-        w.minSize = new Vector2(400f, 600f);
+        w.maxSize = new Vector2(250f, 600f);
+        w.minSize = new Vector2(250f, 600f);
     }
     HelpItem help;
     const string savePath = "Assets/Resources/Help";
     int page;
+    string fileTitle;
     private void OnGUI()
     {
         
@@ -23,6 +24,7 @@ public class HelpWriter : EditorWindow
             help = new HelpItem();
             help.itemValue = new List<string>();
             help.itemValue.Add("");
+            fileTitle = "";
             page = 0;
         }
         EditorGUILayout.BeginHorizontal();
@@ -32,7 +34,7 @@ public class HelpWriter : EditorWindow
             {
                 Directory.CreateDirectory(savePath);
             }
-            string path = EditorUtility.SaveFilePanel("セーブ", savePath,"New Help","json");
+            string path = EditorUtility.SaveFilePanel("セーブ", savePath,(fileTitle != "" ? fileTitle: "New Help"),"json");
             if (!string.IsNullOrEmpty(path))
             {
                 string json = JsonUtility.ToJson(help);
@@ -50,6 +52,7 @@ public class HelpWriter : EditorWindow
             if (!string.IsNullOrEmpty(path))
             {
                 string json = File.ReadAllText(path);
+                fileTitle = Path.GetFileName(path);
                 help = JsonUtility.FromJson<HelpItem>(json);
             }
             else
@@ -58,6 +61,14 @@ public class HelpWriter : EditorWindow
             }
         }
         EditorGUILayout.EndHorizontal();
+        if (GUILayout.Button("リセット", GUILayout.Height(20)))
+        {
+            help = new HelpItem();
+            help.itemValue = new List<string>();
+            help.itemValue.Add("");
+            fileTitle = "";
+            page = 0;
+        }
         EditorGUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("名前",GUILayout.Width(50));
         help.itemName = EditorGUILayout.TextField(help.itemName);
@@ -96,10 +107,8 @@ public class HelpWriter : EditorWindow
             }
         }
         EditorGUILayout.EndHorizontal();
-        EditorGUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("項目");
         EditorGUILayout.LabelField((page+1)+"/"+ help.itemValue.Count + "ページ");
-        EditorGUILayout.EndHorizontal();
         help.itemValue[page] = EditorGUILayout.TextArea(help.itemValue[page], GUILayout.Height(175));
     }
 }

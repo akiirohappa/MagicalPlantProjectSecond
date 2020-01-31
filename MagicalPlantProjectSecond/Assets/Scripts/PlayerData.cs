@@ -43,17 +43,9 @@ public class PlayerData
                 long l = money;
                 money = value;
                 mm.View.MoneySet(money);
-                for(int i = 0;i < PD.Peformances["Money"].Count; i++)
+                if (value - l > 0)
                 {
-                    if(value -l> 0)
-                    {
-                        PD.Peformances["Money"][i].NowState += value-l;
-                    }
-                    if(PD.Peformances["Money"][i].conditions <= PD.Peformances["Money"][i].NowState)
-                    {
-                        PD.Peformances["Money"][i].NowState = PD.Peformances["Money"][i].conditions;
-                        PD.Peformances["Money"][i].Clear = true;
-                    }
+                    PD.DataUnlock(PeforManceType.Money, value - l);
                 }
             }
         }
@@ -94,7 +86,7 @@ public class PlayerData
     {
         Pd = new PeforManceDatas();
         mm = MainManager.GetInstance;
-        Money = 10000;
+        Money = 1000;
         mm.View.MoneySet(money);
         //item = new ItemList();
         time = TimeManager.GetInstance().Time;

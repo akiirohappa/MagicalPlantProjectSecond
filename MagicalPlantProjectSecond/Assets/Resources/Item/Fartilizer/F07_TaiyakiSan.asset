@@ -21,7 +21,7 @@ MonoBehaviour:
   downQuality: 0
   sellPrice: 750
   getValue: 70
-  icon: {fileID: 21300048, guid: 0f057cae5a4ce7b47922d5c57299b8ac, type: 3}
+  icon: {fileID: 21300000, guid: 164a41be07b15ee4c912e26c6f3e288f, type: 3}
   info: "\u6BCE\u65E5\u884C\u308F\u308C\u308B\u713C\u304D\u571F\u4E0B\u5EA7\u304B\u3089\u8131\u8D70\u3057\u305F\n\u305F\u3044\u713C\u304D\u3002\u57CB\u3081\u308B\u3068\uFF08\uFF1F\uFF09\u6210\u9577\u901F\u5EA6\u304C\n\u843D\u3061\u308B\u304C\u3001\u54C1\u8CEA\u304C\u4E0A\u304C\u308A\u3084\u3059\u304F\u306A\u308B\u3002"
   itemNum: 0
   vestSeason: 0

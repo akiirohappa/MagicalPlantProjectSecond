@@ -56,6 +56,7 @@ public class ConfigManager : MenuManagerBase
         }
         myObjct.transform.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => ConfigChange(ConfigType.Sound));
         myObjct.transform.GetChild(0).GetChild(1).GetComponent<Button>().onClick.AddListener(() => ConfigChange(ConfigType.Key));
+        myObjct.transform.GetChild(5).GetComponent<Button>().onClick.AddListener(() => DontDestroyManager.my.Scene.LoadScene());
         Type = ConfigType.Sound;
         sound = DontDestroyManager.my.Sound;
         keySetNum = -1;

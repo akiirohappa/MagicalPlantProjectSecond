@@ -34,7 +34,7 @@ public class SoundManager : MonoBehaviour
     }
     [SerializeField] SoundList sound = null;
     [SerializeField] float fadeNowValue = 0f;
-    float fadeBGMvolume;
+    [SerializeField] float fadeTime = 1; 
     //BGMを再生、ループはデフォルトでtrue
     //keyに"Stop"と入れると停止
     public void PlayBGM(string key,bool loop = true)
@@ -87,32 +87,33 @@ public class SoundManager : MonoBehaviour
         }
        
     }
-    public IEnumerator FadeIn()
+    public void BGMChange(string key)
     {
-        fadeNowValue = -80;
-        while (true)
+        StartCoroutine(BGMFadeChange(key));
+    }
+    public IEnumerator BGMFadeChange(string key)
+    {
+        Coroutine cor =  StartCoroutine(FadeOut(Bgm.volume,fadeTime));
+        yield return cor;
+        PlayBGM(key);
+        cor = StartCoroutine(FadeIn(Bgm.volume, fadeTime));
+    }
+    public IEnumerator FadeIn(float volume, float time)
+    {
+        float fadeValue = time / volume;
+        for(float i = 0; i < time; i += UnityEngine.Time.fixedDeltaTime)
         {
-            fadeNowValue += 0.15f;
-            SetVolume(SoundType.BGM, fadeNowValue);
-            if(fadeNowValue >= 0)
-            {
-                break;
-            }
+            SetVolume(SoundType.BGM, fadeValue * i);
             yield return null;
         }
     }
-    public IEnumerator FadeOut()
+    public IEnumerator FadeOut(float volume,float time)
     {
-        fadeNowValue = 0;
-        fadeBGMvolume = BGM.volume;
-        while (true)
+        float fadeValue = time / volume;
+
+        for (float i = 0; i < time; i += Time.fixedDeltaTime)
         {
-            fadeNowValue -= 0.15f;
-            SetVolume(SoundType.BGM, fadeNowValue);
-            if (fadeNowValue <= -80)
-            {
-                break;
-            }
+            SetVolume(SoundType.BGM, volume - fadeValue * i);
             yield return null;
         }
     }

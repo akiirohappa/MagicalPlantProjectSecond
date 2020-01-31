@@ -4222,6 +4222,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7132833476504337293, guid: f3abfa61115ad3649a9c67c8901a10f1,
+        type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7132833476504337283, guid: f3abfa61115ad3649a9c67c8901a10f1,
         type: 3}
       propertyPath: loadminTime

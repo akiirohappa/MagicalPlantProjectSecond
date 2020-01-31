@@ -99,7 +99,7 @@ public class ShortcutKey : MonoBehaviour
         if (Input.GetKeyDown(data.PeforManceKey))
         {
             m.State = MenuState.None;
-            m.SendMenuButton("PeforMance");
+            m.SendMenuButton("Peformance");
         }
         if (Input.GetKeyDown(data.SaveKey))
         {

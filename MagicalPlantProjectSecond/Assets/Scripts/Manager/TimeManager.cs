@@ -84,15 +84,20 @@ public class TimeManager
             {
                 case SeasonData.Spring:
                     time.nowSeason = SeasonData.Summer;
+                    DontDestroyManager.my.Sound.BGMChange("Main_Summer");
                     break;
                 case SeasonData.Summer:
                     time.nowSeason = SeasonData.Autumn;
+                    DontDestroyManager.my.Sound.BGMChange("Main_Autumn");
                     break;
                 case SeasonData.Autumn:
                     time.nowSeason = SeasonData.Winter;
+                    DontDestroyManager.my.Sound.BGMChange("Main_Winter");
                     break;
                 case SeasonData.Winter:
                     time.nowSeason = SeasonData.Spring;
+                    DontDestroyManager.my.Sound.BGMChange("Main_Spring");
+                    PlayerData.GetInstance().PD.DataUnlock(PeforManceType.Time, 1);
                     break;
                 default:
                     time.nowSeason = SeasonData.Spring;
@@ -109,6 +114,24 @@ public class TimeManager
         time.preMinit = Mathf.Floor(time.minit);
         time.preHour = time.hour;
         MainManager.GetInstance.View.TimeSet(newTime);
+        switch (time.nowSeason)
+        {
+            case SeasonData.Spring:
+                DontDestroyManager.my.Sound.BGMChange("Main_Spring");
+                break;
+            case SeasonData.Summer:
+                DontDestroyManager.my.Sound.BGMChange("Main_Summer");
+                break;
+            case SeasonData.Autumn:
+                DontDestroyManager.my.Sound.BGMChange("Main_Autumn");
+                break;
+            case SeasonData.Winter:
+                DontDestroyManager.my.Sound.BGMChange("Main_Winter");
+                break;
+            default:
+
+                break;
+        }
     }
     public void TimeSet(TimeForSave newTime)
     {

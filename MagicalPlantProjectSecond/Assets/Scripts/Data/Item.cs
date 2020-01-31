@@ -41,6 +41,25 @@ public class Item
         vestSeason = id.vestSeason;
         plantType = id.plantType;
     }
+    public string SeasonToStr
+    {
+        get
+        {
+            switch (vestSeason)
+            {
+                case SeasonData.Spring:
+                    return "春";
+                case SeasonData.Summer:
+                    return "夏";
+                case SeasonData.Autumn:
+                    return "秋";
+                case SeasonData.Winter:
+                    return "冬";
+                default:
+                    return "空";
+            }
+        }
+    }
     public string itemName;
     public ItemType itemType;
     public int defaltValue;

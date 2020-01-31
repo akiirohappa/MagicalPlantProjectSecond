@@ -18,9 +18,10 @@ public class DontDestroyManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (my == null)
+        if (GameObject.Find("DontDestroy") == null)
         {
             my = this;
+            this.gameObject.name = "DontDestroy";
             DontDestroyOnLoad(gameObject);
         }
         else
@@ -29,6 +30,7 @@ public class DontDestroyManager : MonoBehaviour
         }
         sound = GetComponent<SoundManager>();
         scene = GetComponent<SceneChangeManager>();
+        sound.Bgm.Play();
     }
     private void Awake()
     {

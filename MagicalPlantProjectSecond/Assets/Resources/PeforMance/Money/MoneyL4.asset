@@ -15,9 +15,9 @@ MonoBehaviour:
   Title: "5000\u5146\u682A\u6B32\u3057\u3044\uFF01"
   icon: {fileID: 0}
   conditionsText: "\u7D2F\u8A085\u5343\u5146\u682A\u5165\u624B"
-  rewardText: 
-  rewardItem: {fileID: 0}
-  rewardItemNum: 1
+  rewardText: "\u5927\u304D\u3044\u91D1\u8272\u306E\u7389\xD71000"
+  rewardItem: {fileID: 11400000, guid: 83e486fc16793b84b8ebfcfcc0ed056a, type: 2}
+  rewardItemNum: 1000
   rewardGet: 0
   DeText: "<size=50>5000\u5146\u682A<br>   \u6B32\u3057\u3044\uFF01</size>"
   conditions: 5000000000000000
