@@ -77,8 +77,9 @@ public class SceneChangeManager : MonoBehaviour
             //StartCoroutine(load.LoadingTextAnimation());
             yield return null;
         }
+        DontDestroyManager.my.Sound.BGMChange("Title");
         yield return new WaitForSeconds(0.5f);
         transform.GetChild(0).gameObject.SetActive(false);
-        DontDestroyManager.my.Sound.BGMChange("Title");
+        
     }
 }
