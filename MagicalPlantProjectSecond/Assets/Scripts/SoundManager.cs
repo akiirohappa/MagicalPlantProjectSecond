@@ -93,33 +93,43 @@ public class SoundManager : MonoBehaviour
     }
     public IEnumerator BGMFadeChange(string key)
     {
-        Coroutine cor =  StartCoroutine(FadeOut(Bgm.volume,fadeTime));
+		float volume = Bgm.volume;
+        Coroutine cor =  StartCoroutine(FadeOut(volume,fadeTime));
         yield return cor;
         PlayBGM(key);
-        cor = StartCoroutine(FadeIn(Bgm.volume, fadeTime));
+        cor = StartCoroutine(FadeIn(volume, fadeTime));
     }
     public IEnumerator FadeIn(float volume, float time)
     {
-        float fadeValue = time / volume;
-        for(float i = 0; i < time; i += UnityEngine.Time.fixedDeltaTime)
-        {
-            SetVolume(SoundType.BGM, fadeValue * i);
-            yield return null;
-        }
+		if(volume != 0)
+		{
+			float fadeValue = volume;
+			for (float i = 0; i < time; i += UnityEngine.Time.fixedDeltaTime)
+			{
+				SetVolume(SoundType.BGM, fadeValue * i);
+				yield return null;
+			}
+		}
+
     }
     public IEnumerator FadeOut(float volume,float time)
     {
-        float fadeValue = time / volume;
+        float fadeValue = volume;
 
-        for (float i = 0; i < time; i += Time.fixedDeltaTime)
+		for (float i = 0; i < time; i += Time.fixedDeltaTime)
         {
-            SetVolume(SoundType.BGM, volume - fadeValue * i);
+			if(volume != 0)
+			{
+				SetVolume(SoundType.BGM, volume - fadeValue * i);
+			}
+            
             yield return null;
         }
     }
     //音量調整
     public void SetVolume(SoundType s,float vol)
     {
+		Debug.Log(s + ":" + vol);
         switch (s)
         {
             case SoundType.BGM:

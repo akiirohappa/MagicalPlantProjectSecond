@@ -5,7 +5,7 @@ using UnityEngine;
 public class LoadPanel : MonoBehaviour
 {
     Animator[] loadingTexts;
-    bool isEnd = true;
+    public bool isEnd = true;
     float y;
     private void Awake()
     {

@@ -54,7 +54,7 @@ public class ConfigManager : MenuManagerBase
         {
             soundSliders[i] = myObjct.transform.GetChild(2).GetChild(i).gameObject;
         }
-        myObjct.transform.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => ConfigChange(ConfigType.Sound));
+		myObjct.transform.GetChild(0).GetChild(0).GetComponent<Button>().onClick.AddListener(() => ConfigChange(ConfigType.Sound));
         myObjct.transform.GetChild(0).GetChild(1).GetComponent<Button>().onClick.AddListener(() => ConfigChange(ConfigType.Key));
         myObjct.transform.GetChild(5).GetComponent<Button>().onClick.AddListener(() => DontDestroyManager.my.Scene.LoadScene());
         Type = ConfigType.Sound;
@@ -84,7 +84,9 @@ public class ConfigManager : MenuManagerBase
         ConfigData c = new ConfigData();
         c.CoufigLoad();
         config = c;
-    }
+		soundSliders[1].GetComponent<Slider>().value = config.BGMVol;
+		soundSliders[2].GetComponent<Slider>().value = config.SEVol;
+	}
     public override void Submit()
     {
 

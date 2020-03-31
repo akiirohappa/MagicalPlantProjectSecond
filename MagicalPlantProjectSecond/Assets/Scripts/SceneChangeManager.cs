@@ -30,36 +30,29 @@ public class SceneChangeManager : MonoBehaviour
     }
     IEnumerator MainLoading(string name,SaveData s)
     {
-        float time = 0;
-        StartCoroutine(load.LoadingTextAnimation());
-        while (time <= loadminTime)
-        {
-            time += Time.deltaTime;
-            //StartCoroutine(load.LoadingTextAnimation());
-            yield return null;
-        }
+		float time = 0;
+		StartCoroutine(load.LoadingTextAnimation());
         AsyncOperation loadasync = SceneManager.LoadSceneAsync(name);
-        while (loadasync.isDone || time <= loadminTime)
-        {
-            time += Time.deltaTime;
-            //StartCoroutine( load.LoadingTextAnimation());
-            yield return null;
-        }
-        yield return new WaitForSeconds(0.5f);
-
-        transform.GetChild(0).gameObject.SetActive(false);
-        if (s != null)
-        {
-            this.s = s;
-            sl = new SaveAndLoad();
-            sl.SaveDataSet(s);
-            DontDestroyManager.my.Sound.PlayBGM("Main_"+ s.time.nowSeason.ToString());
-        }
-        else
-        {
-            //DontDestroyManager.my.Sound.PlayBGM("Main_Spring");
-            TimeManager.GetInstance().TimeSet(TimeManager.GetInstance().Time);
-        }
+		while (!loadasync.isDone && time <= loadminTime)
+		{
+			time += Time.deltaTime;
+			yield return null;
+		}
+		
+		if (s != null)
+		{
+			this.s = s;
+			sl = new SaveAndLoad();
+			sl.SaveDataSet(s);
+		}
+		else
+		{
+			TimeManager.GetInstance().TimeSet(TimeManager.GetInstance().Time);
+		}
+		DontDestroyManager.my.Sound.BGMChange("Main_" + TimeManager.GetInstance().Time.nowSeason.ToString());
+		yield return new WaitForSeconds(0.5f);
+		transform.GetChild(0).gameObject.SetActive(false);
+		
     }
     IEnumerator TitleLoading()
     {
@@ -71,11 +64,16 @@ public class SceneChangeManager : MonoBehaviour
             yield return null;
         }
         AsyncOperation loadasync = SceneManager.LoadSceneAsync("Title");
-        while (loadasync.isDone || time <= loadminTime)
+        while (!loadasync.isDone && time <= loadminTime)
         {
             time += Time.deltaTime;
-            //StartCoroutine(load.LoadingTextAnimation());
-            yield return null;
+			//StartCoroutine(load.LoadingTextAnimation());
+			if (load.isEnd)
+			{
+				StartCoroutine(load.LoadingTextAnimation());
+			}
+			yield return null;
+
         }
         DontDestroyManager.my.Sound.BGMChange("Title");
         yield return new WaitForSeconds(0.5f);

@@ -60,7 +60,14 @@ public class TimeManager
             }
             return time;
         }
-
+		set
+		{
+			if (time == null)
+			{
+				time = new TimeData();
+			}
+			time = value;
+		}
     }
     public void TimeCalc(float speed)
     {
@@ -108,30 +115,30 @@ public class TimeManager
     }
     public void TimeSet(TimeData newTime)
     {
-        time = newTime;
-        float longf = Mathf.Floor(time.minit) * 6;
-        float shortf = time.hour * 30;
-        time.preMinit = Mathf.Floor(time.minit);
-        time.preHour = time.hour;
+        Time = newTime;
+        float longf = Mathf.Floor(Time.minit) * 6;
+        float shortf = Time.hour * 30;
+        Time.preMinit = Mathf.Floor(Time.minit);
+        Time.preHour = Time.hour;
         MainManager.GetInstance.View.TimeSet(newTime);
-        switch (time.nowSeason)
-        {
-            case SeasonData.Spring:
-                DontDestroyManager.my.Sound.BGMChange("Main_Spring");
-                break;
-            case SeasonData.Summer:
-                DontDestroyManager.my.Sound.BGMChange("Main_Summer");
-                break;
-            case SeasonData.Autumn:
-                DontDestroyManager.my.Sound.BGMChange("Main_Autumn");
-                break;
-            case SeasonData.Winter:
-                DontDestroyManager.my.Sound.BGMChange("Main_Winter");
-                break;
-            default:
+        //switch (Time.nowSeason)
+        //{
+        //    case SeasonData.Spring:
+        //        DontDestroyManager.my.Sound.BGMChange("Main_Spring");
+        //        break;
+        //    case SeasonData.Summer:
+        //        DontDestroyManager.my.Sound.BGMChange("Main_Summer");
+        //        break;
+        //    case SeasonData.Autumn:
+        //        DontDestroyManager.my.Sound.BGMChange("Main_Autumn");
+        //        break;
+        //    case SeasonData.Winter:
+        //        DontDestroyManager.my.Sound.BGMChange("Main_Winter");
+        //        break;
+        //    default:
 
-                break;
-        }
+        //        break;
+        //}
     }
     public void TimeSet(TimeForSave newTime)
     {
